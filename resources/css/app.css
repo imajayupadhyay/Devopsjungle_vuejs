@@ -136,4 +136,53 @@
             stroke-dashoffset: 0;
         }
     }
+
+    .exam-card-hover {
+        transition: all 0.3s ease;
+    }
+
+    .exam-card-hover:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark .exam-card-hover:hover {
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .filter-pill-active {
+        animation: pillActive 0.3s ease-out;
+    }
+
+    @keyframes pillActive {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .provider-gradient-aws {
+        background: linear-gradient(135deg, #FF9900 0%, #FF6600 100%);
+    }
+
+    .provider-gradient-azure {
+        background: linear-gradient(135deg, #0078D4 0%, #005A9E 100%);
+    }
+
+    .provider-gradient-gcp {
+        background: linear-gradient(135deg, #4285F4 0%, #34A853 50%, #FBBC04 100%);
+    }
+
+    .provider-gradient-kubernetes {
+        background: linear-gradient(135deg, #326CE5 0%, #1A73E8 100%);
+    }
+
+    .provider-gradient-docker {
+        background: linear-gradient(135deg, #2496ED 0%, #0DB7ED 100%);
+    }
 }

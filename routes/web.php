@@ -12,3 +12,7 @@ Route::get('/', function () {
 
 Route::get('/support', [SupportController::class, 'index'])->name('support');
 Route::post('/support', [SupportController::class, 'store'])->name('support.store');
+
+Route::get('/dumps', function () {
+    return Inertia::render('Dumps/Index');
+})->name('dumps');
