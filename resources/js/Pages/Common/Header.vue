@@ -80,34 +80,34 @@
             </div>
           </div>
 
-          <!-- DevOps Tools -->
+          <!-- Services -->
           <div class="relative group">
             <button class="flex items-center space-x-1 text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors py-2">
-              <span>DevOps Tools</span>
+              <span>Services</span>
               <i class="fas fa-chevron-down text-xs"></i>
             </button>
             <div class="mega-menu absolute top-full left-0 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 p-4 mt-1 group-hover:show">
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <h4 class="font-semibold text-sm text-gray-800 dark:text-white mb-2 flex items-center">
-                    <i class="fas fa-code-branch text-purple-500 mr-2 text-sm"></i>
-                    CI/CD
+                    <i class="fas fa-graduation-cap text-blue-500 mr-2 text-sm"></i>
+                    Training
                   </h4>
                   <ul class="space-y-1">
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Jenkins</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">GitLab CI</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">GitHub Actions</a></li>
+                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Corporate Training</a></li>
+                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">1-on-1 Mentoring</a></li>
+                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Bootcamps</a></li>
                   </ul>
                 </div>
                 <div>
                   <h4 class="font-semibold text-sm text-gray-800 dark:text-white mb-2 flex items-center">
-                    <i class="fas fa-chart-line text-red-500 mr-2 text-sm"></i>
-                    Monitoring
+                    <i class="fas fa-cogs text-purple-500 mr-2 text-sm"></i>
+                    Consulting
                   </h4>
                   <ul class="space-y-1">
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Prometheus</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Grafana</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">ELK Stack</a></li>
+                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">DevOps Assessment</a></li>
+                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Cloud Migration</a></li>
+                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">CI/CD Implementation</a></li>
                   </ul>
                 </div>
               </div>
@@ -149,7 +149,7 @@
           </div>
 
           <!-- Simple Links -->
-          <a href="#" :class="getNavLinkClass('#')">Courses</a>
+          <a href="/courses" :class="getNavLinkClass('/courses')">Courses</a>
           <a href="/support" :class="getNavLinkClass('/support')">Support</a>
         </nav>
 
@@ -216,16 +216,16 @@
             </div>
           </div>
 
-          <!-- DevOps Tools -->
+          <!-- Services -->
           <div>
             <button @click="toggleSubmenu($event)" class="mobile-nav-toggle flex justify-between items-center w-full text-left text-sm font-medium text-gray-800 dark:text-white py-2 hover:text-primary-600 dark:hover:text-primary-400">
-              <span>DevOps Tools</span>
+              <span>Services</span>
               <i class="fas fa-chevron-down text-xs"></i>
             </button>
             <div class="submenu pl-4 space-y-1">
-              <a href="#" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">CI/CD Tools</a>
-              <a href="#" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Monitoring Tools</a>
-              <a href="#" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Infrastructure Tools</a>
+              <a href="#" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Corporate Training</a>
+              <a href="#" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">1-on-1 Mentoring</a>
+              <a href="#" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">DevOps Consulting</a>
             </div>
           </div>
 
@@ -242,7 +242,7 @@
             </div>
           </div>
 
-          <a href="#" :class="getMobileNavLinkClass('#')">Courses</a>
+          <a href="/courses" :class="getMobileNavLinkClass('/courses')">Courses</a>
           <a href="/support" :class="getMobileNavLinkClass('/support')">Support</a>
         </nav>
 

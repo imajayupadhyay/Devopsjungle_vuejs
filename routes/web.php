@@ -97,3 +97,97 @@ Route::get('/dumps/{id}', function ($id) {
         'relatedExams' => $relatedExams
     ]);
 })->name('dumps.show');
+
+Route::get('/courses', function () {
+    return Inertia::render('Courses/Index');
+})->name('courses');
+
+Route::get('/courses/{id}', function ($id) {
+    // Sample course data - in a real app, this would come from a database
+    $courses = [
+        'aws-complete-guide' => [
+            'id' => 'aws-complete-guide',
+            'title' => 'Complete AWS Cloud Practitioner & Solutions Architect',
+            'category' => 'aws',
+            'level' => 'intermediate',
+            'instructor' => 'John Mitchell, AWS Solutions Architect',
+            'description' => 'Master AWS from basics to advanced with hands-on labs, real-world projects, and certification preparation.',
+            'duration' => 45,
+            'lessons' => 120,
+            'students' => 85000,
+            'rating' => 4.9,
+            'reviews' => 12500,
+            'price' => 129,
+            'originalPrice' => 199,
+            'language' => 'English',
+            'certificate' => true,
+            'bestseller' => true,
+            'featured' => true,
+            'lastUpdated' => '2024-12-01',
+            'skills' => ['EC2', 'S3', 'RDS', 'Lambda', 'CloudFormation', 'VPC', 'IAM', 'Route53']
+        ],
+        'terraform-complete-guide' => [
+            'id' => 'terraform-complete-guide',
+            'title' => 'Terraform: Infrastructure as Code Complete Guide',
+            'category' => 'terraform',
+            'level' => 'intermediate',
+            'instructor' => 'Alex Thompson, Infrastructure Expert',
+            'description' => 'Master Terraform for AWS, Azure, and GCP. Learn best practices, modules, and enterprise patterns.',
+            'duration' => 35,
+            'lessons' => 90,
+            'students' => 45000,
+            'rating' => 4.9,
+            'reviews' => 7200,
+            'price' => 119,
+            'originalPrice' => 169,
+            'language' => 'English',
+            'certificate' => true,
+            'bestseller' => true,
+            'featured' => true,
+            'lastUpdated' => '2024-12-08',
+            'skills' => ['HCL', 'Providers', 'Modules', 'State Management', 'Terraform Cloud', 'Multi-cloud', 'Best Practices']
+        ],
+        'docker-complete-guide' => [
+            'id' => 'docker-complete-guide',
+            'title' => 'Docker & Container Technology Complete Guide',
+            'category' => 'docker',
+            'level' => 'beginner',
+            'instructor' => 'Tom Anderson, Container Architect',
+            'description' => 'Master Docker from basics to production deployment with best practices and real-world projects.',
+            'duration' => 32,
+            'lessons' => 85,
+            'students' => 92000,
+            'rating' => 4.9,
+            'reviews' => 14500,
+            'price' => 89,
+            'originalPrice' => 129,
+            'language' => 'English',
+            'certificate' => true,
+            'bestseller' => true,
+            'featured' => true,
+            'lastUpdated' => '2024-12-12',
+            'skills' => ['Docker Engine', 'Dockerfile', 'Docker Compose', 'Networking', 'Volumes', 'Registry', 'Security']
+        ]
+    ];
+
+    // Get course data
+    $course = $courses[$id] ?? null;
+
+    if (!$course) {
+        abort(404);
+    }
+
+    // Get related courses (same category, excluding current)
+    $relatedCourses = collect($courses)
+        ->filter(function ($relatedCourse) use ($course) {
+            return $relatedCourse['category'] === $course['category'] && $relatedCourse['id'] !== $course['id'];
+        })
+        ->take(3)
+        ->values()
+        ->toArray();
+
+    return Inertia::render('Courses/Detail', [
+        'course' => $course,
+        'relatedCourses' => $relatedCourses
+    ]);
+})->name('courses.show');
