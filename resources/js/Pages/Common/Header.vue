@@ -82,10 +82,10 @@
 
           <!-- Services -->
           <div class="relative group">
-            <button class="flex items-center space-x-1 text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors py-2">
+            <a href="/services" class="flex items-center space-x-1 text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors py-2">
               <span>Services</span>
               <i class="fas fa-chevron-down text-xs"></i>
-            </button>
+            </a>
             <div class="mega-menu absolute top-full left-0 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 p-4 mt-1 group-hover:show">
               <div class="grid grid-cols-2 gap-4">
                 <div>
@@ -94,20 +94,20 @@
                     Training
                   </h4>
                   <ul class="space-y-1">
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Corporate Training</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">1-on-1 Mentoring</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Bootcamps</a></li>
+                    <li><a href="/services/corporate-devops-training" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Corporate Training</a></li>
+                    <li><a href="/services/one-on-one-devops-mentoring" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">1-on-1 Mentoring</a></li>
+                    <li><a href="/services" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">All Training Services</a></li>
                   </ul>
                 </div>
                 <div>
                   <h4 class="font-semibold text-sm text-gray-800 dark:text-white mb-2 flex items-center">
-                    <i class="fas fa-cogs text-purple-500 mr-2 text-sm"></i>
-                    Consulting
+                    <i class="fas fa-briefcase text-purple-500 mr-2 text-sm"></i>
+                    Career Support
                   </h4>
                   <ul class="space-y-1">
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">DevOps Assessment</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Cloud Migration</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">CI/CD Implementation</a></li>
+                    <li><a href="/services/job-placement-assistance" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Job Placement</a></li>
+                    <li><a href="/services" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Career Consulting</a></li>
+                    <li><a href="/services" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">All Career Services</a></li>
                   </ul>
                 </div>
               </div>
@@ -218,14 +218,15 @@
 
           <!-- Services -->
           <div>
-            <button @click="toggleSubmenu($event)" class="mobile-nav-toggle flex justify-between items-center w-full text-left text-sm font-medium text-gray-800 dark:text-white py-2 hover:text-primary-600 dark:hover:text-primary-400">
-              <span>Services</span>
+            <a href="/services" class="block text-sm font-medium text-gray-800 dark:text-white py-2 hover:text-primary-600 dark:hover:text-primary-400">Services</a>
+            <button @click="toggleSubmenu($event)" class="mobile-nav-toggle flex justify-between items-center w-full text-left text-sm font-medium text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400 pl-4">
+              <span>Browse Services</span>
               <i class="fas fa-chevron-down text-xs"></i>
             </button>
-            <div class="submenu pl-4 space-y-1">
-              <a href="#" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Corporate Training</a>
-              <a href="#" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">1-on-1 Mentoring</a>
-              <a href="#" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">DevOps Consulting</a>
+            <div class="submenu pl-8 space-y-1">
+              <a href="/services/corporate-devops-training" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Corporate Training</a>
+              <a href="/services/one-on-one-devops-mentoring" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">1-on-1 Mentoring</a>
+              <a href="/services/job-placement-assistance" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Job Placement</a>
             </div>
           </div>
 

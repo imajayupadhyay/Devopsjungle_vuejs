@@ -191,3 +191,105 @@ Route::get('/courses/{id}', function ($id) {
         'relatedCourses' => $relatedCourses
     ]);
 })->name('courses.show');
+
+Route::get('/services', function () {
+    return Inertia::render('Services/Index');
+})->name('services');
+
+Route::get('/services/{id}', function ($id) {
+    // Sample service data - in a real app, this would come from a database
+    $services = [
+        'corporate-devops-training' => [
+            'id' => 'corporate-devops-training',
+            'title' => 'Corporate DevOps Training',
+            'category' => 'training',
+            'icon' => 'fas fa-building',
+            'description' => 'Comprehensive DevOps training program designed for corporate teams and organizations.',
+            'duration' => '2-4 weeks',
+            'rating' => 4.9,
+            'clients' => 150,
+            'reviews' => 45,
+            'deliveryTime' => '2-4 weeks',
+            'type' => 'group',
+            'features' => [
+                'Customized curriculum based on your tech stack',
+                'Hands-on workshops and labs',
+                'Team collaboration exercises',
+                'Best practices implementation',
+                'Post-training support and consultation',
+                'Certificate of completion'
+            ],
+            'pricing' => [
+                'display' => 'Custom Quote',
+                'period' => null,
+                'originalPrice' => null,
+                'savings' => null
+            ]
+        ],
+        'one-on-one-devops-mentoring' => [
+            'id' => 'one-on-one-devops-mentoring',
+            'title' => 'One-on-One DevOps Mentoring',
+            'category' => 'mentoring',
+            'icon' => 'fas fa-user-graduate',
+            'description' => 'Personalized mentoring sessions with experienced DevOps professionals.',
+            'duration' => '1-3 months',
+            'rating' => 4.9,
+            'clients' => 320,
+            'reviews' => 156,
+            'deliveryTime' => 'Flexible',
+            'type' => 'individual',
+            'features' => [
+                'Personalized learning path',
+                'Weekly 1-hour sessions',
+                'Career guidance and planning',
+                'Resume and portfolio review',
+                'Interview preparation',
+                'Industry insights and networking'
+            ],
+            'pricing' => [
+                'display' => '$199',
+                'period' => '/month',
+                'originalPrice' => 249,
+                'savings' => 20
+            ]
+        ],
+        'job-placement-assistance' => [
+            'id' => 'job-placement-assistance',
+            'title' => 'Job Placement Assistance',
+            'category' => 'job-assistance',
+            'icon' => 'fas fa-briefcase',
+            'description' => 'Complete job placement support including resume building, interview prep, and job matching.',
+            'duration' => '3-6 months',
+            'rating' => 4.8,
+            'clients' => 450,
+            'reviews' => 234,
+            'deliveryTime' => '3-6 months',
+            'type' => 'individual',
+            'features' => [
+                'Professional resume and LinkedIn optimization',
+                'Mock interview sessions',
+                'Job matching with partner companies',
+                'Salary negotiation guidance',
+                'Portfolio development',
+                '90% job placement success rate'
+            ],
+            'pricing' => [
+                'display' => '$299',
+                'period' => '/package',
+                'originalPrice' => 399,
+                'savings' => 25
+            ]
+        ]
+    ];
+
+    // Get service data
+    $service = $services[$id] ?? null;
+
+    if (!$service) {
+        abort(404);
+    }
+
+    return Inertia::render('Services/Detail', [
+        'service' => $service
+    ]);
+})->name('services.show');
