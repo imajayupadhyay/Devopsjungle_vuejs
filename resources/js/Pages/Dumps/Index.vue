@@ -603,8 +603,8 @@ export default {
       // Implement download logic
     },
     handlePreview(exam) {
-      console.log('Preview exam:', exam)
-      // Implement preview logic
+      // Navigate to the individual exam detail page
+      this.$inertia.visit(`/dumps/${exam.id}`)
     }
   }
 }
