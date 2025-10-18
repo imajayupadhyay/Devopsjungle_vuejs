@@ -487,4 +487,106 @@ export default {
 .gradient-btn {
   background: linear-gradient(135deg, #059669 0%, #0891b2 100%);
 }
+
+/* Add mobile menu styles */
+.mobile-menu {
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.mobile-menu.show {
+  transform: translateX(0);
+}
+
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.submenu.show {
+  max-height: 200px;
+}
+
+.mega-menu {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease-out;
+}
+
+.group:hover .mega-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Primary color utilities */
+.text-primary-600 {
+  color: #059669;
+}
+
+.text-primary-400 {
+  color: #34d399;
+}
+
+.border-primary-600 {
+  border-color: #059669;
+}
+
+.border-primary-400 {
+  border-color: #34d399;
+}
+
+.bg-primary-600 {
+  background-color: #059669;
+}
+
+.bg-primary-50 {
+  background-color: #ecfdf5;
+}
+
+.bg-primary-900 {
+  background-color: #064e3b;
+}
+
+.hover\:text-primary-600:hover {
+  color: #059669;
+}
+
+.hover\:text-primary-400:hover {
+  color: #34d399;
+}
+
+.focus\:ring-primary-500:focus {
+  --tw-ring-color: #10b981;
+}
+
+.focus\:border-primary-500:focus {
+  border-color: #10b981;
+}
+
+.hover\:border-primary-600:hover {
+  border-color: #059669;
+}
+
+.hover\:bg-primary-700:hover {
+  background-color: #047857;
+}
+
+.dark .dark\:text-primary-400 {
+  color: #34d399;
+}
+
+.dark .dark\:border-primary-400 {
+  border-color: #34d399;
+}
+
+.dark .dark\:hover\:text-primary-400:hover {
+  color: #34d399;
+}
+
+.dark .dark\:focus\:ring-primary-600:focus {
+  --tw-ring-color: #059669;
+}
 </style>
