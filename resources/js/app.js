@@ -1,6 +1,7 @@
 import './bootstrap';
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
+import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import ScrollProgress from './Pages/Common/ScrollProgress.vue';
 
 createInertiaApp({
@@ -16,6 +17,7 @@ createInertiaApp({
             ]
         });
         app.use(plugin);
+        app.use(ZiggyVue);
         app.mount(el);
     },
 });
