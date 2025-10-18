@@ -1,6 +1,7 @@
 import './bootstrap';
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
+import ScrollProgress from './Pages/Common/ScrollProgress.vue';
 
 createInertiaApp({
     resolve: name => {
@@ -8,8 +9,13 @@ createInertiaApp({
         return pages[`./Pages/${name}.vue`];
     },
     setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
-            .use(plugin)
-            .mount(el);
+        const app = createApp({
+            render: () => [
+                h(ScrollProgress),
+                h(App, props)
+            ]
+        });
+        app.use(plugin);
+        app.mount(el);
     },
 });
