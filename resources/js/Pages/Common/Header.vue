@@ -1,4 +1,18 @@
 <template>
+  <!-- Signup Modal -->
+  <SignupModal
+    :isVisible="showSignupModal"
+    @close="closeSignupModal"
+    @switch-to-login="switchToLogin"
+  />
+
+  <!-- Login Modal -->
+  <LoginModal
+    :isVisible="showLoginModal"
+    @close="closeLoginModal"
+    @switch-to-signup="switchToSignup"
+  />
+
   <!-- Compact Top Bar -->
   <div id="topbar" class="bg-gray-50 dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 text-xs">
     <div class="max-w-7xl mx-auto px-4">
@@ -132,10 +146,42 @@
             <i :class="isDark ? 'fas fa-sun' : 'fas fa-moon'" class="text-sm"></i>
           </button>
 
-          <!-- Auth Buttons -->
+          <!-- Auth Buttons / Profile -->
           <div class="hidden md:flex items-center space-x-2">
-            <a href="#" class="text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">Login</a>
-            <a href="#" class="gradient-btn text-white px-3 py-1.5 rounded text-sm font-medium hover:opacity-90 transition-opacity">Sign Up</a>
+            <!-- Not Authenticated -->
+            <template v-if="!$page.props.auth?.user">
+              <button @click="openLoginModal" class="text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">Login</button>
+              <button @click="openSignupModal" class="gradient-btn text-white px-3 py-1.5 rounded text-sm font-medium hover:opacity-90 transition-opacity">Sign Up</button>
+            </template>
+
+            <!-- Authenticated -->
+            <div v-else class="relative">
+              <button @click="toggleProfileDropdown" class="flex items-center space-x-2 focus:outline-none">
+                <img
+                  :src="$page.props.auth.user.avatar_url"
+                  :alt="$page.props.auth.user.name"
+                  class="w-8 h-8 rounded-full border-2 border-primary-500 hover:border-primary-600 transition-colors"
+                >
+                <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+              </button>
+
+              <!-- Profile Dropdown -->
+              <div
+                v-show="showProfileDropdown"
+                class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 py-2 z-50"
+              >
+                <div class="px-4 py-2 border-b border-gray-100 dark:border-gray-700">
+                  <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $page.props.auth.user.name }}</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">{{ $page.props.auth.user.email }}</p>
+                </div>
+                <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  <i class="fas fa-user mr-2"></i>Profile
+                </a>
+                <button @click="handleLogout" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                </button>
+              </div>
+            </div>
           </div>
 
           <!-- Mobile Menu -->
@@ -203,10 +249,36 @@
           <a href="/support" :class="getMobileNavLinkClass('/support')">Support</a>
         </nav>
 
-        <!-- Mobile Auth -->
-        <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700 space-y-2">
-          <a href="#" class="block w-full text-center border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 py-2 rounded text-sm font-medium hover:bg-primary-50 dark:hover:bg-primary-900">Login</a>
-          <a href="#" class="block w-full text-center gradient-btn text-white py-2 rounded text-sm font-medium hover:opacity-90">Sign Up</a>
+        <!-- Mobile Auth / Profile -->
+        <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
+          <!-- Not Authenticated -->
+          <template v-if="!$page.props.auth?.user">
+            <div class="space-y-2">
+              <button @click="openLoginModal" class="block w-full text-center border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 py-2 rounded text-sm font-medium hover:bg-primary-50 dark:hover:bg-primary-900">Login</button>
+              <button @click="openSignupModal" class="block w-full text-center gradient-btn text-white py-2 rounded text-sm font-medium hover:opacity-90">Sign Up</button>
+            </div>
+          </template>
+
+          <!-- Authenticated -->
+          <div v-else class="space-y-2">
+            <div class="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <img
+                :src="$page.props.auth.user.avatar_url"
+                :alt="$page.props.auth.user.name"
+                class="w-10 h-10 rounded-full border-2 border-primary-500"
+              >
+              <div class="flex-1">
+                <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $page.props.auth.user.name }}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">{{ $page.props.auth.user.email }}</p>
+              </div>
+            </div>
+            <a href="/profile" class="block w-full text-center border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 py-2 rounded text-sm font-medium hover:bg-primary-50 dark:hover:bg-primary-900">
+              <i class="fas fa-user mr-2"></i>Profile
+            </a>
+            <button @click="handleLogout" class="block w-full text-center bg-red-600 text-white py-2 rounded text-sm font-medium hover:bg-red-700 transition-colors">
+              <i class="fas fa-sign-out-alt mr-2"></i>Logout
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -240,13 +312,24 @@
 </template>
 
 <script>
+import SignupModal from './SignupModal.vue'
+import LoginModal from './LoginModal.vue'
+import { router } from '@inertiajs/vue3'
+
 export default {
   name: 'DevOpsHeader',
+  components: {
+    SignupModal,
+    LoginModal
+  },
   data() {
     return {
       isDark: false,
       showMobileMenu: false,
-      showSearchModal: false
+      showSearchModal: false,
+      showSignupModal: false,
+      showLoginModal: false,
+      showProfileDropdown: false
     }
   },
   computed: {
@@ -323,10 +406,47 @@ export default {
     closeSearchModal() {
       this.showSearchModal = false;
     },
+    openSignupModal() {
+      this.showSignupModal = true;
+      this.closeMobileMenu();
+    },
+    closeSignupModal() {
+      this.showSignupModal = false;
+    },
+    switchToLogin() {
+      this.closeSignupModal();
+      this.openLoginModal();
+    },
+    openLoginModal() {
+      this.showLoginModal = true;
+      this.closeMobileMenu();
+    },
+    closeLoginModal() {
+      this.showLoginModal = false;
+    },
+    switchToSignup() {
+      this.closeLoginModal();
+      this.openSignupModal();
+    },
+    toggleProfileDropdown() {
+      this.showProfileDropdown = !this.showProfileDropdown;
+    },
+    async handleLogout() {
+      try {
+        await router.post('/logout');
+        this.showProfileDropdown = false;
+        this.closeMobileMenu();
+      } catch (error) {
+        console.error('Logout error:', error);
+      }
+    },
     handleKeydown(event) {
       if (event.key === 'Escape') {
         this.closeMobileMenu();
         this.closeSearchModal();
+        this.closeSignupModal();
+        this.closeLoginModal();
+        this.showProfileDropdown = false;
       }
     },
     isActiveRoute(path) {

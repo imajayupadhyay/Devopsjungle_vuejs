@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\StudentController;
 use App\Http\DataProviders\PracticeLabsDataProvider;
 use App\Http\DataProviders\ExamLabsDataProvider;
 use App\Http\DataProviders\LabStepsDataProvider;
@@ -19,6 +20,16 @@ Route::get('/', function () {
 
 Route::get('/support', [SupportController::class, 'index'])->name('support');
 Route::post('/support', [SupportController::class, 'store'])->name('support.store');
+
+Route::post('/signup', [StudentController::class, 'store'])->name('signup.store');
+Route::post('/login', [StudentController::class, 'login'])->name('login');
+Route::post('/logout', [StudentController::class, 'logout'])->name('logout');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [StudentController::class, 'profile'])->name('profile');
+    Route::put('/profile', [StudentController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/profile/avatar', [StudentController::class, 'uploadAvatar'])->name('profile.avatar');
+});
 
 Route::get('/dumps', function () {
     return Inertia::render('Dumps/Index', DumpsDataProvider::getIndexData());
