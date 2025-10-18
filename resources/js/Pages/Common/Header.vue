@@ -48,32 +48,32 @@
 
           <!-- Practice Labs -->
           <div class="relative group">
-            <button class="flex items-center space-x-1 text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors py-2">
+            <a href="/practice-labs" class="flex items-center space-x-1 text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors py-2">
               <span>Practice Labs</span>
               <i class="fas fa-chevron-down text-xs"></i>
-            </button>
+            </a>
             <div class="mega-menu absolute top-full left-0 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 p-4 mt-1 group-hover:show">
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <h4 class="font-semibold text-sm text-gray-800 dark:text-white mb-2 flex items-center">
-                    <i class="fab fa-docker text-blue-400 mr-2 text-sm"></i>
-                    Containers
+                    <i class="fab fa-aws text-orange-400 mr-2 text-sm"></i>
+                    AWS
                   </h4>
                   <ul class="space-y-1">
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Docker Labs</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Kubernetes Labs</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">OpenShift Labs</a></li>
+                    <li><a href="/practice-labs/aws-saa-c03" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">SAA-C03 Labs</a></li>
+                    <li><a href="/practice-labs/aws-soa-c02" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">SOA-C02 Labs</a></li>
+                    <li><a href="/practice-labs" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">All AWS Labs</a></li>
                   </ul>
                 </div>
                 <div>
                   <h4 class="font-semibold text-sm text-gray-800 dark:text-white mb-2 flex items-center">
-                    <i class="fas fa-cloud text-gray-500 mr-2 text-sm"></i>
-                    Cloud
+                    <i class="fab fa-microsoft text-blue-500 mr-2 text-sm"></i>
+                    Azure & More
                   </h4>
                   <ul class="space-y-1">
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">AWS Labs</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Azure Labs</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">GCP Labs</a></li>
+                    <li><a href="/practice-labs/az-900" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">AZ-900 Labs</a></li>
+                    <li><a href="/practice-labs/cka" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Kubernetes CKA</a></li>
+                    <li><a href="/practice-labs" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Browse All Labs</a></li>
                   </ul>
                 </div>
               </div>
@@ -114,39 +114,6 @@
             </div>
           </div>
 
-          <!-- Interview Q&A -->
-          <div class="relative group">
-            <button class="flex items-center space-x-1 text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors py-2">
-              <span>Interview Q&A</span>
-              <i class="fas fa-chevron-down text-xs"></i>
-            </button>
-            <div class="mega-menu absolute top-full left-0 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 p-4 mt-1 group-hover:show">
-              <div class="grid grid-cols-2 gap-4">
-                <div>
-                  <h4 class="font-semibold text-sm text-gray-800 dark:text-white mb-2 flex items-center">
-                    <i class="fas fa-user-tie text-indigo-500 mr-2 text-sm"></i>
-                    By Role
-                  </h4>
-                  <ul class="space-y-1">
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">DevOps Engineer</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">SRE</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Cloud Architect</a></li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 class="font-semibold text-sm text-gray-800 dark:text-white mb-2 flex items-center">
-                    <i class="fas fa-layer-group text-teal-500 mr-2 text-sm"></i>
-                    By Level
-                  </h4>
-                  <ul class="space-y-1">
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Entry Level</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Mid Level</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Senior Level</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
 
           <!-- Simple Links -->
           <a href="/courses" :class="getNavLinkClass('/courses')">Courses</a>
@@ -205,14 +172,15 @@
 
           <!-- Practice Labs -->
           <div>
-            <button @click="toggleSubmenu($event)" class="mobile-nav-toggle flex justify-between items-center w-full text-left text-sm font-medium text-gray-800 dark:text-white py-2 hover:text-primary-600 dark:hover:text-primary-400">
-              <span>Practice Labs</span>
+            <a href="/practice-labs" class="block text-sm font-medium text-gray-800 dark:text-white py-2 hover:text-primary-600 dark:hover:text-primary-400">Practice Labs</a>
+            <button @click="toggleSubmenu($event)" class="mobile-nav-toggle flex justify-between items-center w-full text-left text-sm font-medium text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400 pl-4">
+              <span>Browse Labs</span>
               <i class="fas fa-chevron-down text-xs"></i>
             </button>
-            <div class="submenu pl-4 space-y-1">
-              <a href="#" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Docker Labs</a>
-              <a href="#" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Kubernetes Labs</a>
-              <a href="#" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Cloud Labs</a>
+            <div class="submenu pl-8 space-y-1">
+              <a href="/practice-labs/aws-saa-c03" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">AWS SAA-C03</a>
+              <a href="/practice-labs/aws-soa-c02" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">AWS SOA-C02</a>
+              <a href="/practice-labs/az-900" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Azure AZ-900</a>
             </div>
           </div>
 
@@ -230,18 +198,6 @@
             </div>
           </div>
 
-          <!-- Interview Q&A -->
-          <div>
-            <button @click="toggleSubmenu($event)" class="mobile-nav-toggle flex justify-between items-center w-full text-left text-sm font-medium text-gray-800 dark:text-white py-2 hover:text-primary-600 dark:hover:text-primary-400">
-              <span>Interview Q&A</span>
-              <i class="fas fa-chevron-down text-xs"></i>
-            </button>
-            <div class="submenu pl-4 space-y-1">
-              <a href="#" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">By Role</a>
-              <a href="#" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">By Experience</a>
-              <a href="#" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">By Technology</a>
-            </div>
-          </div>
 
           <a href="/courses" :class="getMobileNavLinkClass('/courses')">Courses</a>
           <a href="/support" :class="getMobileNavLinkClass('/support')">Support</a>
