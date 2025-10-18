@@ -27,6 +27,12 @@
     @close="closeNotification"
   />
 
+  <!-- Search Modal -->
+  <SearchModal
+    :isVisible="showSearchModal"
+    @close="closeSearchModal"
+  />
+
   <!-- Main Header -->
   <header class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-700 sticky top-0 z-50 shadow-sm dark:shadow-gray-800">
     <div class="max-w-7xl mx-auto px-4">
@@ -271,27 +277,6 @@
     </div>
 
     <!-- Search Modal -->
-    <div v-show="showSearchModal" class="fixed inset-0 bg-black bg-opacity-50 z-50">
-      <div class="flex items-center justify-center min-h-screen p-4">
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-lg">
-          <div class="p-4">
-            <div class="flex justify-between items-center mb-3">
-              <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Search</h3>
-              <button @click="closeSearchModal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-            <div class="relative">
-              <input ref="searchInput" type="text" placeholder="Search courses, certifications, tools..." class="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded focus:outline-none focus:border-primary-500 dark:focus:border-primary-400">
-              <i class="fas fa-search absolute left-3 top-4 text-gray-400 dark:text-gray-500"></i>
-            </div>
-            <div class="mt-3 text-sm text-gray-600 dark:text-gray-300">
-              Popular: <span class="text-primary-600 dark:text-primary-400">AWS</span>, <span class="text-primary-600 dark:text-primary-400">Docker</span>, <span class="text-primary-600 dark:text-primary-400">Kubernetes</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </header>
 
   <!-- Mobile Overlay -->
@@ -302,6 +287,7 @@
 import SignupModal from './SignupModal.vue'
 import LoginModal from './LoginModal.vue'
 import NotificationModal from './NotificationModal.vue'
+import SearchModal from './SearchModal.vue'
 import { router } from '@inertiajs/vue3'
 
 export default {
@@ -309,7 +295,8 @@ export default {
   components: {
     SignupModal,
     LoginModal,
-    NotificationModal
+    NotificationModal,
+    SearchModal
   },
   data() {
     return {
@@ -388,11 +375,6 @@ export default {
     },
     openSearchModal() {
       this.showSearchModal = true;
-      this.$nextTick(() => {
-        if (this.$refs.searchInput) {
-          this.$refs.searchInput.focus();
-        }
-      });
     },
     closeSearchModal() {
       this.showSearchModal = false;
