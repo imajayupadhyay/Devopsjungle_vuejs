@@ -3,7 +3,6 @@
     <Head>
       <title>{{ exam.title }} ({{ exam.code }}) - Exam Dump Details</title>
       <meta name="description" :content="`${exam.description} - Comprehensive exam dump with ${exam.questions} questions.`">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     </Head>
 
     <!-- Header -->

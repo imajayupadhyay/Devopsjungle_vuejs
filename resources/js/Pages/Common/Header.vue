@@ -4,6 +4,8 @@
     :isVisible="showSignupModal"
     @close="closeSignupModal"
     @switch-to-login="switchToLogin"
+    @signup-success="handleSignupSuccess"
+    @login-success="handleLoginSuccess"
   />
 
   <!-- Login Modal -->
@@ -11,34 +13,19 @@
     :isVisible="showLoginModal"
     @close="closeLoginModal"
     @switch-to-signup="switchToSignup"
+    @login-success="handleLoginSuccess"
   />
 
-  <!-- Compact Top Bar -->
-  <div id="topbar" class="bg-gray-50 dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 text-xs">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="flex justify-between items-center py-2">
-        <div class="flex items-center space-x-4 text-gray-600 dark:text-gray-300">
-          <span class="flex items-center">
-            <i class="fas fa-envelope mr-1 text-xs"></i>
-            support@devopsjungle.com
-          </span>
-          <span class="flex items-center">
-            <i class="fas fa-phone mr-1 text-xs"></i>
-            +1 (555) 123-4567
-          </span>
-        </div>
-        <div class="flex items-center space-x-3">
-          <span class="text-primary-600 dark:text-primary-400 font-medium">
-            <i class="fas fa-star mr-1"></i>
-            30% Off All Courses - Limited Time!
-          </span>
-          <button @click="closeTopbar" class="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 ml-2">
-            <i class="fas fa-times text-xs"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Notification Modal -->
+  <NotificationModal
+    :isVisible="showNotification"
+    :type="notification.type"
+    :title="notification.title"
+    :message="notification.message"
+    :confirmText="notification.confirmText"
+    :autoClose="notification.autoClose"
+    @close="closeNotification"
+  />
 
   <!-- Main Header -->
   <header class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-700 sticky top-0 z-50 shadow-sm dark:shadow-gray-800">
@@ -314,13 +301,15 @@
 <script>
 import SignupModal from './SignupModal.vue'
 import LoginModal from './LoginModal.vue'
+import NotificationModal from './NotificationModal.vue'
 import { router } from '@inertiajs/vue3'
 
 export default {
   name: 'DevOpsHeader',
   components: {
     SignupModal,
-    LoginModal
+    LoginModal,
+    NotificationModal
   },
   data() {
     return {
@@ -329,7 +318,15 @@ export default {
       showSearchModal: false,
       showSignupModal: false,
       showLoginModal: false,
-      showProfileDropdown: false
+      showProfileDropdown: false,
+      showNotification: false,
+      notification: {
+        type: 'success',
+        title: '',
+        message: '',
+        confirmText: 'OK',
+        autoClose: 3000
+      }
     }
   },
   computed: {
@@ -352,12 +349,6 @@ export default {
     document.removeEventListener('keydown', this.handleKeydown);
   },
   methods: {
-    closeTopbar() {
-      const topbar = document.getElementById('topbar');
-      if (topbar) {
-        topbar.style.display = 'none';
-      }
-    },
     toggleTheme() {
       this.isDark = !this.isDark;
       this.applyTheme();
@@ -433,12 +424,41 @@ export default {
     },
     async handleLogout() {
       try {
-        await router.post('/logout');
-        this.showProfileDropdown = false;
-        this.closeMobileMenu();
+        await router.post('/logout', {}, {
+          onSuccess: () => {
+            this.showProfileDropdown = false;
+            this.closeMobileMenu();
+            this.showNotificationModal('success', 'Logged Out Successfully', 'You have been logged out from your account. See you soon!');
+          },
+          onError: () => {
+            this.showNotificationModal('error', 'Logout Failed', 'There was an error logging you out. Please try again.');
+          }
+        });
       } catch (error) {
         console.error('Logout error:', error);
+        this.showNotificationModal('error', 'Logout Failed', 'There was an error logging you out. Please try again.');
       }
+    },
+    showNotificationModal(type, title, message, options = {}) {
+      this.notification = {
+        type,
+        title,
+        message,
+        confirmText: options.confirmText || 'OK',
+        autoClose: options.autoClose !== undefined ? options.autoClose : 3000
+      };
+      this.showNotification = true;
+    },
+    closeNotification() {
+      this.showNotification = false;
+    },
+    handleLoginSuccess(data) {
+      const userName = data.user?.name || 'there';
+      this.showNotificationModal('success', 'Welcome Back!', `Hello ${userName}! You have been successfully logged in.`);
+    },
+    handleSignupSuccess(data) {
+      const userName = data.userName || 'there';
+      this.showNotificationModal('success', 'Account Created!', `Welcome to DevOps Jungle, ${userName}! Your account has been created successfully.`);
     },
     handleKeydown(event) {
       if (event.key === 'Escape') {

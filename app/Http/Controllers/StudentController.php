@@ -28,7 +28,11 @@ class StudentController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->back()->with('success', 'Account created successfully!');
+        // Automatically log in the newly registered user
+        Auth::login($student);
+        $request->session()->regenerate();
+
+        return redirect()->back()->with('success', 'Account created and logged in successfully!');
     }
 
     public function login(Request $request)

@@ -1,10 +1,9 @@
 <template>
   <div class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 transition-colors duration-200" data-theme="light">
-    <!-- Include Font Awesome and AOS -->
+    <!-- Include AOS -->
     <Head>
       <title>{{ exam.title }} - Practice Labs - DevOpsJungle</title>
       <meta name="description" :content="`Practice labs for ${exam.title} certification. Hands-on exercises to master ${exam.code} exam objectives.`">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     </Head>
 

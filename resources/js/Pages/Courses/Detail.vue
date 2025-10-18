@@ -3,7 +3,6 @@
     <Head>
       <title>{{ course.title }} - Course Details</title>
       <meta name="description" :content="`${course.description} - Learn ${course.category.toUpperCase()} with expert instruction.`">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     </Head>
 
     <!-- Header -->

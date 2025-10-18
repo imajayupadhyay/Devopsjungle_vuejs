@@ -1,10 +1,9 @@
 <template>
   <div class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 transition-colors duration-200">
-    <!-- Include Font Awesome and AOS -->
+    <!-- Include AOS -->
     <Head>
       <title>DevOps Services - DevOps Jungle</title>
       <meta name="description" content="Professional DevOps services including training, consulting, mentoring, job assistance, and career preparation. Transform your DevOps journey with expert guidance.">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     </Head>
 

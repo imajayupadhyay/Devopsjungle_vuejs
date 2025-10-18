@@ -230,7 +230,7 @@ export default {
       default: false
     }
   },
-  emits: ['close', 'switch-to-login'],
+  emits: ['close', 'switch-to-login', 'signup-success', 'login-success'],
   data() {
     return {
       form: {
@@ -327,9 +327,17 @@ export default {
           phone: this.form.phone.trim(),
           password: this.form.password
         }, {
-          onSuccess: () => {
+          onSuccess: (page) => {
             this.showSuccess = true
             this.isLoading = false
+            // Emit success event to parent (Header) to show notification
+            this.$emit('signup-success', {
+              userName: this.form.name.trim()
+            })
+            // Since user is now automatically logged in, emit login-success as well
+            this.$emit('login-success', {
+              user: page.props.auth?.user
+            })
           },
           onError: (errors) => {
             this.errors = errors

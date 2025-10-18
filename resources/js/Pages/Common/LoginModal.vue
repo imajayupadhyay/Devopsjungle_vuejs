@@ -165,7 +165,7 @@ export default {
       default: false
     }
   },
-  emits: ['close', 'switch-to-signup'],
+  emits: ['close', 'switch-to-signup', 'login-success'],
   data() {
     return {
       form: {
@@ -238,9 +238,13 @@ export default {
           password: this.form.password,
           remember: this.form.remember
         }, {
-          onSuccess: () => {
+          onSuccess: (page) => {
             this.closeModal()
             this.isLoading = false
+            // Emit success event to parent (Header) to show notification
+            this.$emit('login-success', {
+              user: page.props.auth?.user
+            })
           },
           onError: (errors) => {
             this.errors = errors

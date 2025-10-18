@@ -4,7 +4,6 @@
     <Head>
       <title>Support - DevOps Jungle</title>
       <meta name="description" content="Get help and support for your DevOps learning journey. Contact our expert team for assistance with courses, certifications, and technical issues.">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     </Head>
 
     <!-- Header -->

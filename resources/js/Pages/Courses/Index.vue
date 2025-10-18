@@ -1,10 +1,9 @@
 <template>
   <div class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 transition-colors duration-200">
-    <!-- Include Font Awesome and AOS -->
+    <!-- Include AOS -->
     <Head>
       <title>DevOps Courses - DevOps Jungle</title>
       <meta name="description" content="Master DevOps with comprehensive courses on AWS, Azure, Terraform, Linux, Jenkins, and more. Expert-led training for DevOps professionals.">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     </Head>
 
