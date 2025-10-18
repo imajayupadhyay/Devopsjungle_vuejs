@@ -281,6 +281,9 @@
 
   <!-- Mobile Overlay -->
   <div v-show="showMobileMenu" @click="closeMobileMenu" class="fixed inset-0 bg-black bg-opacity-30 z-40 lg:hidden"></div>
+
+  <!-- Floating Support Icon -->
+  <FloatingSupportIcon />
 </template>
 
 <script>
@@ -288,6 +291,7 @@ import SignupModal from './SignupModal.vue'
 import LoginModal from './LoginModal.vue'
 import NotificationModal from './NotificationModal.vue'
 import SearchModal from './SearchModal.vue'
+import FloatingSupportIcon from './FloatingSupportIcon.vue'
 import { router } from '@inertiajs/vue3'
 
 export default {
@@ -296,7 +300,8 @@ export default {
     SignupModal,
     LoginModal,
     NotificationModal,
-    SearchModal
+    SearchModal,
+    FloatingSupportIcon
   },
   data() {
     return {
