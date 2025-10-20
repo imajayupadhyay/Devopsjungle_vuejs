@@ -16,10 +16,17 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (!auth('admin')->check()) {
+            // For Inertia requests, return a proper redirect response
+            if ($request->header('X-Inertia')) {
+                return redirect()->route('admin.login')
+                    ->with('error', 'Please login to continue');
+            }
             return redirect()->route('admin.login');
         }
 
-        if (!auth('admin')->user()->is_admin) {
+        $user = auth('admin')->user();
+
+        if (!$user || !$user->is_admin) {
             abort(403, 'Access denied. Admin privileges required.');
         }
 

@@ -36,16 +36,34 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        // Check if this is an admin route
+        $isAdminRoute = $request->is('admin/*');
+
+        // Get the appropriate user based on the route
+        $user = null;
+        if ($isAdminRoute && Auth::guard('admin')->check()) {
+            $adminUser = Auth::guard('admin')->user();
+            $user = [
+                'id' => $adminUser->id,
+                'name' => $adminUser->name,
+                'email' => $adminUser->email,
+                'avatar_url' => $adminUser->avatar_url ?? 'https://ui-avatars.com/api/?name=' . urlencode($adminUser->name) . '&background=047857&color=fff',
+            ];
+        } elseif (!$isAdminRoute && Auth::check()) {
+            $studentUser = Auth::user();
+            $user = [
+                'id' => $studentUser->id,
+                'name' => $studentUser->name,
+                'email' => $studentUser->email,
+                'avatar_url' => $studentUser->avatar_url,
+                'initials' => $studentUser->initials,
+            ];
+        }
+
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => Auth::check() ? [
-                    'id' => Auth::user()->id,
-                    'name' => Auth::user()->name,
-                    'email' => Auth::user()->email,
-                    'avatar_url' => Auth::user()->avatar_url,
-                    'initials' => Auth::user()->initials,
-                ] : null,
+                'user' => $user,
             ],
         ];
     }
