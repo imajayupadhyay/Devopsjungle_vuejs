@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\BlogController;
 use App\Http\DataProviders\PracticeLabsDataProvider;
 use App\Http\DataProviders\ExamLabsDataProvider;
 use App\Http\DataProviders\LabStepsDataProvider;
@@ -96,3 +97,6 @@ Route::get('/practice-labs/{examId}/{labId}', function ($examId, $labId) {
 
     return Inertia::render('PracticeLabs/LabSteps', $data);
 })->name('practice-labs.lab');
+
+Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
+Route::get('/blogs/{slug}', [BlogController::class, 'show'])->name('blogs.show');

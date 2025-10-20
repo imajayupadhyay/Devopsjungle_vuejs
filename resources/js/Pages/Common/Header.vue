@@ -124,6 +124,7 @@
 
           <!-- Simple Links -->
           <a href="/courses" :class="getNavLinkClass('/courses')">Courses</a>
+          <a href="/blogs" :class="getNavLinkClass('/blogs')">Blogs</a>
           <a href="/support" :class="getNavLinkClass('/support')">Support</a>
         </nav>
 
@@ -239,6 +240,7 @@
 
 
           <a href="/courses" :class="getMobileNavLinkClass('/courses')">Courses</a>
+          <a href="/blogs" :class="getMobileNavLinkClass('/blogs')">Blogs</a>
           <a href="/support" :class="getMobileNavLinkClass('/support')">Support</a>
         </nav>
 
@@ -459,6 +461,10 @@ export default {
     isActiveRoute(path) {
       if (path === '/') {
         return this.currentPath === '/' || this.currentPath === ''
+      }
+      // For blog routes, also match detail pages
+      if (path === '/blogs' && this.currentPath.startsWith('/blogs')) {
+        return true
       }
       return this.currentPath === path
     },
