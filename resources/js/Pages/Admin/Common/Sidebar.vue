@@ -1,19 +1,19 @@
 <template>
   <aside
     :class="[
-      'fixed left-0 top-0 h-screen bg-gradient-to-b from-slate-900 via-gray-900 to-black border-r border-white/10 transition-all duration-300 z-40',
+      'fixed left-0 top-0 h-screen bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 z-40',
       isCollapsed ? 'w-20' : 'w-64'
     ]"
   >
     <!-- Logo Section -->
-    <div class="flex items-center justify-between p-4 border-b border-white/10">
+    <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
       <div v-if="!isCollapsed" class="flex items-center space-x-3">
         <div class="w-10 h-10 gradient-btn rounded-lg flex items-center justify-center">
           <i class="fas fa-shield-alt text-white text-lg"></i>
         </div>
         <div>
-          <h2 class="text-white font-bold text-lg">DevOps Jungle</h2>
-          <p class="text-gray-400 text-xs">Admin Panel</p>
+          <h2 class="text-gray-800 dark:text-white font-bold text-lg">DevOps Jungle</h2>
+          <p class="text-gray-500 dark:text-gray-400 text-xs">Admin Panel</p>
         </div>
       </div>
       <div v-else class="w-10 h-10 gradient-btn rounded-lg flex items-center justify-center mx-auto">
@@ -24,7 +24,7 @@
     <!-- Toggle Button -->
     <button
       @click="toggleSidebar"
-      class="absolute -right-3 top-20 w-6 h-6 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all duration-200"
+      class="absolute -right-3 top-20 w-6 h-6 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all duration-200"
       :title="isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'"
     >
       <i :class="isCollapsed ? 'fas fa-chevron-right text-xs' : 'fas fa-chevron-left text-xs'"></i>
@@ -40,8 +40,8 @@
           :class="[
             'flex items-center px-3 py-3 rounded-lg transition-all duration-200 group relative',
             isActive(item.href)
-              ? 'bg-white/10 text-white shadow-lg'
-              : 'text-gray-400 hover:bg-white/5 hover:text-white'
+              ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 shadow-sm'
+              : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-emerald-400'
           ]"
         >
           <i :class="[item.icon, 'text-lg', isCollapsed ? 'mx-auto' : 'mr-3']"></i>
@@ -53,9 +53,9 @@
 
           <!-- Tooltip for collapsed state -->
           <div v-if="isCollapsed"
-            class="absolute left-full ml-2 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
+            class="absolute left-full ml-2 px-3 py-2 bg-gray-800 dark:bg-gray-700 text-white text-sm rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
             {{ item.name }}
-            <div class="absolute top-1/2 -left-1 transform -translate-y-1/2 w-2 h-2 bg-gray-800 rotate-45"></div>
+            <div class="absolute top-1/2 -left-1 transform -translate-y-1/2 w-2 h-2 bg-gray-800 dark:bg-gray-700 rotate-45"></div>
           </div>
         </Link>
 
@@ -66,8 +66,8 @@
             :class="[
               'w-full flex items-center px-3 py-3 rounded-lg transition-all duration-200 group relative',
               isSubmenuOpen(item.name) || isActive(item.href)
-                ? 'bg-white/10 text-white shadow-lg'
-                : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 shadow-sm'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-emerald-400'
             ]"
           >
             <i :class="[item.icon, 'text-lg', isCollapsed ? 'mx-auto' : 'mr-3']"></i>
@@ -80,9 +80,9 @@
 
             <!-- Tooltip for collapsed state -->
             <div v-if="isCollapsed"
-              class="absolute left-full ml-2 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
+              class="absolute left-full ml-2 px-3 py-2 bg-gray-800 dark:bg-gray-700 text-white text-sm rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
               {{ item.name }}
-              <div class="absolute top-1/2 -left-1 transform -translate-y-1/2 w-2 h-2 bg-gray-800 rotate-45"></div>
+              <div class="absolute top-1/2 -left-1 transform -translate-y-1/2 w-2 h-2 bg-gray-800 dark:bg-gray-700 rotate-45"></div>
             </div>
           </button>
 
@@ -95,8 +95,8 @@
               :class="[
                 'flex items-center px-3 py-2 rounded-lg transition-all duration-200 text-sm',
                 isActive(subitem.href)
-                  ? 'bg-white/10 text-white'
-                  : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                  ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-emerald-400'
               ]"
             >
               <i :class="[subitem.icon, 'text-sm mr-3']"></i>
@@ -108,16 +108,16 @@
     </nav>
 
     <!-- User Section at Bottom -->
-    <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-white/10 bg-gradient-to-t from-black/50 to-transparent backdrop-blur-sm">
+    <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
       <div :class="['flex items-center', isCollapsed ? 'justify-center' : 'space-x-3']">
         <img
           :src="userAvatar"
           :alt="userName"
-          class="w-10 h-10 rounded-full border-2 border-primary-500"
+          class="w-10 h-10 rounded-full border-2 border-emerald-600"
         >
         <div v-if="!isCollapsed" class="flex-1 min-w-0">
-          <p class="text-white text-sm font-medium truncate">{{ userName }}</p>
-          <p class="text-gray-400 text-xs">Administrator</p>
+          <p class="text-gray-800 dark:text-white text-sm font-medium truncate">{{ userName }}</p>
+          <p class="text-gray-500 dark:text-gray-400 text-xs">Administrator</p>
         </div>
       </div>
     </div>
@@ -203,6 +203,10 @@ export default {
 </script>
 
 <style scoped>
+.gradient-btn {
+  background: linear-gradient(135deg, #047857 0%, #10b981 100%);
+}
+
 /* Custom scrollbar */
 nav::-webkit-scrollbar {
   width: 4px;
@@ -213,11 +217,19 @@ nav::-webkit-scrollbar-track {
 }
 
 nav::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(156, 163, 175, 0.3);
   border-radius: 2px;
 }
 
 nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.5);
+}
+
+.dark nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dark nav::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.2);
 }
 </style>

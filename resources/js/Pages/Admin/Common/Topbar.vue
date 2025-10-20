@@ -1,7 +1,7 @@
 <template>
   <header
     :class="[
-      'fixed top-0 right-0 h-16 bg-gradient-to-r from-slate-900 via-gray-900 to-slate-900 border-b border-white/10 backdrop-blur-xl z-30 transition-all duration-300',
+      'fixed top-0 right-0 h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 backdrop-blur-xl z-30 transition-all duration-300',
       sidebarCollapsed ? 'left-20' : 'left-64'
     ]"
   >
@@ -16,7 +16,7 @@
             v-model="searchQuery"
             type="text"
             placeholder="Search..."
-            class="w-full pl-10 pr-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+            class="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-800 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
             @focus="showSearchResults = true"
             @blur="hideSearchResults"
           />
@@ -24,9 +24,9 @@
           <!-- Search Results Dropdown -->
           <div
             v-if="showSearchResults && searchQuery"
-            class="absolute top-full mt-2 w-full bg-gray-800 border border-white/10 rounded-lg shadow-2xl overflow-hidden"
+            class="absolute top-full mt-2 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-2xl overflow-hidden"
           >
-            <div class="p-2 text-gray-400 text-sm">
+            <div class="p-2 text-gray-500 dark:text-gray-400 text-sm">
               <i class="fas fa-info-circle mr-2"></i>
               Search functionality coming soon...
             </div>
@@ -36,10 +36,19 @@
 
       <!-- Right Section - Actions -->
       <div class="flex items-center space-x-4 ml-6">
+        <!-- Theme Toggle Button -->
+        <button
+          @click="$emit('toggle-theme')"
+          class="p-2 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-200"
+          :title="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+        >
+          <i :class="isDark ? 'fas fa-sun text-xl' : 'fas fa-moon text-xl'"></i>
+        </button>
+
         <!-- Quick Add Button -->
         <button
           @click="toggleQuickAdd"
-          class="relative p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"
+          class="relative p-2 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-200"
           title="Quick Add"
         >
           <i class="fas fa-plus-circle text-xl"></i>
@@ -49,7 +58,7 @@
         <div class="relative">
           <button
             @click="toggleNotifications"
-            class="relative p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"
+            class="relative p-2 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-200"
             title="Notifications"
           >
             <i class="fas fa-bell text-xl"></i>
@@ -63,38 +72,38 @@
           <transition name="dropdown">
             <div
               v-if="showNotifications"
-              class="absolute right-0 mt-2 w-80 bg-gray-800 border border-white/10 rounded-lg shadow-2xl overflow-hidden"
+              class="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-2xl overflow-hidden"
             >
-              <div class="px-4 py-3 border-b border-white/10 flex items-center justify-between">
-                <h3 class="text-white font-semibold">Notifications</h3>
-                <button class="text-primary-400 text-sm hover:text-primary-300">Mark all read</button>
+              <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                <h3 class="text-gray-800 dark:text-white font-semibold">Notifications</h3>
+                <button class="text-emerald-600 dark:text-emerald-400 text-sm hover:text-emerald-700 dark:hover:text-emerald-300">Mark all read</button>
               </div>
               <div class="max-h-96 overflow-y-auto">
                 <div
                   v-for="notification in notifications"
                   :key="notification.id"
-                  class="px-4 py-3 hover:bg-white/5 transition-colors border-b border-white/5 last:border-b-0"
+                  class="px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border-b border-gray-100 dark:border-gray-700 last:border-b-0"
                 >
                   <div class="flex items-start space-x-3">
                     <div :class="[
                       'w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0',
-                      notification.type === 'success' ? 'bg-green-500/20 text-green-400' :
-                      notification.type === 'warning' ? 'bg-yellow-500/20 text-yellow-400' :
-                      notification.type === 'error' ? 'bg-red-500/20 text-red-400' :
-                      'bg-blue-500/20 text-blue-400'
+                      notification.type === 'success' ? 'bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400' :
+                      notification.type === 'warning' ? 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-400' :
+                      notification.type === 'error' ? 'bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400' :
+                      'bg-blue-100 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
                     ]">
                       <i :class="notification.icon"></i>
                     </div>
                     <div class="flex-1 min-w-0">
-                      <p class="text-white text-sm font-medium">{{ notification.title }}</p>
-                      <p class="text-gray-400 text-xs mt-1">{{ notification.message }}</p>
-                      <p class="text-gray-500 text-xs mt-1">{{ notification.time }}</p>
+                      <p class="text-gray-800 dark:text-white text-sm font-medium">{{ notification.title }}</p>
+                      <p class="text-gray-600 dark:text-gray-400 text-xs mt-1">{{ notification.message }}</p>
+                      <p class="text-gray-500 dark:text-gray-500 text-xs mt-1">{{ notification.time }}</p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="px-4 py-3 bg-white/5 text-center">
-                <a href="/admin/notifications" class="text-primary-400 text-sm hover:text-primary-300">View all notifications</a>
+              <div class="px-4 py-3 bg-gray-50 dark:bg-gray-700 text-center">
+                <a href="/admin/notifications" class="text-emerald-600 dark:text-emerald-400 text-sm hover:text-emerald-700 dark:hover:text-emerald-300">View all notifications</a>
               </div>
             </div>
           </transition>
@@ -102,42 +111,42 @@
 
         <!-- Messages -->
         <button
-          class="relative p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"
+          class="relative p-2 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-200"
           title="Messages"
         >
           <i class="fas fa-envelope text-xl"></i>
         </button>
 
         <!-- Divider -->
-        <div class="h-8 w-px bg-white/10"></div>
+        <div class="h-8 w-px bg-gray-200 dark:bg-gray-700"></div>
 
         <!-- User Profile Dropdown -->
         <div class="relative">
           <button
             @click="toggleUserMenu"
-            class="flex items-center space-x-3 p-2 rounded-lg hover:bg-white/5 transition-all duration-200"
+            class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
           >
             <div class="text-right hidden sm:block">
-              <p class="text-white text-sm font-medium">{{ userName }}</p>
-              <p class="text-gray-400 text-xs">Administrator</p>
+              <p class="text-gray-800 dark:text-white text-sm font-medium">{{ userName }}</p>
+              <p class="text-gray-500 dark:text-gray-400 text-xs">Administrator</p>
             </div>
             <img
               :src="userAvatar"
               :alt="userName"
-              class="w-10 h-10 rounded-full border-2 border-primary-500"
+              class="w-10 h-10 rounded-full border-2 border-emerald-600"
             >
-            <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+            <i class="fas fa-chevron-down text-gray-500 dark:text-gray-400 text-xs"></i>
           </button>
 
           <!-- User Menu Dropdown -->
           <transition name="dropdown">
             <div
               v-if="showUserMenu"
-              class="absolute right-0 mt-2 w-56 bg-gray-800 border border-white/10 rounded-lg shadow-2xl overflow-hidden"
+              class="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-2xl overflow-hidden"
             >
-              <div class="px-4 py-3 border-b border-white/10">
-                <p class="text-white font-medium">{{ userName }}</p>
-                <p class="text-gray-400 text-sm">{{ userEmail }}</p>
+              <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                <p class="text-gray-800 dark:text-white font-medium">{{ userName }}</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">{{ userEmail }}</p>
               </div>
               <div class="py-2">
                 <a
@@ -145,15 +154,15 @@
                   :key="item.name"
                   :href="item.href"
                   :class="[
-                    'flex items-center px-4 py-2 text-gray-300 hover:bg-white/5 hover:text-white transition-colors',
-                    item.danger ? 'text-red-400 hover:text-red-300' : ''
+                    'flex items-center px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors',
+                    item.danger ? 'text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300' : ''
                   ]"
                 >
                   <i :class="[item.icon, 'mr-3 text-sm w-4']"></i>
                   <span class="text-sm">{{ item.name }}</span>
                 </a>
               </div>
-              <div class="px-4 py-3 border-t border-white/10">
+              <div class="px-4 py-3 border-t border-gray-200 dark:border-gray-700">
                 <button
                   @click="logout"
                   class="w-full flex items-center justify-center px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200"
@@ -192,8 +201,13 @@ export default {
     userAvatar: {
       type: String,
       default: ''
+    },
+    isDark: {
+      type: Boolean,
+      default: false
     }
   },
+  emits: ['toggle-theme'],
   setup(props) {
     const searchQuery = ref('')
     const showSearchResults = ref(false)
@@ -327,11 +341,19 @@ export default {
 }
 
 .max-h-96::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(156, 163, 175, 0.3);
   border-radius: 2px;
 }
 
 .max-h-96::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.5);
+}
+
+.dark .max-h-96::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dark .max-h-96::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.2);
 }
 </style>
