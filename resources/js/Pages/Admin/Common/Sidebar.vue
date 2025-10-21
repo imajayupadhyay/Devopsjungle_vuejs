@@ -151,11 +151,25 @@ export default {
 
     const menuItems = [
       {
+        name: 'Dashboard',
+        icon: 'fas fa-dashboard',
+        href: '/admin/dashboard'
+      },
+      {
         name: 'Users',
         icon: 'fas fa-users',
         submenu: [
           { name: 'Admins', icon: 'fas fa-user-shield', href: '/admin/users' },
           { name: 'Students', icon: 'fas fa-user-graduate', href: '/admin/students' }
+        ]
+      },
+      {
+        name: 'Blog Management',
+        icon: 'fas fa-blog',
+        submenu: [
+          { name: 'All Posts', icon: 'fas fa-newspaper', href: '/admin/blogs' },
+          { name: 'Categories', icon: 'fas fa-folder', href: '/admin/categories' },
+          { name: 'Tags', icon: 'fas fa-tags', href: '/admin/tags' }
         ]
       },
       {
