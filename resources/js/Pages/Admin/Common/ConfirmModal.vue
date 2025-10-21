@@ -6,18 +6,18 @@
         <div class="fixed inset-0 transition-opacity bg-black/70 backdrop-blur-sm" @click="cancel"></div>
 
         <!-- Modal Panel -->
-        <div class="relative inline-block w-full max-w-md px-4 pt-5 pb-4 overflow-hidden text-left align-middle transition-all transform bg-gradient-to-br from-slate-900 via-gray-900 to-black border border-white/10 rounded-2xl shadow-2xl sm:my-8 sm:p-6">
+        <div class="relative inline-block w-full max-w-md px-4 pt-5 pb-4 overflow-hidden text-left align-middle transition-all transform bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl sm:my-8 sm:p-6">
           <!-- Icon -->
-          <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-red-500/20 rounded-full">
-            <i class="fas fa-exclamation-triangle text-red-400 text-2xl"></i>
+          <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-red-100 dark:bg-red-900/20 rounded-full">
+            <i class="fas fa-exclamation-triangle text-red-600 dark:text-red-400 text-2xl"></i>
           </div>
 
           <!-- Content -->
           <div class="text-center mb-6">
-            <h3 class="text-xl font-bold text-white mb-2">
+            <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">
               {{ title }}
             </h3>
-            <p class="text-gray-400">
+            <p class="text-gray-600 dark:text-gray-400">
               {{ message }}
             </p>
           </div>
@@ -27,7 +27,7 @@
             <button
               type="button"
               @click="cancel"
-              class="px-6 py-3 bg-white/5 border border-white/10 text-white rounded-lg font-medium hover:bg-white/10 transition-all duration-200"
+              class="px-6 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200"
             >
               Cancel
             </button>
