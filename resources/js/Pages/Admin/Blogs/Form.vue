@@ -118,16 +118,15 @@
                   <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Blog Content <span class="text-red-500">*</span>
                   </label>
-                  <textarea
-                    id="content"
+                  <Editor
                     v-model="form.content"
-                    rows="20"
-                    required
-                    class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-800 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all resize-none"
-                    placeholder="Write your blog post content here. You can use HTML markup for formatting."
-                  ></textarea>
+                    :api-key="$page.props.tinymce_key"
+                    :init="editorConfig"
+                    :disabled="form.processing"
+                    class="border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden"
+                  />
                   <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
-                    You can use HTML markup for formatting. Estimated read time: {{ estimatedReadTime }} minutes
+                    Professional WYSIWYG editor with image upload, formatting, and HTML editing. Estimated read time: {{ estimatedReadTime }} minutes
                   </p>
                   <p v-if="form.errors?.content" class="text-red-500 text-sm mt-1">{{ form.errors.content }}</p>
                 </div>
@@ -502,6 +501,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3'
 import { ref, onMounted, computed } from 'vue'
 import Sidebar from '../Common/Sidebar.vue'
 import Topbar from '../Common/Topbar.vue'
+import Editor from '@tinymce/tinymce-vue'
 
 export default {
   name: 'BlogForm',
@@ -509,7 +509,8 @@ export default {
     Head,
     Link,
     Sidebar,
-    Topbar
+    Topbar,
+    Editor
   },
   props: {
     blog: {
@@ -537,6 +538,122 @@ export default {
     const tagSearch = ref('')
     const showTagDropdown = ref(false)
     const filteredTags = ref([])
+
+    // TinyMCE Editor Configuration
+    const editorConfig = ref({
+      height: 400,
+      menubar: true,
+      plugins: [
+        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+        'insertdatetime', 'media', 'table', 'help', 'wordcount', 'paste',
+        'textcolor', 'colorpicker', 'textpattern', 'imagetools', 'codesample'
+      ],
+      toolbar: [
+        'undo redo | blocks | bold italic underline strikethrough | fontfamily fontsize',
+        'forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+        'removeformat | link image media table | code codesample | fullscreen preview help'
+      ],
+      menubar: 'file edit view insert format tools table help',
+      menu: {
+        file: { title: 'File', items: 'newdocument restoredraft | preview | export print | deleteallconversations' },
+        edit: { title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall | searchreplace' },
+        view: { title: 'View', items: 'code | visualaid visualchars visualblocks | spellchecker | preview fullscreen | showcomments' },
+        insert: { title: 'Insert', items: 'image link media addcomment pageembed template codesample inserttable | charmap emoticons hr | pagebreak nonbreaking anchor tableofcontents | insertdatetime' },
+        format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat | styles blocks fontfamily fontsize align lineheight | forecolor backcolor | language | removeformat' },
+        tools: { title: 'Tools', items: 'spellchecker spellcheckerlanguage | a11ycheck code wordcount' },
+        table: { title: 'Table', items: 'inserttable | cell row column | advtablesort | tableprops deletetable' },
+        help: { title: 'Help', items: 'help' }
+      },
+      content_style: `
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          font-size: 14px;
+          line-height: 1.6;
+          color: #374151;
+        }
+        code {
+          background-color: #f3f4f6;
+          padding: 2px 4px;
+          border-radius: 4px;
+          font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+        }
+        blockquote {
+          border-left: 4px solid #10b981;
+          padding-left: 16px;
+          margin-left: 0;
+          font-style: italic;
+          color: #6b7280;
+        }
+      `,
+      paste_data_images: true,
+      paste_as_text: false,
+      paste_auto_cleanup_on_paste: true,
+      paste_remove_styles: false,
+      paste_remove_styles_if_webkit: false,
+      automatic_uploads: true,
+      file_picker_types: 'image',
+      images_upload_handler: (blobInfo, success, failure) => {
+        return new Promise((resolve, reject) => {
+          try {
+            // Create FormData for file upload
+            const formData = new FormData()
+            formData.append('file', blobInfo.blob(), blobInfo.filename())
+
+            // Get CSRF token
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+
+            if (!csrfToken) {
+              failure('CSRF token not found')
+              reject('CSRF token not found')
+              return
+            }
+
+            // Upload to your Laravel backend
+            fetch('/admin/upload-image', {
+              method: 'POST',
+              body: formData,
+              headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
+              }
+            })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`)
+              }
+              return response.json()
+            })
+            .then(result => {
+              if (result.success && result.location) {
+                success(result.location)
+                resolve(result.location)
+              } else {
+                const errorMsg = result.error || 'Image upload failed'
+                failure(errorMsg)
+                reject(errorMsg)
+              }
+            })
+            .catch(error => {
+              const errorMsg = 'Image upload failed: ' + error.message
+              failure(errorMsg)
+              reject(errorMsg)
+            })
+          } catch (error) {
+            const errorMsg = 'Upload error: ' + error.message
+            failure(errorMsg)
+            reject(errorMsg)
+          }
+        })
+      },
+      setup: (editor) => {
+        editor.on('change', () => {
+          editor.save()
+        })
+      },
+      branding: false,
+      promotion: false
+    })
 
     // Initialize form
     const form = useForm({
@@ -730,6 +847,7 @@ export default {
       filteredTags,
       estimatedReadTime,
       minDateTime,
+      editorConfig,
       handleSidebarToggle,
       toggleTheme,
       generateSlug,

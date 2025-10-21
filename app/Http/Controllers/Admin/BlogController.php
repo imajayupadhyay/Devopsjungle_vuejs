@@ -102,6 +102,7 @@ class BlogController extends Controller
             'categories' => $categories,
             'tags' => $tags,
             'isEditing' => false,
+            'tinymce_key' => config('app.tinymce_key'),
         ]);
     }
 
@@ -202,6 +203,7 @@ class BlogController extends Controller
             'categories' => $categories,
             'tags' => $tags,
             'isEditing' => true,
+            'tinymce_key' => config('app.tinymce_key'),
         ]);
     }
 
@@ -422,5 +424,31 @@ class BlogController extends Controller
         }
 
         return back()->with('success', $message);
+    }
+
+    /**
+     * Upload image for TinyMCE editor
+     */
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
+
+        try {
+            $file = $request->file('file');
+            $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('blog-images', $filename, 'public');
+
+            return response()->json([
+                'success' => true,
+                'location' => Storage::url($path),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Failed to upload image: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 }

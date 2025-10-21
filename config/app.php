@@ -123,4 +123,15 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | TinyMCE API Key
+    |--------------------------------------------------------------------------
+    |
+    | This value is the API key for TinyMCE editor used in the admin panel.
+    |
+    */
+
+    'tinymce_key' => env('TINYMCE_API_KEY'),
+
 ];

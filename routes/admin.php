@@ -99,5 +99,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Tag API Routes for autocomplete
         Route::get('/tags/api/popular', [TagController::class, 'popular'])->name('tags.popular');
         Route::get('/tags/api/search', [TagController::class, 'search'])->name('tags.search');
+
+        // Image Upload Route for TinyMCE
+        Route::post('/upload-image', [BlogController::class, 'uploadImage'])->name('upload-image');
     });
 });
