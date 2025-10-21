@@ -252,61 +252,219 @@ export default {
   overflow: hidden;
 }
 
-/* Blog Content Styling */
+/* Blog Content Styling - TinyMCE Content */
+:deep(.blog-content) {
+  @apply text-gray-700 dark:text-gray-300 leading-relaxed;
+  font-size: 1.125rem;
+  line-height: 1.8;
+}
+
+/* Headings */
+:deep(.blog-content h1) {
+  @apply text-4xl font-bold text-gray-900 dark:text-white mt-12 mb-6 border-b border-gray-200 dark:border-gray-700 pb-3;
+}
+
 :deep(.blog-content h2) {
-  @apply text-2xl font-bold text-gray-800 dark:text-white mt-8 mb-4;
+  @apply text-3xl font-bold text-gray-900 dark:text-white mt-10 mb-5;
 }
 
 :deep(.blog-content h3) {
-  @apply text-xl font-bold text-gray-800 dark:text-white mt-6 mb-3;
+  @apply text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4;
 }
 
+:deep(.blog-content h4) {
+  @apply text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3;
+}
+
+:deep(.blog-content h5) {
+  @apply text-lg font-semibold text-gray-900 dark:text-white mt-5 mb-2;
+}
+
+:deep(.blog-content h6) {
+  @apply text-base font-semibold text-gray-900 dark:text-white mt-4 mb-2;
+}
+
+/* Paragraphs */
 :deep(.blog-content p) {
-  @apply mb-4 leading-relaxed text-gray-700 dark:text-gray-300;
+  @apply mb-6 leading-relaxed text-gray-700 dark:text-gray-300;
 }
 
+:deep(.blog-content p:first-child) {
+  @apply text-xl font-medium text-gray-800 dark:text-gray-200;
+}
+
+/* Lists */
 :deep(.blog-content ul) {
-  @apply list-disc list-inside mb-4 space-y-2;
+  @apply list-disc ml-6 mb-6 space-y-2;
 }
 
 :deep(.blog-content ol) {
-  @apply list-decimal list-inside mb-4 space-y-2;
+  @apply list-decimal ml-6 mb-6 space-y-2;
 }
 
 :deep(.blog-content li) {
-  @apply text-gray-700 dark:text-gray-300;
+  @apply text-gray-700 dark:text-gray-300 leading-relaxed;
 }
 
-:deep(.blog-content strong) {
-  @apply text-gray-800 dark:text-white font-semibold;
+:deep(.blog-content li::marker) {
+  @apply text-emerald-600;
 }
 
+:deep(.blog-content ul ul),
+:deep(.blog-content ol ol),
+:deep(.blog-content ul ol),
+:deep(.blog-content ol ul) {
+  @apply mt-2 mb-2;
+}
+
+/* Text Formatting */
+:deep(.blog-content strong),
+:deep(.blog-content b) {
+  @apply text-gray-900 dark:text-white font-bold;
+}
+
+:deep(.blog-content em),
+:deep(.blog-content i) {
+  @apply italic text-gray-800 dark:text-gray-200;
+}
+
+:deep(.blog-content u) {
+  @apply underline decoration-emerald-600;
+}
+
+:deep(.blog-content s),
+:deep(.blog-content strike) {
+  @apply line-through opacity-75;
+}
+
+:deep(.blog-content mark) {
+  @apply bg-yellow-200 dark:bg-yellow-600 px-1 rounded;
+}
+
+/* Links */
+:deep(.blog-content a) {
+  @apply text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors underline decoration-2 underline-offset-2;
+}
+
+:deep(.blog-content a:hover) {
+  @apply decoration-emerald-600 dark:decoration-emerald-400;
+}
+
+/* Code */
 :deep(.blog-content code) {
-  @apply bg-gray-100 dark:bg-gray-800 text-emerald-600 dark:text-emerald-400 px-2 py-1 rounded text-sm;
+  @apply bg-gray-100 dark:bg-gray-800 text-emerald-600 dark:text-emerald-400 px-2 py-1 rounded text-sm font-mono border border-gray-200 dark:border-gray-700;
 }
 
 :deep(.blog-content pre) {
-  @apply bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 overflow-x-auto mb-4;
+  @apply bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 overflow-x-auto mb-6 shadow-sm;
 }
 
+:deep(.blog-content pre code) {
+  @apply bg-transparent border-0 p-0 text-gray-800 dark:text-gray-200;
+}
+
+/* Blockquotes */
 :deep(.blog-content blockquote) {
-  @apply border-l-4 border-emerald-600 pl-4 italic text-gray-600 dark:text-gray-400 my-4;
+  @apply border-l-4 border-emerald-600 pl-6 ml-4 italic text-gray-600 dark:text-gray-400 my-6 bg-gray-50 dark:bg-gray-800/50 py-4 rounded-r-lg;
 }
 
-:deep(.blog-content a) {
-  @apply text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors underline;
+:deep(.blog-content blockquote p) {
+  @apply mb-0 text-lg;
 }
 
+/* Images */
+:deep(.blog-content img) {
+  @apply max-w-full h-auto rounded-lg shadow-lg my-6 mx-auto border border-gray-200 dark:border-gray-700;
+}
+
+:deep(.blog-content figure) {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+:deep(.blog-content figcaption) {
+  @apply text-sm text-gray-500 dark:text-gray-400 mt-2 italic;
+}
+
+/* Tables */
 :deep(.blog-content table) {
-  @apply w-full border-collapse mb-4;
+  @apply w-full border-collapse mb-6 shadow-sm rounded-lg overflow-hidden;
 }
 
 :deep(.blog-content th) {
-  @apply bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white font-semibold p-2 border border-gray-200 dark:border-gray-700;
+  @apply bg-emerald-50 dark:bg-emerald-900/30 text-gray-900 dark:text-white font-semibold p-4 border-b border-gray-200 dark:border-gray-700 text-left;
 }
 
 :deep(.blog-content td) {
-  @apply text-gray-700 dark:text-gray-300 p-2 border border-gray-200 dark:border-gray-700;
+  @apply text-gray-700 dark:text-gray-300 p-4 border-b border-gray-100 dark:border-gray-800;
+}
+
+:deep(.blog-content tr:nth-child(even)) {
+  @apply bg-gray-50 dark:bg-gray-800/30;
+}
+
+:deep(.blog-content tr:hover) {
+  @apply bg-gray-100 dark:bg-gray-700/50 transition-colors;
+}
+
+/* Horizontal Rules */
+:deep(.blog-content hr) {
+  @apply border-0 border-t-2 border-gray-200 dark:border-gray-700 my-8;
+}
+
+/* Text Colors from TinyMCE */
+:deep(.blog-content [style*="color"]) {
+  /* Preserve TinyMCE colors while ensuring readability */
+}
+
+/* Text Alignment - TinyMCE handles these with inline styles */
+
+/* Font Sizes from TinyMCE */
+:deep(.blog-content .font-small) {
+  font-size: 0.875rem;
+}
+
+:deep(.blog-content .font-large) {
+  font-size: 1.125rem;
+}
+
+:deep(.blog-content .font-xl) {
+  font-size: 1.25rem;
+}
+
+/* Subscription and Superscript */
+:deep(.blog-content sub) {
+  font-size: 0.75rem;
+  vertical-align: sub;
+}
+
+:deep(.blog-content sup) {
+  font-size: 0.75rem;
+  vertical-align: super;
+}
+
+/* Dividers and Spacing */
+:deep(.blog-content .space-y-4 > * + *) {
+  @apply mt-4;
+}
+
+/* Media Queries for Responsive Text */
+@media (max-width: 768px) {
+  :deep(.blog-content) {
+    font-size: 1rem;
+  }
+
+  :deep(.blog-content h1) {
+    font-size: 1.5rem;
+  }
+
+  :deep(.blog-content h2) {
+    font-size: 1.25rem;
+  }
+
+  :deep(.blog-content h3) {
+    font-size: 1.125rem;
+  }
 }
 
 @keyframes float {
