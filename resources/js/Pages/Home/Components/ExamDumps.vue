@@ -7,7 +7,12 @@
         <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Prepare for certification exams with our updated and verified exam dumps</p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- No exams message -->
+      <div v-if="displayExams.length === 0" class="text-center py-12">
+        <p class="text-gray-600 dark:text-gray-400 text-lg">No exam dumps available at the moment.</p>
+      </div>
+
+      <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Dynamic Exam Cards -->
         <div
           v-for="(exam, index) in displayExams"
@@ -36,7 +41,9 @@
             <span><i class="fas fa-question-circle mr-1"></i>{{ exam.questions }} Questions</span>
             <span><i class="fas fa-clock mr-1"></i>Updated {{ formatDate(exam.lastUpdated) }}</span>
           </div>
-          <a href="#" @click="handleDownloadClick" class="w-full gradient-btn text-white py-2 rounded text-center font-medium hover:opacity-90 block">Download Now</a>
+          <a :href="`/dumps/${exam.id}`" class="w-full gradient-btn text-white py-2 rounded text-center font-medium hover:opacity-90 block transition-all duration-200">
+            <i class="fas fa-eye mr-2"></i>Preview Exam
+          </a>
         </div>
       </div>
 
@@ -64,20 +71,11 @@ export default {
       return this.exams.slice(0, 3)
     }
   },
+  mounted() {
+    console.log('ExamDumps Component - Received exams:', this.exams)
+    console.log('ExamDumps Component - Display exams:', this.displayExams)
+  },
   methods: {
-    handleDownloadClick(event) {
-      event.preventDefault();
-      const btn = event.target;
-      const originalText = btn.textContent;
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Loading...';
-      btn.disabled = true;
-
-      setTimeout(() => {
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-        alert('Feature coming soon! Thank you for your interest.');
-      }, 2000);
-    },
     getProviderIcon(provider) {
       const icons = {
         'aws': 'fab fa-aws text-orange-500',
