@@ -2,6 +2,9 @@
 
 namespace App\Http\DataProviders;
 
+use App\Models\ExamDump;
+use App\Models\ExamProvider;
+
 class DumpsDataProvider
 {
     /**
@@ -9,122 +12,32 @@ class DumpsDataProvider
      */
     public static function getExams(): array
     {
-        return [
-            [
-                'id' => 'aws-saa-c03',
-                'title' => 'AWS Certified Solutions Architect - Associate',
-                'code' => 'SAA-C03',
-                'provider' => 'aws',
-                'difficulty' => 'intermediate',
-                'questions' => 385,
-                'duration' => 130,
-                'passingScore' => 720,
-                'price' => 299,
-                'popularity' => 98,
-                'lastUpdated' => '2024-12-15',
-                'successRate' => 94,
-                'description' => 'Validate technical skills and expertise in designing distributed systems on AWS.',
-                'topics' => ['Compute', 'Storage', 'Database', 'Network & Security', 'Management & Governance'],
-                'prerequisites' => ['1+ years AWS experience', 'Basic understanding of cloud concepts'],
-                'badge' => 'Most Popular',
-                'featured' => true
-            ],
-            [
-                'id' => 'aws-soa-c02',
-                'title' => 'AWS Certified SysOps Administrator - Associate',
-                'code' => 'SOA-C02',
-                'provider' => 'aws',
-                'difficulty' => 'intermediate',
-                'questions' => 298,
-                'duration' => 130,
-                'passingScore' => 720,
-                'price' => 299,
-                'popularity' => 85,
-                'lastUpdated' => '2024-12-10',
-                'successRate' => 91,
-                'description' => 'Demonstrate skills in deployment, management, and operations on AWS.',
-                'topics' => ['Monitoring & Logging', 'Remediation', 'Cost & Performance', 'Security'],
-                'prerequisites' => ['1+ years AWS operations experience'],
-                'badge' => null,
-                'featured' => false
-            ],
-            [
-                'id' => 'az-900',
-                'title' => 'Microsoft Azure Fundamentals',
-                'code' => 'AZ-900',
-                'provider' => 'azure',
-                'difficulty' => 'beginner',
-                'questions' => 180,
-                'duration' => 85,
-                'passingScore' => 700,
-                'price' => 199,
-                'popularity' => 92,
-                'lastUpdated' => '2024-12-18',
-                'successRate' => 96,
-                'description' => 'Foundational knowledge of cloud services and how they are provided with Azure.',
-                'topics' => ['Cloud Concepts', 'Core Azure Services', 'Security', 'Pricing & Support'],
-                'prerequisites' => ['None - Entry level'],
-                'badge' => 'Entry Level',
-                'featured' => true
-            ],
-            [
-                'id' => 'az-104',
-                'title' => 'Microsoft Azure Administrator',
-                'code' => 'AZ-104',
-                'provider' => 'azure',
-                'difficulty' => 'intermediate',
-                'questions' => 342,
-                'duration' => 150,
-                'passingScore' => 700,
-                'price' => 329,
-                'popularity' => 88,
-                'lastUpdated' => '2024-12-05',
-                'successRate' => 89,
-                'description' => 'Manage Azure subscriptions, secure identities, administer infrastructure, and more.',
-                'topics' => ['Identity & Governance', 'Storage', 'Compute', 'Virtual Networking', 'Monitor & Backup'],
-                'prerequisites' => ['6+ months Azure administration experience'],
-                'badge' => 'Popular',
-                'featured' => true
-            ],
-            [
-                'id' => 'gcp-ace',
-                'title' => 'Google Cloud Associate Cloud Engineer',
-                'code' => 'ACE',
-                'provider' => 'gcp',
-                'difficulty' => 'intermediate',
-                'questions' => 275,
-                'duration' => 120,
-                'passingScore' => 70,
-                'price' => 249,
-                'popularity' => 78,
-                'lastUpdated' => '2024-11-28',
-                'successRate' => 87,
-                'description' => 'Deploy applications, monitor operations, and manage enterprise solutions on Google Cloud.',
-                'topics' => ['Cloud Console & CLI', 'Compute Engine', 'Kubernetes Engine', 'Storage & Databases', 'Networking'],
-                'prerequisites' => ['6+ months GCP experience'],
-                'badge' => null,
-                'featured' => false
-            ],
-            [
-                'id' => 'cka',
-                'title' => 'Certified Kubernetes Administrator',
-                'code' => 'CKA',
-                'provider' => 'kubernetes',
-                'difficulty' => 'advanced',
-                'questions' => 150,
-                'duration' => 180,
-                'passingScore' => 66,
-                'price' => 395,
-                'popularity' => 82,
-                'lastUpdated' => '2024-12-01',
-                'successRate' => 78,
-                'description' => 'Demonstrate skills required to be a successful Kubernetes Administrator.',
-                'topics' => ['Cluster Architecture', 'Workloads & Scheduling', 'Services & Networking', 'Storage', 'Troubleshooting'],
-                'prerequisites' => ['Strong Linux background', 'Container experience'],
-                'badge' => 'Expert Level',
-                'featured' => true
-            ]
-        ];
+        return ExamDump::with(['provider', 'topics'])
+            ->published()
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($dump) {
+                return [
+                    'id' => $dump->slug,
+                    'title' => $dump->title,
+                    'code' => $dump->code,
+                    'provider' => $dump->provider->slug,
+                    'difficulty' => $dump->difficulty,
+                    'questions' => $dump->questions_count,
+                    'duration' => $dump->duration_minutes,
+                    'passingScore' => $dump->passing_score,
+                    'price' => (float) $dump->price,
+                    'popularity' => $dump->popularity ?? ($dump->views > 0 ? min(100, ($dump->downloads / max($dump->views, 1)) * 100 + 50) : 70),
+                    'lastUpdated' => $dump->updated_at ? $dump->updated_at->format('Y-m-d') : date('Y-m-d'),
+                    'successRate' => $dump->success_rate,
+                    'description' => $dump->description,
+                    'topics' => $dump->topics->pluck('name')->toArray(),
+                    'prerequisites' => $dump->prerequisites ?? [],
+                    'badge' => $dump->featured ? ($dump->is_free ? 'FREE' : 'Featured') : null,
+                    'featured' => $dump->featured
+                ];
+            })
+            ->toArray();
     }
 
     /**
@@ -132,13 +45,27 @@ class DumpsDataProvider
      */
     public static function getProviders(): array
     {
-        return [
-            ['id' => 'all', 'name' => 'All Providers', 'icon' => 'fas fa-th-large'],
-            ['id' => 'aws', 'name' => 'Amazon AWS', 'icon' => 'fab fa-aws'],
-            ['id' => 'azure', 'name' => 'Microsoft Azure', 'icon' => 'fab fa-microsoft'],
-            ['id' => 'gcp', 'name' => 'Google Cloud', 'icon' => 'fab fa-google'],
-            ['id' => 'kubernetes', 'name' => 'Kubernetes', 'icon' => 'fas fa-dharmachakra']
+        $providers = ExamProvider::active()
+            ->ordered()
+            ->withCount('examDumps')
+            ->get();
+
+        $allProvidersCount = ExamDump::published()->count();
+
+        $providerData = [
+            ['id' => 'all', 'name' => 'All Exams', 'icon' => 'fas fa-globe', 'count' => $allProvidersCount]
         ];
+
+        foreach ($providers as $provider) {
+            $providerData[] = [
+                'id' => $provider->slug,
+                'name' => $provider->name,
+                'icon' => $provider->icon ?? 'fas fa-certificate',
+                'count' => $provider->exam_dumps_count
+            ];
+        }
+
+        return $providerData;
     }
 
     /**
@@ -150,7 +77,7 @@ class DumpsDataProvider
             ['id' => 'all', 'name' => 'All Levels'],
             ['id' => 'beginner', 'name' => 'Beginner'],
             ['id' => 'intermediate', 'name' => 'Intermediate'],
-            ['id' => 'advanced', 'name' => 'Advanced']
+            ['id' => 'expert', 'name' => 'Expert']
         ];
     }
 
@@ -159,8 +86,34 @@ class DumpsDataProvider
      */
     public static function getFeaturedExams(): array
     {
-        $allExams = self::getExams();
-        return array_filter($allExams, fn($exam) => $exam['featured'] === true);
+        return ExamDump::with(['provider', 'topics'])
+            ->published()
+            ->featured()
+            ->orderBy('created_at', 'desc')
+            ->limit(6)
+            ->get()
+            ->map(function ($dump) {
+                return [
+                    'id' => $dump->slug,
+                    'title' => $dump->title,
+                    'code' => $dump->code,
+                    'provider' => $dump->provider->slug,
+                    'difficulty' => $dump->difficulty,
+                    'questions' => $dump->questions_count,
+                    'duration' => $dump->duration_minutes,
+                    'passingScore' => $dump->passing_score,
+                    'price' => (float) $dump->price,
+                    'popularity' => $dump->popularity ?? ($dump->views > 0 ? min(100, ($dump->downloads / max($dump->views, 1)) * 100 + 50) : 70),
+                    'lastUpdated' => $dump->updated_at ? $dump->updated_at->format('Y-m-d') : date('Y-m-d'),
+                    'successRate' => $dump->success_rate,
+                    'description' => $dump->description,
+                    'topics' => $dump->topics->pluck('name')->toArray(),
+                    'prerequisites' => $dump->prerequisites ?? [],
+                    'badge' => $dump->is_free ? 'FREE' : 'Featured',
+                    'featured' => true
+                ];
+            })
+            ->toArray();
     }
 
     /**
@@ -168,28 +121,73 @@ class DumpsDataProvider
      */
     public static function getPopularExams(int $limit = 6): array
     {
-        $allExams = self::getExams();
-
-        // Sort by popularity score
-        usort($allExams, fn($a, $b) => $b['popularity'] <=> $a['popularity']);
-
-        return array_slice($allExams, 0, $limit);
+        return ExamDump::with(['provider', 'topics'])
+            ->published()
+            ->orderBy('views', 'desc')
+            ->orderBy('downloads', 'desc')
+            ->limit($limit)
+            ->get()
+            ->map(function ($dump) {
+                return [
+                    'id' => $dump->slug,
+                    'title' => $dump->title,
+                    'code' => $dump->code,
+                    'provider' => $dump->provider->slug,
+                    'difficulty' => $dump->difficulty,
+                    'questions' => $dump->questions_count,
+                    'duration' => $dump->duration_minutes,
+                    'passingScore' => $dump->passing_score,
+                    'price' => (float) $dump->price,
+                    'popularity' => $dump->popularity ?? ($dump->views > 0 ? min(100, ($dump->downloads / max($dump->views, 1)) * 100 + 50) : 70),
+                    'lastUpdated' => $dump->updated_at ? $dump->updated_at->format('Y-m-d') : date('Y-m-d'),
+                    'successRate' => $dump->success_rate,
+                    'description' => $dump->description,
+                    'topics' => $dump->topics->pluck('name')->toArray(),
+                    'prerequisites' => $dump->prerequisites ?? [],
+                    'badge' => $dump->featured ? ($dump->is_free ? 'FREE' : 'Featured') : null,
+                    'featured' => $dump->featured
+                ];
+            })
+            ->toArray();
     }
 
     /**
-     * Get exam by ID
+     * Get exam by ID (slug)
      */
     public static function getExamById(string $examId): ?array
     {
-        $exams = self::getExams();
+        $dump = ExamDump::with(['provider', 'topics'])
+            ->where('slug', $examId)
+            ->orWhere('code', $examId)
+            ->published()
+            ->first();
 
-        foreach ($exams as $exam) {
-            if ($exam['id'] === $examId) {
-                return $exam;
-            }
+        if (!$dump) {
+            return null;
         }
 
-        return null;
+        // Increment views
+        $dump->increment('views');
+
+        return [
+            'id' => $dump->slug,
+            'title' => $dump->title,
+            'code' => $dump->code,
+            'provider' => $dump->provider->slug,
+            'difficulty' => $dump->difficulty,
+            'questions' => $dump->questions_count,
+            'duration' => $dump->duration_minutes,
+            'passingScore' => $dump->passing_score,
+            'price' => (float) $dump->price,
+            'popularity' => $dump->views_count > 0 ? min(100, ($dump->downloads_count / max($dump->views_count, 1)) * 100 + 50) : 70,
+            'lastUpdated' => $dump->updated_at->format('Y-m-d'),
+            'successRate' => $dump->success_rate,
+            'description' => $dump->short_description,
+            'topics' => $dump->topics->pluck('name')->toArray(),
+            'prerequisites' => $dump->prerequisites ?? [],
+            'badge' => $dump->featured ? ($dump->is_free ? 'FREE' : 'Featured') : null,
+            'featured' => $dump->featured
+        ];
     }
 
     /**
@@ -201,8 +199,35 @@ class DumpsDataProvider
             return self::getExams();
         }
 
-        $allExams = self::getExams();
-        return array_filter($allExams, fn($exam) => $exam['provider'] === $provider);
+        return ExamDump::with(['provider', 'topics'])
+            ->published()
+            ->whereHas('provider', function ($query) use ($provider) {
+                $query->where('slug', $provider);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($dump) {
+                return [
+                    'id' => $dump->slug,
+                    'title' => $dump->title,
+                    'code' => $dump->code,
+                    'provider' => $dump->provider->slug,
+                    'difficulty' => $dump->difficulty,
+                    'questions' => $dump->questions_count,
+                    'duration' => $dump->duration_minutes,
+                    'passingScore' => $dump->passing_score,
+                    'price' => (float) $dump->price,
+                    'popularity' => $dump->popularity ?? ($dump->views > 0 ? min(100, ($dump->downloads / max($dump->views, 1)) * 100 + 50) : 70),
+                    'lastUpdated' => $dump->updated_at ? $dump->updated_at->format('Y-m-d') : date('Y-m-d'),
+                    'successRate' => $dump->success_rate,
+                    'description' => $dump->description,
+                    'topics' => $dump->topics->pluck('name')->toArray(),
+                    'prerequisites' => $dump->prerequisites ?? [],
+                    'badge' => $dump->featured ? ($dump->is_free ? 'FREE' : 'Featured') : null,
+                    'featured' => $dump->featured
+                ];
+            })
+            ->toArray();
     }
 
     /**
@@ -214,8 +239,33 @@ class DumpsDataProvider
             return self::getExams();
         }
 
-        $allExams = self::getExams();
-        return array_filter($allExams, fn($exam) => $exam['difficulty'] === $difficulty);
+        return ExamDump::with(['provider', 'topics'])
+            ->published()
+            ->where('difficulty', $difficulty)
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($dump) {
+                return [
+                    'id' => $dump->slug,
+                    'title' => $dump->title,
+                    'code' => $dump->code,
+                    'provider' => $dump->provider->slug,
+                    'difficulty' => $dump->difficulty,
+                    'questions' => $dump->questions_count,
+                    'duration' => $dump->duration_minutes,
+                    'passingScore' => $dump->passing_score,
+                    'price' => (float) $dump->price,
+                    'popularity' => $dump->popularity ?? ($dump->views > 0 ? min(100, ($dump->downloads / max($dump->views, 1)) * 100 + 50) : 70),
+                    'lastUpdated' => $dump->updated_at ? $dump->updated_at->format('Y-m-d') : date('Y-m-d'),
+                    'successRate' => $dump->success_rate,
+                    'description' => $dump->description,
+                    'topics' => $dump->topics->pluck('name')->toArray(),
+                    'prerequisites' => $dump->prerequisites ?? [],
+                    'badge' => $dump->featured ? ($dump->is_free ? 'FREE' : 'Featured') : null,
+                    'featured' => $dump->featured
+                ];
+            })
+            ->toArray();
     }
 
     /**
@@ -223,19 +273,42 @@ class DumpsDataProvider
      */
     public static function searchExams(string $query): array
     {
-        $allExams = self::getExams();
-        $query = strtolower(trim($query));
-
-        if (empty($query)) {
-            return $allExams;
+        if (empty(trim($query))) {
+            return self::getExams();
         }
 
-        return array_filter($allExams, function($exam) use ($query) {
-            return str_contains(strtolower($exam['title']), $query) ||
-                   str_contains(strtolower($exam['code']), $query) ||
-                   str_contains(strtolower($exam['description']), $query) ||
-                   str_contains(strtolower($exam['provider']), $query);
-        });
+        return ExamDump::with(['provider', 'topics'])
+            ->published()
+            ->where(function ($q) use ($query) {
+                $q->where('title', 'like', '%' . $query . '%')
+                    ->orWhere('code', 'like', '%' . $query . '%')
+                    ->orWhere('description', 'like', '%' . $query . '%')
+                    ->orWhere('full_description', 'like', '%' . $query . '%');
+            })
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($dump) {
+                return [
+                    'id' => $dump->slug,
+                    'title' => $dump->title,
+                    'code' => $dump->code,
+                    'provider' => $dump->provider->slug,
+                    'difficulty' => $dump->difficulty,
+                    'questions' => $dump->questions_count,
+                    'duration' => $dump->duration_minutes,
+                    'passingScore' => $dump->passing_score,
+                    'price' => (float) $dump->price,
+                    'popularity' => $dump->popularity ?? ($dump->views > 0 ? min(100, ($dump->downloads / max($dump->views, 1)) * 100 + 50) : 70),
+                    'lastUpdated' => $dump->updated_at ? $dump->updated_at->format('Y-m-d') : date('Y-m-d'),
+                    'successRate' => $dump->success_rate,
+                    'description' => $dump->description,
+                    'topics' => $dump->topics->pluck('name')->toArray(),
+                    'prerequisites' => $dump->prerequisites ?? [],
+                    'badge' => $dump->featured ? ($dump->is_free ? 'FREE' : 'Featured') : null,
+                    'featured' => $dump->featured
+                ];
+            })
+            ->toArray();
     }
 
     /**
@@ -245,10 +318,12 @@ class DumpsDataProvider
     {
         return [
             'exams' => self::getExams(),
+            'categories' => self::getProviders(),
             'providers' => self::getProviders(),
             'difficultyLevels' => self::getDifficultyLevels(),
             'featuredExams' => self::getFeaturedExams(),
-            'popularExams' => self::getPopularExams()
+            'popularExams' => self::getPopularExams(),
+            'stats' => self::getExamStatistics()
         ];
     }
 
@@ -257,24 +332,25 @@ class DumpsDataProvider
      */
     public static function getExamStatistics(): array
     {
-        $exams = self::getExams();
-
-        $totalExams = count($exams);
-        $totalQuestions = array_sum(array_column($exams, 'questions'));
-        $averageSuccessRate = round(array_sum(array_column($exams, 'successRate')) / $totalExams);
+        $totalExams = ExamDump::published()->count();
+        $totalQuestions = ExamDump::published()->sum('questions_count');
+        $averageSuccessRate = ExamDump::published()->avg('success_rate');
 
         $providerCounts = [];
-        foreach ($exams as $exam) {
-            $provider = $exam['provider'];
-            $providerCounts[$provider] = ($providerCounts[$provider] ?? 0) + 1;
+        $providers = ExamProvider::active()->withCount('examDumps')->get();
+
+        foreach ($providers as $provider) {
+            $providerCounts[$provider->slug] = $provider->exam_dumps_count;
         }
+
+        $latestUpdate = ExamDump::published()->max('updated_at');
 
         return [
             'totalExams' => $totalExams,
             'totalQuestions' => $totalQuestions,
-            'averageSuccessRate' => $averageSuccessRate,
+            'averageSuccessRate' => round($averageSuccessRate),
             'providerCounts' => $providerCounts,
-            'latestUpdate' => max(array_column($exams, 'lastUpdated'))
+            'latestUpdate' => $latestUpdate ? \Carbon\Carbon::parse($latestUpdate)->format('Y-m-d') : null
         ];
     }
 }

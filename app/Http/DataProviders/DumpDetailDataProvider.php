@@ -2,6 +2,10 @@
 
 namespace App\Http\DataProviders;
 
+use App\Models\ExamDump;
+use App\Models\ExamReview;
+use App\Models\ExamFaq;
+
 class DumpDetailDataProvider
 {
     /**
@@ -17,23 +21,32 @@ class DumpDetailDataProvider
      */
     public static function getRelatedExams(string $examId, int $limit = 3): array
     {
-        $currentExam = self::getExamDetail($examId);
+        $currentExam = ExamDump::where('slug', $examId)
+            ->orWhere('code', $examId)
+            ->published()
+            ->first();
 
         if (!$currentExam) {
             return [];
         }
 
-        $allExams = DumpsDataProvider::getExams();
-
-        // Filter exams from same provider, excluding current exam
-        $relatedExams = array_filter($allExams, function($exam) use ($currentExam, $examId) {
-            return $exam['provider'] === $currentExam['provider'] && $exam['id'] !== $examId;
-        });
-
-        // Sort by popularity and take the specified limit
-        usort($relatedExams, fn($a, $b) => $b['popularity'] <=> $a['popularity']);
-
-        return array_slice($relatedExams, 0, $limit);
+        return ExamDump::with(['provider', 'topics'])
+            ->published()
+            ->where('exam_provider_id', $currentExam->exam_provider_id)
+            ->where('id', '!=', $currentExam->id)
+            ->orderBy('views', 'desc')
+            ->limit($limit)
+            ->get()
+            ->map(function ($dump) {
+                return [
+                    'id' => $dump->slug,
+                    'title' => $dump->title,
+                    'code' => $dump->code,
+                    'provider' => $dump->provider->slug,
+                    'description' => $dump->description
+                ];
+            })
+            ->toArray();
     }
 
     /**
@@ -41,52 +54,53 @@ class DumpDetailDataProvider
      */
     public static function getExamFeatures(string $examId): array
     {
-        $exam = self::getExamDetail($examId);
+        $dump = ExamDump::where('slug', $examId)
+            ->orWhere('code', $examId)
+            ->published()
+            ->first();
 
-        if (!$exam) {
+        if (!$dump) {
             return [];
         }
 
-        $baseFeatures = [
+        return [
             [
                 'icon' => 'fas fa-questions',
                 'title' => 'Total Questions',
-                'value' => $exam['questions'],
+                'value' => $dump->questions_count,
                 'description' => 'Practice questions included'
             ],
             [
                 'icon' => 'fas fa-clock',
                 'title' => 'Duration',
-                'value' => $exam['duration'] . ' mins',
+                'value' => $dump->duration_minutes . ' mins',
                 'description' => 'Actual exam time limit'
             ],
             [
                 'icon' => 'fas fa-trophy',
                 'title' => 'Passing Score',
-                'value' => $exam['passingScore'],
+                'value' => $dump->passing_score,
                 'description' => 'Minimum score required'
             ],
             [
                 'icon' => 'fas fa-chart-line',
                 'title' => 'Success Rate',
-                'value' => $exam['successRate'] . '%',
+                'value' => $dump->success_rate . '%',
                 'description' => 'Students who passed'
             ],
             [
                 'icon' => 'fas fa-calendar-alt',
                 'title' => 'Last Updated',
-                'value' => date('M Y', strtotime($exam['lastUpdated'])),
+                'value' => $dump->updated_at ? $dump->updated_at->format('M Y') : date('M Y'),
                 'description' => 'Content freshness'
             ],
             [
                 'icon' => 'fas fa-star',
                 'title' => 'Popularity',
-                'value' => $exam['popularity'] . '%',
-                'description' => 'Student rating'
+                'value' => $dump->views,
+                'description' => 'Total views'
             ]
         ];
-
-        return $baseFeatures;
     }
 
     /**
@@ -133,88 +147,70 @@ class DumpDetailDataProvider
      */
     public static function getExamTestimonials(string $examId): array
     {
-        // In a real application, these would come from a database
-        $testimonials = [
-            'aws-saa-c03' => [
-                [
-                    'id' => 1,
-                    'name' => 'Sarah Johnson',
-                    'role' => 'Cloud Engineer',
-                    'company' => 'Tech Solutions Inc.',
-                    'rating' => 5,
-                    'comment' => 'The practice questions were spot-on! I passed my SAA-C03 exam on the first try. The explanations helped me understand the concepts deeply.',
-                    'date' => '2024-12-10',
-                    'verified' => true
-                ],
-                [
-                    'id' => 2,
-                    'name' => 'Michael Chen',
-                    'role' => 'DevOps Engineer',
-                    'company' => 'StartupXYZ',
-                    'rating' => 5,
-                    'comment' => 'Excellent resource! The questions closely matched the actual exam format. Highly recommend for anyone preparing for AWS certification.',
-                    'date' => '2024-12-08',
-                    'verified' => true
-                ],
-                [
-                    'id' => 3,
-                    'name' => 'Jennifer Williams',
-                    'role' => 'Solutions Architect',
-                    'company' => 'Enterprise Corp',
-                    'rating' => 4,
-                    'comment' => 'Great practice material with detailed explanations. Helped me identify my weak areas and focus my studies effectively.',
-                    'date' => '2024-12-05',
-                    'verified' => true
-                ]
-            ],
-            'az-900' => [
-                [
-                    'id' => 1,
-                    'name' => 'David Rodriguez',
-                    'role' => 'IT Administrator',
-                    'company' => 'Global Systems',
-                    'rating' => 5,
-                    'comment' => 'Perfect for beginners! The AZ-900 dumps helped me understand Azure fundamentals and pass the exam confidently.',
-                    'date' => '2024-12-12',
-                    'verified' => true
-                ]
-            ]
-        ];
+        $dump = ExamDump::where('slug', $examId)
+            ->orWhere('code', $examId)
+            ->published()
+            ->first();
 
-        return $testimonials[$examId] ?? [];
+        if (!$dump) {
+            return [];
+        }
+
+        return ExamReview::where('exam_dump_id', $dump->id)
+            ->where('is_approved', true)
+            ->orderBy('created_at', 'desc')
+            ->limit(10)
+            ->get()
+            ->map(function ($review) {
+                return [
+                    'id' => $review->id,
+                    'name' => $review->reviewer_name,
+                    'role' => $review->reviewer_title ?? 'Certified Professional',
+                    'company' => $review->reviewer_company ?? '',
+                    'rating' => $review->rating,
+                    'comment' => $review->review_text,
+                    'date' => $review->created_at->format('Y-m-d'),
+                    'verified' => $review->verified_purchase
+                ];
+            })
+            ->toArray();
     }
 
     /**
      * Get frequently asked questions for an exam
      */
-    public static function getExamFAQ(): array
+    public static function getExamFAQ(string $examId = null): array
     {
-        return [
-            [
-                'question' => 'How often are the exam dumps updated?',
-                'answer' => 'Our exam dumps are updated regularly, typically within 2-4 weeks of any official exam changes. You\'ll receive all updates for free.'
-            ],
-            [
-                'question' => 'What format are the practice questions in?',
-                'answer' => 'Questions are provided in multiple formats including PDF, online practice tests, and mobile-compatible formats for studying anywhere.'
-            ],
-            [
-                'question' => 'Do you offer a money-back guarantee?',
-                'answer' => 'Yes! We offer a 100% money-back guarantee if you don\'t pass your exam after using our materials as directed.'
-            ],
-            [
-                'question' => 'How long do I have access to the materials?',
-                'answer' => 'You get lifetime access to all purchased materials, including any future updates and improvements.'
-            ],
-            [
-                'question' => 'Are the questions from the actual exam?',
-                'answer' => 'Our questions are carefully crafted to match the style, difficulty, and topics of the actual exam based on the official exam guide.'
-            ],
-            [
-                'question' => 'Can I access the materials on mobile devices?',
-                'answer' => 'Yes! All our materials are optimized for mobile devices, tablets, and desktop computers for flexible studying.'
-            ]
-        ];
+        $query = ExamFaq::query();
+
+        if ($examId) {
+            $dump = ExamDump::where('slug', $examId)
+                ->orWhere('code', $examId)
+                ->published()
+                ->first();
+
+            if ($dump) {
+                $query->where(function ($q) use ($dump) {
+                    $q->where('exam_dump_id', $dump->id)
+                      ->orWhere('is_global', true);
+                });
+            } else {
+                $query->where('is_global', true);
+            }
+        } else {
+            $query->where('is_global', true);
+        }
+
+        return $query->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($faq) {
+                return [
+                    'question' => $faq->question,
+                    'answer' => $faq->answer
+                ];
+            })
+            ->toArray();
     }
 
     /**
@@ -234,7 +230,7 @@ class DumpDetailDataProvider
             'features' => self::getExamFeatures($examId),
             'benefits' => self::getExamBenefits(),
             'testimonials' => self::getExamTestimonials($examId),
-            'faq' => self::getExamFAQ()
+            'faq' => self::getExamFAQ($examId)
         ];
     }
 
@@ -243,17 +239,22 @@ class DumpDetailDataProvider
      */
     public static function getExamPackages(string $examId): array
     {
-        $exam = self::getExamDetail($examId);
+        $dump = ExamDump::where('slug', $examId)
+            ->orWhere('code', $examId)
+            ->published()
+            ->first();
 
-        if (!$exam) {
+        if (!$dump) {
             return [];
         }
+
+        $basePrice = (float) $dump->price;
 
         return [
             'basic' => [
                 'name' => 'Basic Package',
-                'price' => $exam['price'],
-                'originalPrice' => $exam['price'] + 50,
+                'price' => $basePrice,
+                'originalPrice' => $basePrice + 50,
                 'features' => [
                     'PDF Practice Questions',
                     'Detailed Explanations',
@@ -264,8 +265,8 @@ class DumpDetailDataProvider
             ],
             'premium' => [
                 'name' => 'Premium Package',
-                'price' => $exam['price'] + 100,
-                'originalPrice' => $exam['price'] + 200,
+                'price' => $basePrice + 100,
+                'originalPrice' => $basePrice + 200,
                 'features' => [
                     'Everything in Basic',
                     'Online Practice Tests',
@@ -278,8 +279,8 @@ class DumpDetailDataProvider
             ],
             'ultimate' => [
                 'name' => 'Ultimate Package',
-                'price' => $exam['price'] + 200,
-                'originalPrice' => $exam['price'] + 350,
+                'price' => $basePrice + 200,
+                'originalPrice' => $basePrice + 350,
                 'features' => [
                     'Everything in Premium',
                     'Video Explanations',

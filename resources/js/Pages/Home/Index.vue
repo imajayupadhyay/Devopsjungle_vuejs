@@ -14,7 +14,7 @@
       <StatsSection />
       <FeaturedCourses />
       <WhyChooseUs />
-      <ExamDumps />
+      <ExamDumps :exams="popularExams" />
       <Testimonials />
       <PartnerLogos />
       <Newsletter />
@@ -52,6 +52,12 @@ export default {
     Testimonials,
     PartnerLogos,
     Newsletter
+  },
+  props: {
+    popularExams: {
+      type: Array,
+      default: () => []
+    }
   },
   mounted() {
     // Load AOS library dynamically

@@ -54,19 +54,19 @@
           <!-- Stats -->
           <div class="grid grid-cols-2 lg:grid-cols-4 gap-6" data-aos="fade-up" data-aos-delay="200">
             <div class="text-center">
-              <div class="text-3xl font-bold gradient-text">{{ stats.totalExams }}</div>
+              <div class="text-3xl font-bold gradient-text">{{ stats.totalExams || exams.length }}</div>
               <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Total Exams</p>
             </div>
             <div class="text-center">
-              <div class="text-3xl font-bold gradient-text">{{ stats.totalQuestions }}</div>
+              <div class="text-3xl font-bold gradient-text">{{ stats.totalQuestions || 0 }}</div>
               <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Questions</p>
             </div>
             <div class="text-center">
-              <div class="text-3xl font-bold gradient-text">{{ stats.successRate }}%</div>
+              <div class="text-3xl font-bold gradient-text">{{ stats.averageSuccessRate || 95 }}%</div>
               <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Success Rate</p>
             </div>
             <div class="text-center">
-              <div class="text-3xl font-bold gradient-text">{{ stats.satisfied }}K+</div>
+              <div class="text-3xl font-bold gradient-text">50K+</div>
               <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Satisfied Users</p>
             </div>
           </div>
@@ -191,6 +191,24 @@ export default {
     ExamFilters,
     ExamCard
   },
+  props: {
+    exams: {
+      type: Array,
+      default: () => []
+    },
+    categories: {
+      type: Array,
+      default: () => []
+    },
+    stats: {
+      type: Object,
+      default: () => ({
+        totalExams: 0,
+        totalQuestions: 0,
+        averageSuccessRate: 0
+      })
+    }
+  },
   data() {
     return {
       selectedCategory: 'all',
@@ -200,296 +218,14 @@ export default {
       viewMode: 'grid',
       displayLimit: 12,
 
-      stats: {
-        totalExams: 150,
-        totalQuestions: 25000,
-        successRate: 97,
-        satisfied: 50
-      },
-
-      categories: [
-        { id: 'all', name: 'All Exams', icon: 'fas fa-globe', count: 150 },
-        { id: 'aws', name: 'Amazon AWS', icon: 'fab fa-aws', count: 65 },
-        { id: 'azure', name: 'Microsoft Azure', icon: 'fab fa-microsoft', count: 45 },
-        { id: 'gcp', name: 'Google Cloud', icon: 'fab fa-google', count: 25 },
-        { id: 'kubernetes', name: 'Kubernetes', icon: 'fas fa-dharmachakra', count: 8 },
-        { id: 'docker', name: 'Docker', icon: 'fab fa-docker', count: 7 }
-      ],
-
-      exams: [
-        // AWS Exams
-        {
-          id: 'aws-saa-c03',
-          title: 'AWS Certified Solutions Architect - Associate',
-          code: 'SAA-C03',
-          provider: 'aws',
-          difficulty: 'intermediate',
-          questions: 385,
-          duration: 130,
-          passingScore: 720,
-          price: 299,
-          popularity: 98,
-          lastUpdated: '2024-12-15',
-          successRate: 94,
-          description: 'Validate technical skills and expertise in designing distributed systems on AWS.',
-          topics: ['Compute', 'Storage', 'Database', 'Network & Security', 'Management & Governance'],
-          prerequisites: ['1+ years AWS experience', 'Basic understanding of cloud concepts'],
-          badge: 'Most Popular',
-          featured: true
-        },
-        {
-          id: 'aws-soa-c02',
-          title: 'AWS Certified SysOps Administrator - Associate',
-          code: 'SOA-C02',
-          provider: 'aws',
-          difficulty: 'intermediate',
-          questions: 298,
-          duration: 130,
-          passingScore: 720,
-          price: 299,
-          popularity: 85,
-          lastUpdated: '2024-12-10',
-          successRate: 91,
-          description: 'Demonstrate skills in deployment, management, and operations on AWS.',
-          topics: ['Monitoring & Logging', 'Remediation', 'Cost & Performance', 'Security'],
-          prerequisites: ['1+ years AWS operations experience']
-        },
-        {
-          id: 'aws-dva-c02',
-          title: 'AWS Certified Developer - Associate',
-          code: 'DVA-C02',
-          provider: 'aws',
-          difficulty: 'intermediate',
-          questions: 245,
-          duration: 130,
-          passingScore: 720,
-          price: 299,
-          popularity: 82,
-          lastUpdated: '2024-12-12',
-          successRate: 89,
-          description: 'Validate proficiency in developing applications on AWS.',
-          topics: ['Development', 'Security', 'Deployment', 'Troubleshooting & Optimization'],
-          prerequisites: ['1+ years AWS development experience']
-        },
-        {
-          id: 'aws-sap-c02',
-          title: 'AWS Certified Solutions Architect - Professional',
-          code: 'SAP-C02',
-          provider: 'aws',
-          difficulty: 'expert',
-          questions: 450,
-          duration: 180,
-          passingScore: 750,
-          price: 399,
-          popularity: 76,
-          lastUpdated: '2024-11-28',
-          successRate: 85,
-          description: 'Advanced skills in designing complex solutions on AWS.',
-          topics: ['Design Solutions', 'Migration Planning', 'Cost Control', 'Continuous Improvement'],
-          prerequisites: ['AWS Associate certification', '2+ years advanced AWS experience']
-        },
-        {
-          id: 'aws-dop-c02',
-          title: 'AWS Certified DevOps Engineer - Professional',
-          code: 'DOP-C02',
-          provider: 'aws',
-          difficulty: 'expert',
-          questions: 365,
-          duration: 180,
-          passingScore: 750,
-          price: 399,
-          popularity: 78,
-          lastUpdated: '2024-12-01',
-          successRate: 87,
-          description: 'Demonstrate expertise in provisioning, operating, and managing AWS environments.',
-          topics: ['SDLC Automation', 'Configuration Management', 'Monitoring & Logging', 'Incident Response'],
-          prerequisites: ['AWS Associate certification', 'DevOps experience'],
-          badge: 'High Demand'
-        },
-
-        // Azure Exams
-        {
-          id: 'az-900',
-          title: 'Microsoft Azure Fundamentals',
-          code: 'AZ-900',
-          provider: 'azure',
-          difficulty: 'beginner',
-          questions: 180,
-          duration: 85,
-          passingScore: 700,
-          price: 199,
-          popularity: 92,
-          lastUpdated: '2024-12-18',
-          successRate: 96,
-          description: 'Foundational knowledge of cloud services and how they are provided with Azure.',
-          topics: ['Cloud Concepts', 'Core Azure Services', 'Security', 'Pricing & Support'],
-          prerequisites: ['None - Entry level'],
-          badge: 'Entry Level'
-        },
-        {
-          id: 'az-104',
-          title: 'Microsoft Azure Administrator',
-          code: 'AZ-104',
-          provider: 'azure',
-          difficulty: 'intermediate',
-          questions: 320,
-          duration: 120,
-          passingScore: 700,
-          price: 299,
-          popularity: 88,
-          lastUpdated: '2024-12-14',
-          successRate: 92,
-          description: 'Skills needed to implement, manage, and monitor Azure environments.',
-          topics: ['Identity & Governance', 'Storage', 'Compute', 'Virtual Networking', 'Monitoring'],
-          prerequisites: ['6+ months Azure admin experience']
-        },
-        {
-          id: 'az-204',
-          title: 'Developing Solutions for Microsoft Azure',
-          code: 'AZ-204',
-          provider: 'azure',
-          difficulty: 'intermediate',
-          questions: 285,
-          duration: 120,
-          passingScore: 700,
-          price: 299,
-          popularity: 79,
-          lastUpdated: '2024-12-08',
-          successRate: 88,
-          description: 'Skills to design, build, test, and maintain cloud applications on Azure.',
-          topics: ['Azure Compute', 'Azure Storage', 'Azure Security', 'Monitoring & Optimization'],
-          prerequisites: ['1+ years Azure development experience']
-        },
-        {
-          id: 'az-400',
-          title: 'Designing and Implementing Microsoft DevOps Solutions',
-          code: 'AZ-400',
-          provider: 'azure',
-          difficulty: 'expert',
-          questions: 340,
-          duration: 150,
-          passingScore: 700,
-          price: 399,
-          popularity: 73,
-          lastUpdated: '2024-11-25',
-          successRate: 84,
-          description: 'DevOps practices that combine people, process, and technologies.',
-          topics: ['Development Strategy', 'Source Control', 'Build & Release', 'Testing', 'Monitoring'],
-          prerequisites: ['Azure expertise', 'DevOps experience'],
-          featured: true
-        },
-        {
-          id: 'az-305',
-          title: 'Designing Microsoft Azure Infrastructure Solutions',
-          code: 'AZ-305',
-          provider: 'azure',
-          difficulty: 'expert',
-          questions: 295,
-          duration: 120,
-          passingScore: 700,
-          price: 399,
-          popularity: 71,
-          lastUpdated: '2024-12-02',
-          successRate: 86,
-          description: 'Advanced skills for designing solutions that run on Azure.',
-          topics: ['Identity & Security', 'Data Storage', 'Business Continuity', 'Infrastructure'],
-          prerequisites: ['AZ-104 certification', 'Advanced Azure experience']
-        },
-
-        // GCP Exams
-        {
-          id: 'gcp-ace',
-          title: 'Google Cloud Associate Cloud Engineer',
-          code: 'ACE',
-          provider: 'gcp',
-          difficulty: 'intermediate',
-          questions: 150,
-          duration: 120,
-          passingScore: 80,
-          price: 250,
-          popularity: 84,
-          lastUpdated: '2024-12-05',
-          successRate: 90,
-          description: 'Deploy applications, monitor operations, and manage enterprise solutions on GCP.',
-          topics: ['Cloud Console', 'Command Line', 'Compute Engine', 'Storage', 'Networking'],
-          prerequisites: ['6+ months GCP experience']
-        },
-        {
-          id: 'gcp-pca',
-          title: 'Google Cloud Professional Cloud Architect',
-          code: 'PCA',
-          provider: 'gcp',
-          difficulty: 'expert',
-          questions: 200,
-          duration: 120,
-          passingScore: 80,
-          price: 399,
-          popularity: 77,
-          lastUpdated: '2024-11-30',
-          successRate: 83,
-          description: 'Design, develop, and manage robust, secure, scalable, and dynamic solutions.',
-          topics: ['Solution Design', 'Implementation', 'Security & Compliance', 'Optimization'],
-          prerequisites: ['3+ years industry experience', '1+ year GCP experience']
-        },
-        {
-          id: 'gcp-pde',
-          title: 'Google Cloud Professional Data Engineer',
-          code: 'PDE',
-          provider: 'gcp',
-          difficulty: 'expert',
-          questions: 180,
-          duration: 120,
-          passingScore: 80,
-          price: 399,
-          popularity: 69,
-          lastUpdated: '2024-12-03',
-          successRate: 81,
-          description: 'Design, build, operationalize, secure, and monitor data processing systems.',
-          topics: ['Data Systems', 'Machine Learning', 'Case Studies', 'Security', 'Monitoring'],
-          prerequisites: ['3+ years industry experience', 'Data engineering experience']
-        },
-
-        // Kubernetes Exams
-        {
-          id: 'cka',
-          title: 'Certified Kubernetes Administrator',
-          code: 'CKA',
-          provider: 'kubernetes',
-          difficulty: 'expert',
-          questions: 17,
-          duration: 120,
-          passingScore: 66,
-          price: 395,
-          popularity: 86,
-          lastUpdated: '2024-12-01',
-          successRate: 78,
-          description: 'Hands-on skills for Kubernetes administration.',
-          topics: ['Cluster Architecture', 'Workloads & Scheduling', 'Services & Networking', 'Storage'],
-          prerequisites: ['Kubernetes experience', 'Linux knowledge'],
-          badge: 'Hands-on'
-        },
-        {
-          id: 'ckad',
-          title: 'Certified Kubernetes Application Developer',
-          code: 'CKAD',
-          provider: 'kubernetes',
-          difficulty: 'intermediate',
-          questions: 15,
-          duration: 120,
-          passingScore: 66,
-          price: 395,
-          popularity: 82,
-          lastUpdated: '2024-11-28',
-          successRate: 75,
-          description: 'Skills for designing and building applications in Kubernetes.',
-          topics: ['Application Design', 'Application Deployment', 'Application Observability', 'Environment'],
-          prerequisites: ['Container experience', 'Application development']
-        }
-      ]
     }
   },
   computed: {
     filteredExams() {
+      if (!this.exams || !Array.isArray(this.exams)) {
+        return []
+      }
+
       let filtered = [...this.exams]
 
       // Category filter
@@ -535,13 +271,44 @@ export default {
       return filtered.slice(0, this.displayLimit)
     },
     canLoadMore() {
-      return this.displayLimit < this.exams.length
+      if (!this.exams || !Array.isArray(this.exams)) {
+        return false
+      }
+      const allFiltered = this.applyFilters(this.exams)
+      return this.displayLimit < allFiltered.length
     }
   },
-  mounted() {
-    this.loadAOS()
-  },
   methods: {
+    applyFilters(examsList) {
+      if (!examsList || !Array.isArray(examsList)) {
+        return []
+      }
+
+      let filtered = [...examsList]
+
+      // Category filter
+      if (this.selectedCategory !== 'all') {
+        filtered = filtered.filter(exam => exam.provider === this.selectedCategory)
+      }
+
+      // Search filter
+      if (this.searchQuery) {
+        const query = this.searchQuery.toLowerCase()
+        filtered = filtered.filter(exam =>
+          exam.title.toLowerCase().includes(query) ||
+          exam.code.toLowerCase().includes(query) ||
+          exam.description.toLowerCase().includes(query) ||
+          (exam.topics && exam.topics.some(topic => topic.toLowerCase().includes(query)))
+        )
+      }
+
+      // Difficulty filter
+      if (this.difficultyFilter !== 'all') {
+        filtered = filtered.filter(exam => exam.difficulty === this.difficultyFilter)
+      }
+
+      return filtered
+    },
     loadAOS() {
       if (typeof window.AOS !== 'undefined') {
         window.AOS.init({
@@ -605,6 +372,9 @@ export default {
       // Navigate to the individual exam detail page
       this.$inertia.visit(`/dumps/${exam.id}`)
     }
+  },
+  mounted() {
+    this.loadAOS()
   }
 }
 </script>

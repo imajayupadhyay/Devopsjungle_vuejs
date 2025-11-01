@@ -15,7 +15,8 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Home/Index', [
-        'message' => 'Welcome to DevOpsJungle!'
+        'message' => 'Welcome to DevOpsJungle!',
+        'popularExams' => App\Http\DataProviders\DumpsDataProvider::getPopularExams(3)
     ]);
 });
 

@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\SupportTicketController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\ExamDumpController;
+use App\Http\Controllers\Admin\ExamProviderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,5 +104,33 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Image Upload Route for TinyMCE
         Route::post('/upload-image', [BlogController::class, 'uploadImage'])->name('upload-image');
+
+        // Exam Dumps Management Routes
+        Route::get('/exam-dumps', [ExamDumpController::class, 'index'])->name('exam-dumps.index');
+        Route::get('/exam-dumps/create', [ExamDumpController::class, 'create'])->name('exam-dumps.create');
+        Route::post('/exam-dumps', [ExamDumpController::class, 'store'])->name('exam-dumps.store');
+        Route::get('/exam-dumps/{examDump}', [ExamDumpController::class, 'show'])->name('exam-dumps.show');
+        Route::get('/exam-dumps/{examDump}/edit', [ExamDumpController::class, 'edit'])->name('exam-dumps.edit');
+        Route::match(['PUT', 'POST'], '/exam-dumps/{examDump}', [ExamDumpController::class, 'update'])->name('exam-dumps.update');
+        Route::delete('/exam-dumps/{examDump}', [ExamDumpController::class, 'destroy'])->name('exam-dumps.destroy');
+
+        // Exam Dump Actions
+        Route::post('/exam-dumps/{examDump}/publish', [ExamDumpController::class, 'publish'])->name('exam-dumps.publish');
+        Route::post('/exam-dumps/{examDump}/unpublish', [ExamDumpController::class, 'unpublish'])->name('exam-dumps.unpublish');
+        Route::post('/exam-dumps/{examDump}/toggle-featured', [ExamDumpController::class, 'toggleFeatured'])->name('exam-dumps.toggle-featured');
+        Route::post('/exam-dumps/{examDump}/duplicate', [ExamDumpController::class, 'duplicate'])->name('exam-dumps.duplicate');
+        Route::post('/exam-dumps/bulk-action', [ExamDumpController::class, 'bulkAction'])->name('exam-dumps.bulk-action');
+
+        // Exam Providers Management Routes
+        Route::get('/exam-providers', [ExamProviderController::class, 'index'])->name('exam-providers.index');
+        Route::get('/exam-providers/create', [ExamProviderController::class, 'create'])->name('exam-providers.create');
+        Route::post('/exam-providers', [ExamProviderController::class, 'store'])->name('exam-providers.store');
+        Route::get('/exam-providers/{examProvider}/edit', [ExamProviderController::class, 'edit'])->name('exam-providers.edit');
+        Route::match(['PUT', 'POST'], '/exam-providers/{examProvider}', [ExamProviderController::class, 'update'])->name('exam-providers.update');
+        Route::delete('/exam-providers/{examProvider}', [ExamProviderController::class, 'destroy'])->name('exam-providers.destroy');
+
+        // Exam Provider Actions
+        Route::post('/exam-providers/{examProvider}/toggle-status', [ExamProviderController::class, 'toggleStatus'])->name('exam-providers.toggle-status');
+        Route::post('/exam-providers/sort-order', [ExamProviderController::class, 'updateSortOrder'])->name('exam-providers.sort-order');
     });
 });

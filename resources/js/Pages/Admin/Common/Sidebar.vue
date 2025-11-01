@@ -65,7 +65,7 @@
             @click="toggleSubmenu(item.name)"
             :class="[
               'w-full flex items-center px-3 py-3 rounded-lg transition-all duration-200 group relative',
-              isSubmenuOpen(item.name) || isActive(item.href)
+              isSubmenuOpen(item.name) || isSubmenuItemActive(item)
                 ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 shadow-sm'
                 : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-emerald-600 dark:hover:text-emerald-400'
             ]"
@@ -173,6 +173,15 @@ export default {
         ]
       },
       {
+        name: 'Exam Dumps',
+        icon: 'fas fa-file-alt',
+        submenu: [
+          { name: 'All Dumps', icon: 'fas fa-list', href: '/admin/exam-dumps' },
+          { name: 'Create New', icon: 'fas fa-plus-circle', href: '/admin/exam-dumps/create' },
+          { name: 'Providers', icon: 'fas fa-building', href: '/admin/exam-providers' }
+        ]
+      },
+      {
         name: 'Support',
         icon: 'fas fa-life-ring',
         href: '/admin/support'
@@ -183,6 +192,9 @@ export default {
       isCollapsed.value = !isCollapsed.value
       if (isCollapsed.value) {
         openSubmenus.value = []
+      } else {
+        // Re-initialize open submenus when expanding
+        initializeOpenSubmenus()
       }
       emit('toggle', isCollapsed.value)
     }
@@ -201,8 +213,30 @@ export default {
     }
 
     const isActive = (href) => {
+      if (!href) return false
       return currentPath === href || currentPath.startsWith(href + '/')
     }
+
+    // Check if any submenu item is active
+    const isSubmenuItemActive = (item) => {
+      if (!item.submenu) return false
+      return item.submenu.some(subitem => isActive(subitem.href))
+    }
+
+    // Initialize open submenus based on current route
+    const initializeOpenSubmenus = () => {
+      menuItems.forEach(item => {
+        if (item.submenu) {
+          const hasActiveChild = item.submenu.some(subitem => isActive(subitem.href))
+          if (hasActiveChild && !openSubmenus.value.includes(item.name)) {
+            openSubmenus.value.push(item.name)
+          }
+        }
+      })
+    }
+
+    // Initialize on mount
+    initializeOpenSubmenus()
 
     return {
       isCollapsed,
@@ -210,7 +244,8 @@ export default {
       toggleSidebar,
       toggleSubmenu,
       isSubmenuOpen,
-      isActive
+      isActive,
+      isSubmenuItemActive
     }
   }
 }
