@@ -182,6 +182,15 @@ export default {
         ]
       },
       {
+        name: 'Courses',
+        icon: 'fas fa-graduation-cap',
+        submenu: [
+          { name: 'All Courses', icon: 'fas fa-list', href: '/admin/courses' },
+          { name: 'Create New', icon: 'fas fa-plus-circle', href: '/admin/courses/create' },
+          { name: 'Categories', icon: 'fas fa-folder', href: '/admin/course-categories' }
+        ]
+      },
+      {
         name: 'Support',
         icon: 'fas fa-life-ring',
         href: '/admin/support'

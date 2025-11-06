@@ -12,7 +12,7 @@
     <main>
       <HeroSection />
       <StatsSection />
-      <FeaturedCourses />
+      <FeaturedCourses :courses="featuredCourses" />
       <WhyChooseUs />
       <ExamDumps :exams="popularExams" />
       <Testimonials />
@@ -55,6 +55,10 @@ export default {
   },
   props: {
     popularExams: {
+      type: Array,
+      default: () => []
+    },
+    featuredCourses: {
       type: Array,
       default: () => []
     }

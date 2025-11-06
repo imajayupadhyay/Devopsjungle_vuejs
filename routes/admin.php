@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\ExamDumpController;
 use App\Http\Controllers\Admin\ExamProviderController;
+use App\Http\Controllers\Admin\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -132,5 +133,34 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Exam Provider Actions
         Route::post('/exam-providers/{examProvider}/toggle-status', [ExamProviderController::class, 'toggleStatus'])->name('exam-providers.toggle-status');
         Route::post('/exam-providers/sort-order', [ExamProviderController::class, 'updateSortOrder'])->name('exam-providers.sort-order');
+
+        // Course Categories Management Routes
+        Route::get('/course-categories', [\App\Http\Controllers\Admin\CourseCategoryController::class, 'index'])->name('course-categories.index');
+        Route::get('/course-categories/create', [\App\Http\Controllers\Admin\CourseCategoryController::class, 'create'])->name('course-categories.create');
+        Route::post('/course-categories', [\App\Http\Controllers\Admin\CourseCategoryController::class, 'store'])->name('course-categories.store');
+        Route::get('/course-categories/{courseCategory}/edit', [\App\Http\Controllers\Admin\CourseCategoryController::class, 'edit'])->name('course-categories.edit');
+        Route::match(['PUT', 'POST'], '/course-categories/{courseCategory}', [\App\Http\Controllers\Admin\CourseCategoryController::class, 'update'])->name('course-categories.update');
+        Route::delete('/course-categories/{courseCategory}', [\App\Http\Controllers\Admin\CourseCategoryController::class, 'destroy'])->name('course-categories.destroy');
+
+        // Course Category Actions
+        Route::post('/course-categories/{courseCategory}/toggle-status', [\App\Http\Controllers\Admin\CourseCategoryController::class, 'toggleStatus'])->name('course-categories.toggle-status');
+        Route::post('/course-categories/sort-order', [\App\Http\Controllers\Admin\CourseCategoryController::class, 'updateSortOrder'])->name('course-categories.sort-order');
+
+        // Courses Management Routes
+        Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+        Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
+        Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
+        Route::get('/courses/{course}', [CourseController::class, 'show'])->name('courses.show');
+        Route::get('/courses/{course}/edit', [CourseController::class, 'edit'])->name('courses.edit');
+        Route::match(['PUT', 'POST'], '/courses/{course}', [CourseController::class, 'update'])->name('courses.update');
+        Route::delete('/courses/{course}', [CourseController::class, 'destroy'])->name('courses.destroy');
+
+        // Course Actions
+        Route::post('/courses/{course}/publish', [CourseController::class, 'publish'])->name('courses.publish');
+        Route::post('/courses/{course}/unpublish', [CourseController::class, 'unpublish'])->name('courses.unpublish');
+        Route::post('/courses/{course}/toggle-featured', [CourseController::class, 'toggleFeatured'])->name('courses.toggle-featured');
+        Route::post('/courses/{course}/toggle-bestseller', [CourseController::class, 'toggleBestseller'])->name('courses.toggle-bestseller');
+        Route::post('/courses/{course}/duplicate', [CourseController::class, 'duplicate'])->name('courses.duplicate');
+        Route::post('/courses/bulk-action', [CourseController::class, 'bulkAction'])->name('courses.bulk-action');
     });
 });

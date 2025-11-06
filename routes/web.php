@@ -3,20 +3,22 @@
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CourseController;
 use App\Http\DataProviders\PracticeLabsDataProvider;
 use App\Http\DataProviders\ExamLabsDataProvider;
 use App\Http\DataProviders\LabStepsDataProvider;
 use App\Http\DataProviders\DumpsDataProvider;
 use App\Http\DataProviders\DumpDetailDataProvider;
-use App\Http\DataProviders\CoursesDataProvider;
 use App\Http\DataProviders\ServicesDataProvider;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
+    $courseController = new CourseController();
     return Inertia::render('Home/Index', [
         'message' => 'Welcome to DevOpsJungle!',
-        'popularExams' => App\Http\DataProviders\DumpsDataProvider::getPopularExams(3)
+        'popularExams' => App\Http\DataProviders\DumpsDataProvider::getPopularExams(3),
+        'featuredCourses' => $courseController->getFeaturedCourses()
     ]);
 });
 
@@ -47,19 +49,8 @@ Route::get('/dumps/{id}', function ($id) {
     return Inertia::render('Dumps/Detail', $data);
 })->name('dumps.show');
 
-Route::get('/courses', function () {
-    return Inertia::render('Courses/Index', CoursesDataProvider::getIndexData());
-})->name('courses');
-
-Route::get('/courses/{id}', function ($id) {
-    $data = CoursesDataProvider::getDetailPageData($id);
-
-    if (empty($data)) {
-        abort(404);
-    }
-
-    return Inertia::render('Courses/Detail', $data);
-})->name('courses.show');
+Route::get('/courses', [CourseController::class, 'index'])->name('courses');
+Route::get('/courses/{slug}', [CourseController::class, 'show'])->name('courses.show');
 
 Route::get('/services', function () {
     return Inertia::render('Services/Index', ServicesDataProvider::getIndexData());
