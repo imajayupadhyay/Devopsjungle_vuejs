@@ -97,24 +97,25 @@
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <h4 class="font-semibold text-sm text-gray-800 dark:text-white mb-2 flex items-center">
-                    <i class="fas fa-graduation-cap text-blue-500 mr-2 text-sm"></i>
-                    Training
+                    <i class="fas fa-user-friends text-emerald-500 mr-2 text-sm"></i>
+                    Training & Mentorship
                   </h4>
                   <ul class="space-y-1">
-                    <li><a href="/services/corporate-devops-training" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Corporate Training</a></li>
-                    <li><a href="/services/one-on-one-devops-mentoring" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">1-on-1 Mentoring</a></li>
-                    <li><a href="/services" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">All Training Services</a></li>
+                    <li><a href="/services/mentorship" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">One-to-One Mentorship</a></li>
+                    <li><a href="/services/transition-devops" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Transition to DevOps</a></li>
+                    <li><a href="/services" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">View All Services</a></li>
                   </ul>
                 </div>
                 <div>
                   <h4 class="font-semibold text-sm text-gray-800 dark:text-white mb-2 flex items-center">
-                    <i class="fas fa-briefcase text-purple-500 mr-2 text-sm"></i>
-                    Career Support
+                    <i class="fas fa-briefcase text-teal-500 mr-2 text-sm"></i>
+                    Career & Consulting
                   </h4>
                   <ul class="space-y-1">
-                    <li><a href="/services/job-placement-assistance" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Job Placement</a></li>
-                    <li><a href="/services" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Career Consulting</a></li>
-                    <li><a href="/services" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">All Career Services</a></li>
+                    <li><a href="/services/career-guidance" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Career Guidance</a></li>
+                    <li><a href="/services/cloud-services" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Cloud Services</a></li>
+                    <li><a href="/services/migration-services" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Migration Services</a></li>
+                    <li><a href="/services/development-services" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Development Services</a></li>
                   </ul>
                 </div>
               </div>
@@ -232,9 +233,12 @@
               <i class="fas fa-chevron-down text-xs"></i>
             </button>
             <div class="submenu pl-8 space-y-1">
-              <a href="/services/corporate-devops-training" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Corporate Training</a>
-              <a href="/services/one-on-one-devops-mentoring" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">1-on-1 Mentoring</a>
-              <a href="/services/job-placement-assistance" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Job Placement</a>
+              <a href="/services/mentorship" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">One-to-One Mentorship</a>
+              <a href="/services/career-guidance" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Career Guidance</a>
+              <a href="/services/transition-devops" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Transition to DevOps</a>
+              <a href="/services/cloud-services" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Cloud Services</a>
+              <a href="/services/migration-services" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Migration Services</a>
+              <a href="/services/development-services" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Development Services</a>
             </div>
           </div>
 

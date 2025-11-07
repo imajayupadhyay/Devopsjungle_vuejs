@@ -280,10 +280,10 @@
                   </li>
                 </ul>
 
-                <button class="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-200">
+                <a href="/services/transition-devops" class="block w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-200 text-center">
                   Learn More
                   <i class="fas fa-arrow-right ml-2"></i>
-                </button>
+                </a>
               </div>
             </div>
 
@@ -321,10 +321,10 @@
                   </li>
                 </ul>
 
-                <button class="w-full py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-200">
+                <a href="/services/migration-services" class="block w-full py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-200 text-center">
                   Learn More
                   <i class="fas fa-arrow-right ml-2"></i>
-                </button>
+                </a>
               </div>
             </div>
 
@@ -362,10 +362,10 @@
                   </li>
                 </ul>
 
-                <button class="w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-200">
+                <a href="/services/cloud-services" class="block w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-200 text-center">
                   Learn More
                   <i class="fas fa-arrow-right ml-2"></i>
-                </button>
+                </a>
               </div>
             </div>
 
@@ -403,10 +403,10 @@
                   </li>
                 </ul>
 
-                <button class="w-full py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-green-500/50 transition-all duration-200">
+                <a href="/services/development-services" class="block w-full py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-green-500/50 transition-all duration-200 text-center">
                   Learn More
                   <i class="fas fa-arrow-right ml-2"></i>
-                </button>
+                </a>
               </div>
             </div>
           </div>
