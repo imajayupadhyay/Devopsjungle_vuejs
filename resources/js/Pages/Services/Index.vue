@@ -1,213 +1,437 @@
 <template>
   <div class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 transition-colors duration-200">
-    <!-- Include AOS -->
     <Head>
-      <title>DevOps Services - DevOps Jungle</title>
-      <meta name="description" content="Professional DevOps services including training, consulting, mentoring, job assistance, and career preparation. Transform your DevOps journey with expert guidance.">
+      <title>Professional DevOps Services - DevOps Jungle</title>
+      <meta name="description" content="Transform your career and business with our premium DevOps services. One-to-one mentorship, career guidance, cloud migration, and development services.">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     </Head>
 
-    <!-- Header -->
     <DevOpsHeader />
 
-    <!-- Main Content -->
     <main>
-      <!-- Hero Section -->
-      <section class="gradient-bg py-16 lg:py-20">
+      <!-- Hero Section with Animated SVG -->
+      <section class="relative overflow-hidden bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 dark:from-gray-900 dark:via-emerald-950 dark:to-gray-900 py-20 lg:py-32">
+        <!-- Floating Elements Background -->
+        <div class="absolute inset-0 overflow-hidden">
+          <div class="absolute top-20 left-10 w-72 h-72 bg-emerald-200/30 dark:bg-emerald-500/10 rounded-full blur-3xl animate-blob"></div>
+          <div class="absolute top-40 right-10 w-96 h-96 bg-teal-200/30 dark:bg-teal-500/10 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+          <div class="absolute -bottom-32 left-1/3 w-96 h-96 bg-green-200/30 dark:bg-green-500/10 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+          <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Content -->
+            <div data-aos="fade-right">
+              <div class="inline-flex items-center px-4 py-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-full mb-6">
+                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse mr-2"></span>
+                <span class="text-sm font-medium text-emerald-800 dark:text-emerald-300">Premium DevOps Services</span>
+              </div>
+
+              <h1 class="text-5xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                Accelerate Your
+                <span class="block bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 bg-clip-text text-transparent">
+                  DevOps Journey
+                </span>
+              </h1>
+
+              <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                From personalized mentorship to enterprise cloud solutions, we provide end-to-end DevOps services tailored to your needs.
+              </p>
+
+              <div class="flex flex-wrap gap-4 mb-12">
+                <button class="px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/50 transform hover:-translate-y-1 transition-all duration-200">
+                  Explore Services
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+                <button class="px-8 py-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl font-semibold border-2 border-gray-200 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-200">
+                  Book Consultation
+                </button>
+              </div>
+
+              <!-- Trust Indicators -->
+              <div class="flex flex-wrap gap-8">
+                <div>
+                  <div class="text-3xl font-bold text-gray-900 dark:text-white">500+</div>
+                  <div class="text-sm text-gray-600 dark:text-gray-400">Happy Clients</div>
+                </div>
+                <div>
+                  <div class="text-3xl font-bold text-gray-900 dark:text-white">98%</div>
+                  <div class="text-sm text-gray-600 dark:text-gray-400">Satisfaction Rate</div>
+                </div>
+                <div>
+                  <div class="text-3xl font-bold text-gray-900 dark:text-white">24/7</div>
+                  <div class="text-sm text-gray-600 dark:text-gray-400">Support Available</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right SVG Illustration -->
+            <div class="relative" data-aos="fade-left">
+              <div class="relative w-full h-[500px]">
+                <!-- Animated SVG Illustration -->
+                <svg viewBox="0 0 500 500" class="w-full h-full">
+                  <!-- Cloud -->
+                  <g class="animate-float">
+                    <ellipse cx="250" cy="150" rx="80" ry="50" fill="url(#cloudGradient)" opacity="0.9"/>
+                    <ellipse cx="210" cy="140" rx="60" ry="40" fill="url(#cloudGradient)" opacity="0.95"/>
+                    <ellipse cx="290" cy="140" rx="60" ry="40" fill="url(#cloudGradient)" opacity="0.95"/>
+                  </g>
+
+                  <!-- Floating Icons -->
+                  <g class="animate-pulse-slow">
+                    <circle cx="150" cy="200" r="30" fill="url(#icon1Gradient)" opacity="0.8"/>
+                    <text x="150" y="210" text-anchor="middle" fill="white" font-size="20">👨‍💼</text>
+                  </g>
+
+                  <g class="animate-pulse-slow animation-delay-1000">
+                    <circle cx="350" cy="220" r="30" fill="url(#icon2Gradient)" opacity="0.8"/>
+                    <text x="350" y="230" text-anchor="middle" fill="white" font-size="20">☁️</text>
+                  </g>
+
+                  <g class="animate-pulse-slow animation-delay-2000">
+                    <circle cx="180" cy="320" r="30" fill="url(#icon3Gradient)" opacity="0.8"/>
+                    <text x="180" y="330" text-anchor="middle" fill="white" font-size="20">🚀</text>
+                  </g>
+
+                  <g class="animate-pulse-slow animation-delay-3000">
+                    <circle cx="320" cy="340" r="30" fill="url(#icon4Gradient)" opacity="0.8"/>
+                    <text x="320" y="350" text-anchor="middle" fill="white" font-size="20">💻</text>
+                  </g>
+
+                  <!-- Central Element -->
+                  <g transform="translate(250, 280)">
+                    <circle r="60" fill="url(#centralGradient)" class="animate-ping-slow"/>
+                    <circle r="50" fill="url(#centralGradient)"/>
+                    <text y="10" text-anchor="middle" fill="white" font-size="30" font-weight="bold">DevOps</text>
+                  </g>
+
+                  <!-- Connecting Lines -->
+                  <g stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="5,5" opacity="0.6" class="animate-dash">
+                    <line x1="150" y1="200" x2="220" y2="250"/>
+                    <line x1="350" y1="220" x2="280" y2="250"/>
+                    <line x1="180" y1="320" x2="220" y2="290"/>
+                    <line x1="320" y1="340" x2="280" y2="290"/>
+                  </g>
+
+                  <!-- Gradients -->
+                  <defs>
+                    <linearGradient id="cloudGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.8" />
+                      <stop offset="100%" style="stop-color:#14b8a6;stop-opacity:0.9" />
+                    </linearGradient>
+                    <linearGradient id="icon1Gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#047857;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="icon2Gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#0d9488;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#0f766e;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="icon3Gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="icon4Gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#14b8a6;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#0d9488;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="centralGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#047857;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#0f766e;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.6" />
+                      <stop offset="100%" style="stop-color:#14b8a6;stop-opacity:0.6" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services Grid -->
+      <section class="py-20 bg-white dark:bg-gray-900">
         <div class="max-w-7xl mx-auto px-4">
-          <div class="text-center mb-12" data-aos="fade-up">
-            <div class="flex justify-center mb-6">
-              <!-- Animated Service Icon -->
+          <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              Our Premium Services
+            </h2>
+            <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+              Comprehensive DevOps solutions designed to transform your career and business
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Service Card 1: One-to-One Mentorship -->
+            <div class="group relative bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 border-2 border-gray-100 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2" data-aos="fade-up">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-400/20 to-teal-400/20 rounded-bl-full"></div>
+
               <div class="relative">
-                <div class="w-24 h-24 gradient-btn rounded-2xl flex items-center justify-center animate-float">
-                  <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 14l9-5-9-5-9 5 9 5z"/>
-                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                   </svg>
                 </div>
-                <div class="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center animate-bounce">
-                  <i class="fas fa-handshake text-yellow-800 text-sm"></i>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                  One-to-One Mentorship
+                </h3>
+
+                <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                  Personalized guidance from industry experts. Get tailored career advice, technical mentorship, and hands-on project support.
+                </p>
+
+                <ul class="space-y-2 mb-6">
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-emerald-500 mr-2"></i>
+                    Weekly 1-on-1 sessions
+                  </li>
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-emerald-500 mr-2"></i>
+                    Personalized learning path
+                  </li>
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-emerald-500 mr-2"></i>
+                    Real-world project guidance
+                  </li>
+                </ul>
+
+                <a href="/services/mentorship" class="block w-full py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/50 transition-all duration-200 text-center">
+                  Learn More
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Service Card 2: Career Guidance -->
+            <div class="group relative bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 border-2 border-gray-100 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2" data-aos="fade-up" data-aos-delay="100">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-indigo-400/20 rounded-bl-full"></div>
+
+              <div class="relative">
+                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                  </svg>
                 </div>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                  Career Guidance
+                </h3>
+
+                <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                  Strategic career planning and job placement support. Navigate your DevOps career path with confidence and clarity.
+                </p>
+
+                <ul class="space-y-2 mb-6">
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-blue-500 mr-2"></i>
+                    Resume & portfolio review
+                  </li>
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-blue-500 mr-2"></i>
+                    Interview preparation
+                  </li>
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-blue-500 mr-2"></i>
+                    Job placement assistance
+                  </li>
+                </ul>
+
+                <a href="/services/career-guidance" class="block w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-200 text-center">
+                  Learn More
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </a>
               </div>
             </div>
-            <h1 class="text-4xl lg:text-6xl font-bold text-gray-800 dark:text-white mb-6 leading-tight">
-              Professional <span class="gradient-text">DevOps Services</span>
-            </h1>
-            <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Accelerate your DevOps journey with our comprehensive services. From expert training and consulting to career guidance and job assistance - we've got you covered.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <div class="flex items-center text-gray-600 dark:text-gray-300">
-                <i class="fas fa-award text-blue-500 mr-2"></i>
-                <span>Expert Consultants</span>
+
+            <!-- Service Card 3: DevOps Transition -->
+            <div class="group relative bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 border-2 border-gray-100 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2" data-aos="fade-up" data-aos-delay="200">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-bl-full"></div>
+
+              <div class="relative">
+                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                  </svg>
+                </div>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                  Transition to DevOps
+                </h3>
+
+                <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                  Complete career transition program. Move from any IT background into a thriving DevOps career with structured guidance.
+                </p>
+
+                <ul class="space-y-2 mb-6">
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                    Skills gap analysis
+                  </li>
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                    Structured learning path
+                  </li>
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                    Industry networking
+                  </li>
+                </ul>
+
+                <button class="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-200">
+                  Learn More
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </button>
               </div>
-              <div class="flex items-center text-gray-600 dark:text-gray-300">
-                <i class="fas fa-users text-green-500 mr-2"></i>
-                <span>5000+ Successful Projects</span>
+            </div>
+
+            <!-- Service Card 4: Migration Services -->
+            <div class="group relative bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 border-2 border-gray-100 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2" data-aos="fade-up">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-400/20 to-red-400/20 rounded-bl-full"></div>
+
+              <div class="relative">
+                <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
+                  </svg>
+                </div>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                  Migration Services
+                </h3>
+
+                <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                  Seamless cloud migration solutions. Move your infrastructure to modern cloud platforms with zero downtime and optimized costs.
+                </p>
+
+                <ul class="space-y-2 mb-6">
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-orange-500 mr-2"></i>
+                    Assessment & planning
+                  </li>
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-orange-500 mr-2"></i>
+                    Zero-downtime migration
+                  </li>
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-orange-500 mr-2"></i>
+                    Post-migration support
+                  </li>
+                </ul>
+
+                <button class="w-full py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-200">
+                  Learn More
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </button>
               </div>
-              <div class="flex items-center text-gray-600 dark:text-gray-300">
-                <i class="fas fa-briefcase text-purple-500 mr-2"></i>
-                <span>95% Job Placement Rate</span>
+            </div>
+
+            <!-- Service Card 5: Cloud Services -->
+            <div class="group relative bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 border-2 border-gray-100 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2" data-aos="fade-up" data-aos-delay="100">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-400/20 rounded-bl-full"></div>
+
+              <div class="relative">
+                <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+                  </svg>
+                </div>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                  Cloud Services
+                </h3>
+
+                <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                  Comprehensive cloud architecture and management. Design, deploy, and optimize your cloud infrastructure for maximum efficiency.
+                </p>
+
+                <ul class="space-y-2 mb-6">
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-cyan-500 mr-2"></i>
+                    Multi-cloud architecture
+                  </li>
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-cyan-500 mr-2"></i>
+                    Cost optimization
+                  </li>
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-cyan-500 mr-2"></i>
+                    24/7 monitoring
+                  </li>
+                </ul>
+
+                <button class="w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-200">
+                  Learn More
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </button>
               </div>
             </div>
-          </div>
 
-          <!-- Stats -->
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="text-center">
-              <div class="text-3xl font-bold gradient-text">{{ stats.totalServices }}</div>
-              <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Total Services</p>
-            </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold gradient-text">{{ stats.completedProjects }}</div>
-              <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Completed Projects</p>
-            </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold gradient-text">{{ stats.successRate }}%</div>
-              <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Success Rate</p>
-            </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold gradient-text">{{ stats.expertConsultants }}</div>
-              <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Expert Consultants</p>
-            </div>
-          </div>
-        </div>
-      </section>
+            <!-- Service Card 6: Development Services -->
+            <div class="group relative bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 border-2 border-gray-100 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2" data-aos="fade-up" data-aos-delay="200">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-400/20 to-emerald-400/20 rounded-bl-full"></div>
 
-      <!-- Filters Section -->
-      <section class="py-8 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 sticky top-16 z-40">
-        <div class="max-w-7xl mx-auto px-4">
-          <ServiceFilters
-            :categories="categories"
-            :selected-category="selectedCategory"
-            :search-query="searchQuery"
-            :type-filter="typeFilter"
-            :price-filter="priceFilter"
-            :sort-option="sortOption"
-            @category-change="handleCategoryChange"
-            @search-change="handleSearchChange"
-            @type-change="handleTypeChange"
-            @price-change="handlePriceChange"
-            @sort-change="handleSortChange"
-            @clear-filters="clearFilters"
-          />
-        </div>
-      </section>
+              <div class="relative">
+                <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                  </svg>
+                </div>
 
-      <!-- Results Section -->
-      <section class="py-16 bg-gray-50 dark:bg-gray-800">
-        <div class="max-w-7xl mx-auto px-4">
-          <!-- Results Header -->
-          <div class="flex justify-between items-center mb-8" data-aos="fade-up">
-            <div>
-              <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
-                {{ filteredServices.length }} {{ selectedCategory === 'all' ? 'Professional Services' : `${getCategoryName(selectedCategory)} Services` }}
-              </h2>
-              <p class="text-gray-600 dark:text-gray-300 mt-1">
-                {{ searchQuery ? `Results for "${searchQuery}"` : 'Choose the perfect service to accelerate your DevOps career' }}
-              </p>
-            </div>
-          </div>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                  Development Services
+                </h3>
 
-          <!-- No Results -->
-          <div v-if="filteredServices.length === 0" class="text-center py-16" data-aos="fade-up">
-            <div class="w-24 h-24 mx-auto mb-6 text-gray-400 dark:text-gray-500">
-              <i class="fas fa-search text-6xl"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">No services found</h3>
-            <p class="text-gray-600 dark:text-gray-300 mb-6">Try adjusting your filters or search terms</p>
-            <button @click="clearFilters" class="gradient-btn text-white px-6 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity">
-              Clear All Filters
-            </button>
-          </div>
+                <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                  Custom DevOps tool development and automation. Build, automate, and streamline your DevOps workflows with cutting-edge solutions.
+                </p>
 
-          <!-- Service Cards Grid -->
-          <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <ServiceCard
-              v-for="(service, index) in filteredServices"
-              :key="service.id"
-              :service="service"
-              :data-aos="'fade-up'"
-              :data-aos-delay="index * 100"
-              @get-started="handleGetStarted"
-              @learn-more="handleLearnMore"
-            />
-          </div>
+                <ul class="space-y-2 mb-6">
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                    Custom CI/CD pipelines
+                  </li>
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                    Automation scripts
+                  </li>
+                  <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                    IaC templates
+                  </li>
+                </ul>
 
-          <!-- Load More Button -->
-          <div v-if="canLoadMore" class="text-center mt-12" data-aos="fade-up">
-            <button @click="loadMore" class="gradient-btn text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transform hover:scale-105 transition-all duration-200">
-              <i class="fas fa-plus mr-2"></i>
-              Load More Services
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Why Choose Us Section -->
-      <section class="py-16 bg-white dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto px-4">
-          <div class="text-center mb-12" data-aos="fade-up">
-            <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white mb-4">
-              Why Choose DevOps Jungle?
-            </h2>
-            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              We're committed to your success with proven methodologies and industry expertise
-            </p>
-          </div>
-
-          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="text-center" data-aos="fade-up" data-aos-delay="100">
-              <div class="w-16 h-16 gradient-btn rounded-xl flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-medal text-white text-2xl"></i>
+                <button class="w-full py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-green-500/50 transition-all duration-200">
+                  Learn More
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </button>
               </div>
-              <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Industry Experts</h3>
-              <p class="text-gray-600 dark:text-gray-300">Learn from professionals with 10+ years of DevOps experience in Fortune 500 companies.</p>
-            </div>
-
-            <div class="text-center" data-aos="fade-up" data-aos-delay="200">
-              <div class="w-16 h-16 gradient-btn rounded-xl flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-chart-line text-white text-2xl"></i>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Proven Results</h3>
-              <p class="text-gray-600 dark:text-gray-300">95% job placement rate and 98% client satisfaction with measurable career growth.</p>
-            </div>
-
-            <div class="text-center" data-aos="fade-up" data-aos-delay="300">
-              <div class="w-16 h-16 gradient-btn rounded-xl flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-clock text-white text-2xl"></i>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Flexible Scheduling</h3>
-              <p class="text-gray-600 dark:text-gray-300">Personalized scheduling that fits your lifestyle and learning preferences.</p>
-            </div>
-
-            <div class="text-center" data-aos="fade-up" data-aos-delay="400">
-              <div class="w-16 h-16 gradient-btn rounded-xl flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-heart text-white text-2xl"></i>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Lifetime Support</h3>
-              <p class="text-gray-600 dark:text-gray-300">Ongoing support and mentorship even after completing your service.</p>
             </div>
           </div>
         </div>
       </section>
 
       <!-- CTA Section -->
-      <section class="py-16 gradient-bg">
-        <div class="max-w-4xl mx-auto px-4 text-center" data-aos="fade-up">
-          <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white mb-6">
-            Ready to Transform Your DevOps Career?
+      <section class="py-20 bg-gradient-to-br from-emerald-600 to-teal-600 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+          <div class="absolute inset-0 pattern-dots"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10" data-aos="fade-up">
+          <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
+            Ready to Transform Your DevOps Journey?
           </h2>
-          <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
-            Schedule a free consultation to discuss your goals and find the perfect service for your needs
+          <p class="text-xl text-emerald-50 mb-10 leading-relaxed">
+            Book a free consultation with our experts and discover how we can help you achieve your goals
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button class="gradient-btn text-white px-8 py-4 rounded-lg text-lg font-semibold hover:opacity-90 transform hover:scale-105 transition-all duration-200">
-              <i class="fas fa-calendar mr-2"></i>
+          <div class="flex flex-wrap justify-center gap-4">
+            <button class="px-8 py-4 bg-white text-emerald-600 rounded-xl font-bold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-200">
+              <i class="fas fa-calendar-alt mr-2"></i>
               Schedule Free Consultation
             </button>
-            <button class="border-2 border-primary-600 dark:border-primary-400 text-primary-600 dark:text-primary-400 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-50 dark:hover:bg-primary-900 transform hover:scale-105 transition-all duration-200">
+            <button class="px-8 py-4 bg-transparent border-2 border-white text-white rounded-xl font-bold hover:bg-white hover:text-emerald-600 transition-all duration-200">
               <i class="fas fa-phone mr-2"></i>
               Call Us Now
             </button>
@@ -216,7 +440,6 @@
       </section>
     </main>
 
-    <!-- Footer -->
     <DevOpsFooter />
   </div>
 </template>
@@ -225,626 +448,13 @@
 import { Head } from '@inertiajs/vue3'
 import DevOpsHeader from '../Common/Header.vue'
 import DevOpsFooter from '../Common/Footer.vue'
-import ServiceFilters from './Components/ServiceFilters.vue'
-import ServiceCard from './Components/ServiceCard.vue'
 
 export default {
   name: 'ServicesPage',
   components: {
     Head,
     DevOpsHeader,
-    DevOpsFooter,
-    ServiceFilters,
-    ServiceCard
-  },
-  data() {
-    return {
-      selectedCategory: 'all',
-      searchQuery: '',
-      typeFilter: 'all',
-      priceFilter: 'all',
-      sortOption: 'popularity',
-      displayLimit: 12,
-      stats: {
-        totalServices: '18+',
-        completedProjects: '5000+',
-        successRate: 95,
-        expertConsultants: 25
-      },
-
-      categories: [
-        { id: 'all', name: 'All Services', icon: 'fas fa-th-large', count: 18 },
-        { id: 'training', name: 'Training', icon: 'fas fa-graduation-cap', count: 5 },
-        { id: 'consulting', name: 'Consulting', icon: 'fas fa-cogs', count: 4 },
-        { id: 'mentoring', name: 'Mentoring', icon: 'fas fa-user-tie', count: 3 },
-        { id: 'job-assistance', name: 'Job Assistance', icon: 'fas fa-briefcase', count: 3 },
-        { id: 'bootcamp', name: 'Bootcamps', icon: 'fas fa-rocket', count: 2 },
-        { id: 'assessment', name: 'Assessment', icon: 'fas fa-clipboard-check', count: 1 }
-      ],
-
-      services: [
-        // Training Services
-        {
-          id: 'corporate-devops-training',
-          title: 'Corporate DevOps Training',
-          category: 'training',
-          description: 'Comprehensive DevOps training programs designed for enterprise teams. Covers CI/CD, cloud platforms, containerization, and automation.',
-          icon: 'fas fa-building',
-          features: [
-            'Customized curriculum for your tech stack',
-            'Hands-on workshops and labs',
-            'Team collaboration exercises',
-            'Progress tracking and assessments',
-            'Post-training support and resources',
-            'Certificate of completion'
-          ],
-          duration: '2-4 weeks',
-          deliveryTime: '1-2 weeks',
-          type: 'Corporate',
-          rating: 4.9,
-          reviews: 156,
-          clients: 240,
-          pricing: {
-            display: 'Custom Quote',
-            period: '',
-            originalPrice: null,
-            savings: null
-          },
-          popular: true
-        },
-        {
-          id: 'individual-devops-mastery',
-          title: 'Individual DevOps Mastery Program',
-          category: 'training',
-          description: 'Intensive one-on-one DevOps training program tailored to your specific career goals and current skill level.',
-          icon: 'fas fa-user-graduate',
-          features: [
-            'Personalized learning path',
-            'Weekly 1-on-1 sessions',
-            'Real-world project assignments',
-            'Career guidance and roadmap',
-            'Resume and portfolio review',
-            'Interview preparation'
-          ],
-          duration: '12 weeks',
-          deliveryTime: '1 week',
-          type: 'Individual',
-          rating: 4.8,
-          reviews: 89,
-          clients: 320,
-          pricing: {
-            display: '$2,499',
-            period: '',
-            originalPrice: 3299,
-            savings: 24
-          },
-          popular: false
-        },
-        {
-          id: 'aws-devops-specialist',
-          title: 'AWS DevOps Specialist Training',
-          category: 'training',
-          description: 'Become an AWS DevOps expert with comprehensive training on AWS services, automation, and best practices.',
-          icon: 'fab fa-aws',
-          features: [
-            'AWS DevOps Professional certification prep',
-            'Hands-on AWS labs',
-            'CI/CD with AWS native tools',
-            'Infrastructure as Code with CloudFormation',
-            'Monitoring and logging strategies',
-            'Cost optimization techniques'
-          ],
-          duration: '8 weeks',
-          deliveryTime: '3-5 days',
-          type: 'Group',
-          rating: 4.7,
-          reviews: 203,
-          clients: 445,
-          pricing: {
-            display: '$1,299',
-            period: '',
-            originalPrice: 1799,
-            savings: 28
-          },
-          popular: true
-        },
-        {
-          id: 'kubernetes-orchestration',
-          title: 'Kubernetes Orchestration Mastery',
-          category: 'training',
-          description: 'Master container orchestration with Kubernetes. From basics to advanced cluster management and production deployment.',
-          icon: 'fas fa-dharmachakra',
-          features: [
-            'Kubernetes fundamentals to advanced',
-            'Cluster setup and management',
-            'Application deployment strategies',
-            'Monitoring and troubleshooting',
-            'Security best practices',
-            'CKA/CKAD exam preparation'
-          ],
-          duration: '6 weeks',
-          deliveryTime: '1 week',
-          type: 'Group',
-          rating: 4.8,
-          reviews: 167,
-          clients: 298,
-          pricing: {
-            display: '$999',
-            period: '',
-            originalPrice: 1399,
-            savings: 29
-          },
-          popular: false
-        },
-        {
-          id: 'cicd-pipeline-bootcamp',
-          title: 'CI/CD Pipeline Bootcamp',
-          category: 'training',
-          description: 'Intensive bootcamp covering modern CI/CD practices with Jenkins, GitLab CI, GitHub Actions, and deployment strategies.',
-          icon: 'fas fa-code-branch',
-          features: [
-            'Multi-platform CI/CD tools',
-            'Pipeline as Code practices',
-            'Automated testing integration',
-            'Deployment strategies and rollbacks',
-            'Security scanning and compliance',
-            'Performance monitoring integration'
-          ],
-          duration: '4 weeks',
-          deliveryTime: '1 week',
-          type: 'Group',
-          rating: 4.6,
-          reviews: 134,
-          clients: 187,
-          pricing: {
-            display: '$799',
-            period: '',
-            originalPrice: 1099,
-            savings: 27
-          },
-          popular: false
-        },
-
-        // Consulting Services
-        {
-          id: 'devops-transformation-consulting',
-          title: 'DevOps Transformation Consulting',
-          category: 'consulting',
-          description: 'End-to-end DevOps transformation consulting for organizations looking to modernize their software delivery practices.',
-          icon: 'fas fa-chart-line',
-          features: [
-            'Current state assessment',
-            'DevOps strategy development',
-            'Tool selection and implementation',
-            'Process optimization',
-            'Team training and change management',
-            'Success metrics and KPIs'
-          ],
-          duration: '3-6 months',
-          deliveryTime: '1 week',
-          type: 'Corporate',
-          rating: 4.9,
-          reviews: 67,
-          clients: 89,
-          pricing: {
-            display: 'From $15K',
-            period: '/project',
-            originalPrice: null,
-            savings: null
-          },
-          popular: true
-        },
-        {
-          id: 'cloud-migration-strategy',
-          title: 'Cloud Migration Strategy & Implementation',
-          category: 'consulting',
-          description: 'Expert guidance for migrating applications and infrastructure to cloud platforms with minimal downtime and risk.',
-          icon: 'fas fa-cloud-upload-alt',
-          features: [
-            'Migration readiness assessment',
-            'Cloud platform selection',
-            'Migration strategy and roadmap',
-            'Risk mitigation planning',
-            'Cost optimization analysis',
-            'Post-migration optimization'
-          ],
-          duration: '2-4 months',
-          deliveryTime: '1-2 weeks',
-          type: 'Corporate',
-          rating: 4.8,
-          reviews: 45,
-          clients: 72,
-          pricing: {
-            display: 'From $12K',
-            period: '/project',
-            originalPrice: null,
-            savings: null
-          },
-          popular: false
-        },
-        {
-          id: 'security-compliance-audit',
-          title: 'DevSecOps & Compliance Audit',
-          category: 'consulting',
-          description: 'Comprehensive security and compliance audit of your DevOps practices with actionable recommendations.',
-          icon: 'fas fa-shield-alt',
-          features: [
-            'Security posture assessment',
-            'Compliance gap analysis',
-            'Vulnerability management review',
-            'DevSecOps tool integration',
-            'Policy and procedure development',
-            'Remediation roadmap'
-          ],
-          duration: '4-6 weeks',
-          deliveryTime: '1 week',
-          type: 'Corporate',
-          rating: 4.7,
-          reviews: 38,
-          clients: 56,
-          pricing: {
-            display: 'From $8K',
-            period: '/audit',
-            originalPrice: null,
-            savings: null
-          },
-          popular: false
-        },
-        {
-          id: 'performance-optimization',
-          title: 'Performance Optimization Consulting',
-          category: 'consulting',
-          description: 'Optimize your application and infrastructure performance with expert analysis and implementation strategies.',
-          icon: 'fas fa-tachometer-alt',
-          features: [
-            'Performance bottleneck analysis',
-            'Infrastructure optimization',
-            'Application performance tuning',
-            'Monitoring and alerting setup',
-            'Capacity planning',
-            'Cost vs performance optimization'
-          ],
-          duration: '6-8 weeks',
-          deliveryTime: '1 week',
-          type: 'Corporate',
-          rating: 4.6,
-          reviews: 29,
-          clients: 43,
-          pricing: {
-            display: 'From $10K',
-            period: '/project',
-            originalPrice: null,
-            savings: null
-          },
-          popular: false
-        },
-
-        // Mentoring Services
-        {
-          id: 'senior-devops-mentoring',
-          title: 'Senior DevOps Engineer Mentoring',
-          category: 'mentoring',
-          description: 'One-on-one mentoring with senior DevOps engineers to accelerate your career growth and technical expertise.',
-          icon: 'fas fa-user-tie',
-          features: [
-            'Weekly 1-on-1 video sessions',
-            'Personalized career roadmap',
-            'Code and architecture reviews',
-            'Interview preparation and practice',
-            'Industry insights and networking',
-            'Goal setting and progress tracking'
-          ],
-          duration: '6 months',
-          deliveryTime: '2-3 days',
-          type: 'Individual',
-          rating: 4.9,
-          reviews: 142,
-          clients: 186,
-          pricing: {
-            display: '$299',
-            period: '/month',
-            originalPrice: 399,
-            savings: 25
-          },
-          popular: true
-        },
-        {
-          id: 'leadership-transition-coaching',
-          title: 'Technical Leadership Transition Coaching',
-          category: 'mentoring',
-          description: 'Specialized coaching for engineers transitioning to technical leadership roles in DevOps organizations.',
-          icon: 'fas fa-crown',
-          features: [
-            'Leadership skills development',
-            'Team management strategies',
-            'Technical decision making',
-            'Stakeholder communication',
-            'Conflict resolution techniques',
-            'Engineering culture building'
-          ],
-          duration: '4 months',
-          deliveryTime: '1 week',
-          type: 'Individual',
-          rating: 4.8,
-          reviews: 67,
-          clients: 89,
-          pricing: {
-            display: '$449',
-            period: '/month',
-            originalPrice: 599,
-            savings: 25
-          },
-          popular: false
-        },
-        {
-          id: 'startup-cto-advisory',
-          title: 'Startup CTO Advisory',
-          category: 'mentoring',
-          description: 'Strategic technical advisory for startup CTOs and technical founders building scalable DevOps practices.',
-          icon: 'fas fa-rocket',
-          features: [
-            'Technical strategy planning',
-            'Architecture and scalability review',
-            'Team building and hiring',
-            'Vendor and tool selection',
-            'Investor presentation support',
-            'Technical due diligence preparation'
-          ],
-          duration: '12 months',
-          deliveryTime: '1 week',
-          type: 'Individual',
-          rating: 4.7,
-          reviews: 23,
-          clients: 31,
-          pricing: {
-            display: '$799',
-            period: '/month',
-            originalPrice: null,
-            savings: null
-          },
-          popular: false
-        },
-
-        // Job Assistance Services
-        {
-          id: 'devops-job-placement',
-          title: 'DevOps Job Placement Program',
-          category: 'job-assistance',
-          description: 'Comprehensive job placement assistance with resume optimization, interview coaching, and direct employer connections.',
-          icon: 'fas fa-briefcase',
-          features: [
-            'Resume and LinkedIn optimization',
-            'Portfolio project development',
-            'Mock interview sessions',
-            'Salary negotiation coaching',
-            'Direct employer connections',
-            'Job placement guarantee'
-          ],
-          duration: '3 months',
-          deliveryTime: '1 week',
-          type: 'Individual',
-          rating: 4.8,
-          reviews: 234,
-          clients: 312,
-          pricing: {
-            display: '$1,499',
-            period: '',
-            originalPrice: 1999,
-            savings: 25
-          },
-          popular: true
-        },
-        {
-          id: 'career-transition-support',
-          title: 'Career Transition Support',
-          category: 'job-assistance',
-          description: 'Specialized support for professionals transitioning from other IT roles into DevOps positions.',
-          icon: 'fas fa-exchange-alt',
-          features: [
-            'Skills gap analysis',
-            'Targeted learning plan',
-            'Transition timeline planning',
-            'Industry networking introductions',
-            'Transition story development',
-            'Ongoing support during transition'
-          ],
-          duration: '4 months',
-          deliveryTime: '1 week',
-          type: 'Individual',
-          rating: 4.7,
-          reviews: 98,
-          clients: 156,
-          pricing: {
-            display: '$899',
-            period: '',
-            originalPrice: 1199,
-            savings: 25
-          },
-          popular: false
-        },
-        {
-          id: 'freelance-devops-setup',
-          title: 'Freelance DevOps Consultant Setup',
-          category: 'job-assistance',
-          description: 'Complete setup and guidance for starting a successful DevOps freelancing or consulting practice.',
-          icon: 'fas fa-laptop-code',
-          features: [
-            'Business setup and legal guidance',
-            'Service offering development',
-            'Pricing strategy consultation',
-            'Client acquisition strategies',
-            'Contract templates and proposals',
-            'Ongoing business mentoring'
-          ],
-          duration: '2 months',
-          deliveryTime: '1 week',
-          type: 'Individual',
-          rating: 4.6,
-          reviews: 45,
-          clients: 67,
-          pricing: {
-            display: '$1,199',
-            period: '',
-            originalPrice: 1599,
-            savings: 25
-          },
-          popular: false
-        },
-
-        // Bootcamp Services
-        {
-          id: 'devops-career-bootcamp',
-          title: 'DevOps Career Acceleration Bootcamp',
-          category: 'bootcamp',
-          description: 'Intensive 12-week bootcamp combining technical training, hands-on projects, and career preparation.',
-          icon: 'fas fa-rocket',
-          features: [
-            '12-week intensive program',
-            'Full-stack DevOps curriculum',
-            'Real-world project portfolio',
-            'Industry mentor assignment',
-            'Job placement assistance',
-            'Alumni network access'
-          ],
-          duration: '12 weeks',
-          deliveryTime: '2 weeks',
-          type: 'Group',
-          rating: 4.9,
-          reviews: 178,
-          clients: 234,
-          pricing: {
-            display: '$4,999',
-            period: '',
-            originalPrice: 6999,
-            savings: 29
-          },
-          popular: true
-        },
-        {
-          id: 'weekend-devops-intensive',
-          title: 'Weekend DevOps Intensive',
-          category: 'bootcamp',
-          description: 'Weekend-focused intensive program for working professionals looking to transition into DevOps.',
-          icon: 'fas fa-calendar-weekend',
-          features: [
-            '8-weekend program',
-            'Flexible weekend schedule',
-            'Working professional focused',
-            'Project-based learning',
-            'Career transition support',
-            'Networking opportunities'
-          ],
-          duration: '8 weeks',
-          deliveryTime: '1 week',
-          type: 'Group',
-          rating: 4.7,
-          reviews: 89,
-          clients: 123,
-          pricing: {
-            display: '$2,999',
-            period: '',
-            originalPrice: 3999,
-            savings: 25
-          },
-          popular: false
-        },
-
-        // Assessment Services
-        {
-          id: 'devops-skills-assessment',
-          title: 'Comprehensive DevOps Skills Assessment',
-          category: 'assessment',
-          description: 'Detailed assessment of your current DevOps skills with personalized learning recommendations and career guidance.',
-          icon: 'fas fa-clipboard-check',
-          features: [
-            'Comprehensive skills evaluation',
-            'Technical interview simulation',
-            'Detailed feedback report',
-            'Learning roadmap creation',
-            'Career guidance session',
-            'Progress tracking recommendations'
-          ],
-          duration: '1 week',
-          deliveryTime: '2-3 days',
-          type: 'Individual',
-          rating: 4.8,
-          reviews: 156,
-          clients: 298,
-          pricing: {
-            display: '$199',
-            period: '',
-            originalPrice: 299,
-            savings: 33
-          },
-          popular: false
-        }
-      ]
-    }
-  },
-  computed: {
-    filteredServices() {
-      let filtered = [...this.services]
-
-      // Category filter
-      if (this.selectedCategory !== 'all') {
-        filtered = filtered.filter(service => service.category === this.selectedCategory)
-      }
-
-      // Search filter
-      if (this.searchQuery) {
-        const query = this.searchQuery.toLowerCase()
-        filtered = filtered.filter(service =>
-          service.title.toLowerCase().includes(query) ||
-          service.description.toLowerCase().includes(query) ||
-          service.features.some(feature => feature.toLowerCase().includes(query))
-        )
-      }
-
-      // Type filter
-      if (this.typeFilter !== 'all') {
-        filtered = filtered.filter(service => service.type.toLowerCase() === this.typeFilter)
-      }
-
-      // Price filter
-      if (this.priceFilter !== 'all') {
-        filtered = filtered.filter(service => {
-          const price = this.extractPrice(service.pricing.display)
-          if (this.priceFilter === 'free') return price === 0
-          if (this.priceFilter === 'under-100') return price > 0 && price < 100
-          if (this.priceFilter === '100-500') return price >= 100 && price <= 500
-          if (this.priceFilter === '500-1000') return price > 500 && price <= 1000
-          if (this.priceFilter === 'over-1000') return price > 1000
-          return true
-        })
-      }
-
-      // Sort
-      switch (this.sortOption) {
-        case 'popularity':
-          filtered.sort((a, b) => b.clients - a.clients)
-          break
-        case 'rating':
-          filtered.sort((a, b) => b.rating - a.rating)
-          break
-        case 'price-low':
-          filtered.sort((a, b) => this.extractPrice(a.pricing.display) - this.extractPrice(b.pricing.display))
-          break
-        case 'price-high':
-          filtered.sort((a, b) => this.extractPrice(b.pricing.display) - this.extractPrice(a.pricing.display))
-          break
-        case 'newest':
-          // Assume services are already in newest first order
-          break
-        case 'duration':
-          filtered.sort((a, b) => this.extractDuration(a.duration) - this.extractDuration(b.duration))
-          break
-      }
-
-      return filtered.slice(0, this.displayLimit)
-    },
-    canLoadMore() {
-      return this.displayLimit < this.services.length
-    }
+    DevOpsFooter
   },
   mounted() {
     this.loadAOS()
@@ -872,86 +482,22 @@ export default {
         }
       }
       document.head.appendChild(script)
-    },
-    handleCategoryChange(category) {
-      this.selectedCategory = category
-      this.displayLimit = 12
-    },
-    handleSearchChange(query) {
-      this.searchQuery = query
-      this.displayLimit = 12
-    },
-    handleTypeChange(type) {
-      this.typeFilter = type
-      this.displayLimit = 12
-    },
-    handlePriceChange(price) {
-      this.priceFilter = price
-      this.displayLimit = 12
-    },
-    handleSortChange(sort) {
-      this.sortOption = sort
-    },
-    clearFilters() {
-      this.selectedCategory = 'all'
-      this.searchQuery = ''
-      this.typeFilter = 'all'
-      this.priceFilter = 'all'
-      this.sortOption = 'popularity'
-      this.displayLimit = 12
-    },
-    loadMore() {
-      this.displayLimit += 12
-    },
-    getCategoryName(categoryId) {
-      const category = this.categories.find(cat => cat.id === categoryId)
-      return category ? category.name : categoryId.toUpperCase()
-    },
-    handleGetStarted(service) {
-      // Navigate to service detail page or open contact form
-      this.$inertia.visit(`/services/${service.id}`)
-    },
-    handleLearnMore(service) {
-      // Navigate to service detail page
-      this.$inertia.visit(`/services/${service.id}`)
-    },
-    extractPrice(priceString) {
-      const match = priceString.match(/\$?(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)/)
-      return match ? parseInt(match[1].replace(',', '')) : 0
-    },
-    extractDuration(durationString) {
-      const match = durationString.match(/(\d+)/)
-      return match ? parseInt(match[1]) : 0
     }
   }
 }
 </script>
 
 <style scoped>
-.gradient-btn {
-  background: linear-gradient(135deg, #047857 0%, #10b981 100%);
-}
-
-.gradient-bg {
-  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
-}
-
-.dark .gradient-bg {
-  background: linear-gradient(135deg, #047857 0%, #065f46 50%, #064e3b 100%);
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, #047857 0%, #10b981 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.dark .gradient-text {
-  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
 }
 
 @keyframes float {
@@ -959,11 +505,76 @@ export default {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-20px);
   }
 }
 
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes ping-slow {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  75%, 100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
+.animation-delay-3000 {
+  animation-delay: 3s;
+}
+
 .animate-float {
-  animation: float 3s ease-in-out infinite;
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.animate-ping-slow {
+  animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-dash {
+  animation: dash 20s linear infinite;
+}
+
+.pattern-dots {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 </style>

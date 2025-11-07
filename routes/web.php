@@ -9,7 +9,6 @@ use App\Http\DataProviders\ExamLabsDataProvider;
 use App\Http\DataProviders\LabStepsDataProvider;
 use App\Http\DataProviders\DumpsDataProvider;
 use App\Http\DataProviders\DumpDetailDataProvider;
-use App\Http\DataProviders\ServicesDataProvider;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -53,18 +52,16 @@ Route::get('/courses', [CourseController::class, 'index'])->name('courses');
 Route::get('/courses/{slug}', [CourseController::class, 'show'])->name('courses.show');
 
 Route::get('/services', function () {
-    return Inertia::render('Services/Index', ServicesDataProvider::getIndexData());
+    return Inertia::render('Services/Index');
 })->name('services');
 
-Route::get('/services/{id}', function ($id) {
-    $data = ServicesDataProvider::getDetailPageData($id);
+Route::get('/services/mentorship', function () {
+    return Inertia::render('Services/Mentorship');
+})->name('services.mentorship');
 
-    if (empty($data)) {
-        abort(404);
-    }
-
-    return Inertia::render('Services/Detail', $data);
-})->name('services.show');
+Route::get('/services/career-guidance', function () {
+    return Inertia::render('Services/CareerGuidance');
+})->name('services.career-guidance');
 
 Route::get('/practice-labs', function () {
     return Inertia::render('PracticeLabs/Index', PracticeLabsDataProvider::getIndexData());
