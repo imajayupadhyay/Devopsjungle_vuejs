@@ -214,7 +214,7 @@ export default {
       selectedCategory: 'all',
       searchQuery: '',
       difficultyFilter: 'all',
-      sortOption: 'popularity',
+      sortOption: 'newest',
       viewMode: 'grid',
       displayLimit: 12,
 
@@ -351,7 +351,7 @@ export default {
       this.selectedCategory = 'all'
       this.searchQuery = ''
       this.difficultyFilter = 'all'
-      this.sortOption = 'popularity'
+      this.sortOption = 'newest'
       this.displayLimit = 12
     },
     toggleViewMode() {
