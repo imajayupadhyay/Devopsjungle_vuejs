@@ -28,7 +28,9 @@ class CourseController extends Controller
 
         // Filter by category
         if ($request->has('category') && $request->category !== 'all') {
-            $query->where('course_category_id', $request->category);
+            $query->whereHas('category', function($q) use ($request) {
+                $q->where('slug', $request->category);
+            });
         }
 
         // Filter by level
@@ -75,15 +77,22 @@ class CourseController extends Controller
         // Get categories for filter
         $categories = CourseCategory::active()
             ->ordered()
+            ->withCount(['courses' => function($query) {
+                $query->where('status', 'published');
+            }])
             ->get()
             ->map(function ($category) {
                 return [
-                    'id' => $category->id,
+                    'id' => $category->slug,
                     'slug' => $category->slug,
                     'name' => $category->name,
                     'icon' => $category->icon,
+                    'count' => $category->courses_count,
                 ];
             });
+
+        // Get total published courses count
+        $totalCoursesCount = Course::where('status', 'published')->count();
 
         // Add "All" option
         $categories->prepend([
@@ -91,6 +100,7 @@ class CourseController extends Controller
             'slug' => 'all',
             'name' => 'All Categories',
             'icon' => 'fas fa-th-large',
+            'count' => $totalCoursesCount,
         ]);
 
         // Get levels

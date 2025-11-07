@@ -129,27 +129,27 @@
                         <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Course Overview</h2>
 
                         <div class="space-y-6">
-                            <div>
+                            <div v-if="course.what_you_learn && course.what_you_learn.length > 0">
                                 <h3 class="font-semibold text-gray-800 dark:text-white mb-2">What You'll Learn</h3>
                                 <div class="grid md:grid-cols-2 gap-3">
-                                    <div v-for="skill in course.skills" :key="skill" class="flex items-start">
+                                    <div v-for="(item, index) in course.what_you_learn" :key="index" class="flex items-start">
                                         <i class="fas fa-check text-primary-600 dark:text-primary-400 mt-1 mr-2"></i>
-                                        <span class="text-gray-600 dark:text-gray-300">{{ skill }}</span>
+                                        <span class="text-gray-600 dark:text-gray-300">{{ item }}</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div>
+                            <div v-if="course.prerequisites && course.prerequisites.length > 0">
                                 <h3 class="font-semibold text-gray-800 dark:text-white mb-2">Course Requirements</h3>
                                 <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-1">
-                                    <li v-for="requirement in getRequirements()" :key="requirement">{{ requirement }}</li>
+                                    <li v-for="(requirement, index) in course.prerequisites" :key="index">{{ requirement }}</li>
                                 </ul>
                             </div>
 
-                            <div>
+                            <div v-if="course.target_audience && course.target_audience.length > 0">
                                 <h3 class="font-semibold text-gray-800 dark:text-white mb-2">Who This Course Is For</h3>
                                 <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-1">
-                                    <li v-for="audience in getTargetAudience()" :key="audience">{{ audience }}</li>
+                                    <li v-for="(audience, index) in course.target_audience" :key="index">{{ audience }}</li>
                                 </ul>
                             </div>
 
@@ -173,27 +173,31 @@
                     <div v-show="activeTab === 'curriculum'" class="tab-content p-6">
                         <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Course Curriculum</h2>
 
-                        <div class="space-y-4">
-                            <div v-for="(module, index) in getCurriculum()" :key="index" class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                        <div v-if="course.curriculum && course.curriculum.length > 0" class="space-y-4">
+                            <div v-for="(module, index) in course.curriculum" :key="index" class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
                                 <button
                                     class="accordion-btn w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
                                     @click="toggleAccordion(index)"
                                 >
                                     <div class="flex items-center">
                                         <span class="font-semibold text-gray-800 dark:text-white">Module {{ index + 1 }}: {{ module.title }}</span>
-                                        <span class="ml-3 text-sm text-gray-500 dark:text-gray-400">({{ module.lessons }} lessons • {{ module.duration }}h)</span>
+                                        <span v-if="module.lessons && module.duration" class="ml-3 text-sm text-gray-500 dark:text-gray-400">({{ module.lessons }} lessons • {{ module.duration }}h)</span>
                                     </div>
                                     <i class="fas fa-chevron-down text-gray-500 dark:text-gray-400" :class="{ 'fa-chevron-up': openAccordions.includes(index) }"></i>
                                 </button>
                                 <div class="accordion-content p-4" :class="{ 'active': openAccordions.includes(index) }">
-                                    <ul class="space-y-2">
+                                    <ul v-if="module.content && module.content.length > 0" class="space-y-2">
                                         <li v-for="(lesson, lessonIndex) in module.content" :key="lessonIndex" class="flex items-center text-gray-600 dark:text-gray-300">
                                             <i class="fas fa-play-circle text-primary-600 dark:text-primary-400 mr-2"></i>
                                             <span class="text-sm">{{ lesson }}</span>
                                         </li>
                                     </ul>
+                                    <p v-else class="text-gray-600 dark:text-gray-300">{{ module.description || 'No lessons available yet.' }}</p>
                                 </div>
                             </div>
+                        </div>
+                        <div v-else class="text-center py-8 text-gray-500 dark:text-gray-400">
+                            <p>Curriculum information will be available soon.</p>
                         </div>
                     </div>
 
