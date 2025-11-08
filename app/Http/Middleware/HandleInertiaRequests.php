@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\ExamProvider;
+use App\Models\CourseCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
@@ -60,11 +62,57 @@ class HandleInertiaRequests extends Middleware
             ];
         }
 
+        // Get exam providers and course categories for mega menu (only for non-admin routes)
+        $examProviders = [];
+        $courseCategories = [];
+
+        if (!$isAdminRoute) {
+            $examProviders = ExamProvider::active()
+                ->ordered()
+                ->withCount(['examDumps' => function ($query) {
+                    $query->where('status', 'published');
+                }])
+                ->get()
+                ->map(function ($provider) {
+                    return [
+                        'id' => $provider->id,
+                        'name' => $provider->name,
+                        'slug' => $provider->slug,
+                        'icon' => $provider->icon,
+                        'description' => $provider->description,
+                        'gradient_color' => $provider->gradient_color,
+                        'exam_count' => $provider->exam_dumps_count ?? 0,
+                    ];
+                })
+                ->toArray();
+
+            $courseCategories = CourseCategory::active()
+                ->ordered()
+                ->withCount(['courses' => function ($query) {
+                    $query->where('status', 'published');
+                }])
+                ->get()
+                ->map(function ($category) {
+                    return [
+                        'id' => $category->id,
+                        'name' => $category->name,
+                        'slug' => $category->slug,
+                        'icon' => $category->icon,
+                        'description' => $category->description,
+                        'color' => $category->color,
+                        'course_count' => $category->courses_count ?? 0,
+                    ];
+                })
+                ->toArray();
+        }
+
         return [
             ...parent::share($request),
             'auth' => [
                 'user' => $user,
             ],
+            'examProviders' => $examProviders,
+            'courseCategories' => $courseCategories,
         ];
     }
 }

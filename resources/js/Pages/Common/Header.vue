@@ -35,23 +35,93 @@
 
   <!-- Main Header -->
   <header class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-700 sticky top-0 z-50 shadow-sm dark:shadow-gray-800">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="flex justify-between items-center h-16">
-        <!-- Logo -->
-        <a href="/" class="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-          <div class="w-8 h-8 gradient-btn rounded flex items-center justify-center">
-            <i class="fas fa-code-branch text-white text-sm"></i>
-          </div>
-          <div>
-            <h1 class="text-lg font-bold text-gray-800 dark:text-white">DevOps Jungle</h1>
-            <p class="text-xs text-gray-500 dark:text-gray-400 -mt-1">Master DevOps Skills</p>
-          </div>
-        </a>
+    <div class="relative">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center h-16">
+          <!-- Logo -->
+          <a href="/" class="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+            <div class="w-8 h-8 gradient-btn rounded flex items-center justify-center">
+              <i class="fas fa-code-branch text-white text-sm"></i>
+            </div>
+            <div>
+              <h1 class="text-lg font-bold text-gray-800 dark:text-white">DevOps Jungle</h1>
+              <p class="text-xs text-gray-500 dark:text-gray-400 -mt-1">Master DevOps Skills</p>
+            </div>
+          </a>
 
-        <!-- Desktop Navigation -->
-        <nav class="hidden lg:flex items-center space-x-6">
-          <!-- Exam Dumps -->
-          <a href="/dumps" :class="getNavLinkClass('/dumps')">Exam Dumps</a>
+          <!-- Desktop Navigation -->
+          <nav class="hidden lg:flex items-center space-x-6">
+            <!-- Exam Dumps -->
+            <div class="relative group">
+              <a href="/dumps" class="flex items-center space-x-1 text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors py-2">
+                <span>Exam Dumps</span>
+                <i class="fas fa-chevron-down text-xs transform group-hover:rotate-180 transition-transform duration-300"></i>
+              </a>
+
+              <!-- Ultra Modern Exam Dumps Mega Menu -->
+              <div class="exam-mega-menu absolute top-full bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 overflow-hidden">
+              <!-- Header Banner -->
+              <div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-6 py-4">
+                <h3 class="text-white text-lg font-bold">Certification Exam Dumps</h3>
+                <p class="text-blue-50 text-sm">Practice with real exam questions from top cloud providers</p>
+              </div>
+
+              <!-- Providers Grid -->
+              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 p-6 max-h-[500px] overflow-y-auto">
+                <!-- Dynamic Provider Cards -->
+                <template v-if="$page.props.examProviders && $page.props.examProviders.length > 0">
+                  <a
+                    v-for="provider in $page.props.examProviders"
+                    :key="provider.id"
+                    :href="`/dumps?provider=${provider.slug}`"
+                    class="group/item relative rounded-xl p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border overflow-hidden"
+                    :class="getProviderCardClass(provider.slug)"
+                  >
+                    <div class="absolute top-0 right-0 w-20 h-20 rounded-bl-full opacity-20"
+                         :class="getProviderBgAccent(provider.slug)"></div>
+                    <div class="relative">
+                      <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover/item:scale-110 transition-transform duration-300 shadow-lg"
+                           :class="getProviderIconBg(provider.slug)">
+                        <!-- Provider Icon -->
+                        <i :class="provider.icon || 'fas fa-certificate'" class="text-white" style="font-size: 1.25rem;"></i>
+                      </div>
+                      <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">{{ provider.name }}</h4>
+                      <p class="text-xs text-gray-600 dark:text-gray-400 mb-2 line-clamp-2">{{ provider.description || 'Practice exam dumps' }}</p>
+                      <div class="flex items-center justify-between mt-3">
+                        <span class="text-xs font-semibold" :class="getProviderTextColor(provider.slug)">
+                          {{ provider.exam_count }} {{ provider.exam_count === 1 ? 'Exam' : 'Exams' }}
+                        </span>
+                        <i class="fas fa-arrow-right ml-1 group-hover/item:translate-x-1 transition-transform text-xs"
+                           :class="getProviderTextColor(provider.slug)"></i>
+                      </div>
+                    </div>
+                  </a>
+                </template>
+
+                <!-- Fallback if no providers -->
+                <template v-else>
+                  <div class="col-span-full text-center py-8 text-gray-500 dark:text-gray-400">
+                    <i class="fas fa-box-open text-4xl mb-3"></i>
+                    <p>No exam providers available</p>
+                  </div>
+                </template>
+              </div>
+
+              <!-- Footer CTA -->
+              <div class="border-t border-gray-100 dark:border-gray-700 px-6 py-4 bg-gray-50 dark:bg-gray-900/50">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-medium text-gray-900 dark:text-white">Can't find your exam?</p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">Browse all available certification dumps</p>
+                  </div>
+                  <a href="/dumps" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-200 whitespace-nowrap">
+                    <i class="fas fa-th mr-1"></i>
+                    View All
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- Practice Labs -->
           <!-- <div class="relative group">
@@ -91,101 +161,280 @@
           <div class="relative group">
             <a href="/services" class="flex items-center space-x-1 text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors py-2">
               <span>Services</span>
-              <i class="fas fa-chevron-down text-xs"></i>
+              <i class="fas fa-chevron-down text-xs transform group-hover:rotate-180 transition-transform duration-300"></i>
             </a>
-            <div class="mega-menu absolute top-full left-0 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 p-4 mt-1 group-hover:show">
-              <div class="grid grid-cols-2 gap-4">
-                <div>
-                  <h4 class="font-semibold text-sm text-gray-800 dark:text-white mb-2 flex items-center">
-                    <i class="fas fa-user-friends text-emerald-500 mr-2 text-sm"></i>
-                    Training & Mentorship
-                  </h4>
-                  <ul class="space-y-1">
-                    <li><a href="/services/mentorship" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">One-to-One Mentorship</a></li>
-                    <li><a href="/services/transition-devops" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Transition to DevOps</a></li>
-                    <li><a href="/services" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">View All Services</a></li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 class="font-semibold text-sm text-gray-800 dark:text-white mb-2 flex items-center">
-                    <i class="fas fa-briefcase text-teal-500 mr-2 text-sm"></i>
-                    Career & Consulting
-                  </h4>
-                  <ul class="space-y-1">
-                    <li><a href="/services/career-guidance" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Career Guidance</a></li>
-                    <li><a href="/services/cloud-services" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Cloud Services</a></li>
-                    <li><a href="/services/migration-services" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Migration Services</a></li>
-                    <li><a href="/services/development-services" class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block py-1">Development Services</a></li>
-                  </ul>
-                </div>
+
+            <!-- Ultra Modern Mega Menu -->
+            <div class="services-mega-menu absolute top-full bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 overflow-hidden">
+              <!-- Header Banner -->
+              <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 px-6 py-4">
+                <h3 class="text-white text-lg font-bold">Our Premium Services</h3>
+                <p class="text-emerald-50 text-sm">Transform your career and business with expert DevOps solutions</p>
               </div>
-            </div>
-          </div>
 
-
-          <!-- Simple Links -->
-          <a href="/courses" :class="getNavLinkClass('/courses')">Courses</a>
-          <a href="/blogs" :class="getNavLinkClass('/blogs')">Blogs</a>
-          <a href="/support" :class="getNavLinkClass('/support')">Support</a>
-        </nav>
-
-        <!-- Header Actions -->
-        <div class="flex items-center space-x-3">
-          <!-- Search -->
-          <button @click="openSearchModal" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-            <i class="fas fa-search text-sm"></i>
-          </button>
-
-          <!-- Theme Toggle -->
-          <button @click="toggleTheme" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-            <i :class="isDark ? 'fas fa-sun' : 'fas fa-moon'" class="text-sm"></i>
-          </button>
-
-          <!-- Auth Buttons / Profile -->
-          <div class="hidden md:flex items-center space-x-2">
-            <!-- Not Authenticated -->
-            <template v-if="!$page.props.auth?.user">
-              <button @click="openLoginModal" class="text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">Login</button>
-              <button @click="openSignupModal" class="gradient-btn text-white px-3 py-1.5 rounded text-sm font-medium hover:opacity-90 transition-opacity">Sign Up</button>
-            </template>
-
-            <!-- Authenticated -->
-            <div v-else class="relative">
-              <button @click="toggleProfileDropdown" class="flex items-center space-x-2 focus:outline-none">
-                <img
-                  :src="$page.props.auth.user.avatar_url"
-                  :alt="$page.props.auth.user.name"
-                  class="w-8 h-8 rounded-full border-2 border-primary-500 hover:border-primary-600 transition-colors"
-                >
-                <i class="fas fa-chevron-down text-xs text-gray-400"></i>
-              </button>
-
-              <!-- Profile Dropdown -->
-              <div
-                v-show="showProfileDropdown"
-                class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 py-2 z-50"
-              >
-                <div class="px-4 py-2 border-b border-gray-100 dark:border-gray-700">
-                  <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $page.props.auth.user.name }}</p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">{{ $page.props.auth.user.email }}</p>
-                </div>
-                <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                  <i class="fas fa-user mr-2"></i>Profile
+              <!-- Services Grid -->
+              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-4 p-6 max-h-[500px] overflow-y-auto">
+                <!-- Service 1: One-to-One Mentorship -->
+                <a href="/services/mentorship" class="group/item relative bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 rounded-xl p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-emerald-100 dark:border-emerald-800 overflow-hidden">
+                  <div class="absolute top-0 right-0 w-20 h-20 bg-emerald-200/30 dark:bg-emerald-500/10 rounded-bl-full"></div>
+                  <div class="relative">
+                    <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center mb-3 group-hover/item:scale-110 transition-transform duration-300">
+                      <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                      </svg>
+                    </div>
+                    <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">One-to-One Mentorship</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">Personalized guidance from industry experts</p>
+                    <div class="flex items-center text-emerald-600 dark:text-emerald-400 text-xs font-medium">
+                      Learn More
+                      <i class="fas fa-arrow-right ml-1 group-hover/item:translate-x-1 transition-transform"></i>
+                    </div>
+                  </div>
                 </a>
-                <button @click="handleLogout" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                  <i class="fas fa-sign-out-alt mr-2"></i>Logout
-                </button>
+
+                <!-- Service 2: Career Guidance -->
+                <a href="/services/career-guidance" class="group/item relative bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-xl p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-blue-100 dark:border-blue-800 overflow-hidden">
+                  <div class="absolute top-0 right-0 w-20 h-20 bg-blue-200/30 dark:bg-blue-500/10 rounded-bl-full"></div>
+                  <div class="relative">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center mb-3 group-hover/item:scale-110 transition-transform duration-300">
+                      <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                      </svg>
+                    </div>
+                    <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">Career Guidance</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">Strategic career planning and job placement</p>
+                    <div class="flex items-center text-blue-600 dark:text-blue-400 text-xs font-medium">
+                      Learn More
+                      <i class="fas fa-arrow-right ml-1 group-hover/item:translate-x-1 transition-transform"></i>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- Service 3: Transition to DevOps -->
+                <a href="/services/transition-devops" class="group/item relative bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 rounded-xl p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-purple-100 dark:border-purple-800 overflow-hidden">
+                  <div class="absolute top-0 right-0 w-20 h-20 bg-purple-200/30 dark:bg-purple-500/10 rounded-bl-full"></div>
+                  <div class="relative">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center mb-3 group-hover/item:scale-110 transition-transform duration-300">
+                      <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                      </svg>
+                    </div>
+                    <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">Transition to DevOps</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">Complete career transition program</p>
+                    <div class="flex items-center text-purple-600 dark:text-purple-400 text-xs font-medium">
+                      Learn More
+                      <i class="fas fa-arrow-right ml-1 group-hover/item:translate-x-1 transition-transform"></i>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- Service 4: Migration Services -->
+                <a href="/services/migration-services" class="group/item relative bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/30 dark:to-red-950/30 rounded-xl p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-orange-100 dark:border-orange-800 overflow-hidden">
+                  <div class="absolute top-0 right-0 w-20 h-20 bg-orange-200/30 dark:bg-orange-500/10 rounded-bl-full"></div>
+                  <div class="relative">
+                    <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center mb-3 group-hover/item:scale-110 transition-transform duration-300">
+                      <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
+                      </svg>
+                    </div>
+                    <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">Migration Services</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">Seamless cloud migration solutions</p>
+                    <div class="flex items-center text-orange-600 dark:text-orange-400 text-xs font-medium">
+                      Learn More
+                      <i class="fas fa-arrow-right ml-1 group-hover/item:translate-x-1 transition-transform"></i>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- Service 5: Cloud Services -->
+                <a href="/services/cloud-services" class="group/item relative bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-950/30 dark:to-blue-950/30 rounded-xl p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-cyan-100 dark:border-cyan-800 overflow-hidden">
+                  <div class="absolute top-0 right-0 w-20 h-20 bg-cyan-200/30 dark:bg-cyan-500/10 rounded-bl-full"></div>
+                  <div class="relative">
+                    <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center mb-3 group-hover/item:scale-110 transition-transform duration-300">
+                      <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+                      </svg>
+                    </div>
+                    <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">Cloud Services</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">Comprehensive cloud architecture</p>
+                    <div class="flex items-center text-cyan-600 dark:text-cyan-400 text-xs font-medium">
+                      Learn More
+                      <i class="fas fa-arrow-right ml-1 group-hover/item:translate-x-1 transition-transform"></i>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- Service 6: Development Services -->
+                <a href="/services/development-services" class="group/item relative bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-xl p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-green-100 dark:border-green-800 overflow-hidden">
+                  <div class="absolute top-0 right-0 w-20 h-20 bg-green-200/30 dark:bg-green-500/10 rounded-bl-full"></div>
+                  <div class="relative">
+                    <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center mb-3 group-hover/item:scale-110 transition-transform duration-300">
+                      <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                      </svg>
+                    </div>
+                    <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">Development Services</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">Custom DevOps tool development</p>
+                    <div class="flex items-center text-green-600 dark:text-green-400 text-xs font-medium">
+                      Learn More
+                      <i class="fas fa-arrow-right ml-1 group-hover/item:translate-x-1 transition-transform"></i>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- Footer CTA -->
+              <div class="border-t border-gray-100 dark:border-gray-700 px-6 py-4 bg-gray-50 dark:bg-gray-900/50">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-medium text-gray-900 dark:text-white">Need help choosing?</p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">Talk to our experts for personalized recommendations</p>
+                  </div>
+                  <a href="/support" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-200 whitespace-nowrap">
+                    <i class="fas fa-comments mr-1"></i>
+                    Get Help
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
+            </div>
 
-          <!-- Mobile Menu -->
-          <button @click="openMobileMenu" class="lg:hidden text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">
-            <i class="fas fa-bars text-lg"></i>
-          </button>
+            <!-- Courses -->
+            <div class="relative group">
+              <a href="/courses" class="flex items-center space-x-1 text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors py-2">
+                <span>Courses</span>
+                <i class="fas fa-chevron-down text-xs transform group-hover:rotate-180 transition-transform duration-300"></i>
+              </a>
+
+              <!-- Ultra Modern Courses Mega Menu -->
+              <div class="courses-mega-menu absolute top-full bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 overflow-hidden">
+              <!-- Header Banner -->
+              <div class="bg-gradient-to-r from-emerald-600 via-green-600 to-teal-600 px-6 py-4">
+                <h3 class="text-white text-lg font-bold">DevOps Training Courses</h3>
+                <p class="text-emerald-50 text-sm">Master cloud technologies with hands-on courses</p>
+              </div>
+
+              <!-- Categories Grid -->
+              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 p-6 max-h-[500px] overflow-y-auto">
+                <!-- Dynamic Category Cards -->
+                <template v-if="$page.props.courseCategories && $page.props.courseCategories.length > 0">
+                  <a
+                    v-for="category in $page.props.courseCategories"
+                    :key="category.id"
+                    :href="`/courses?category=${category.slug}`"
+                    class="group/item relative rounded-xl p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border overflow-hidden"
+                    :class="getCategoryCardClass(category.slug)"
+                  >
+                    <div class="absolute top-0 right-0 w-20 h-20 rounded-bl-full opacity-20"
+                         :class="getCategoryBgAccent(category.slug)"></div>
+                    <div class="relative">
+                      <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover/item:scale-110 transition-transform duration-300 shadow-lg"
+                           :class="getCategoryIconBg(category.slug)">
+                        <!-- Category Icon -->
+                        <i :class="category.icon || 'fas fa-graduation-cap'" class="text-white" style="font-size: 1.25rem;"></i>
+                      </div>
+                      <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">{{ category.name }}</h4>
+                      <p class="text-xs text-gray-600 dark:text-gray-400 mb-2 line-clamp-2">{{ category.description || 'DevOps courses' }}</p>
+                      <div class="flex items-center justify-between mt-3">
+                        <span class="text-xs font-semibold" :class="getCategoryTextColor(category.slug)">
+                          {{ category.course_count }} {{ category.course_count === 1 ? 'Course' : 'Courses' }}
+                        </span>
+                        <i class="fas fa-arrow-right ml-1 group-hover/item:translate-x-1 transition-transform text-xs"
+                           :class="getCategoryTextColor(category.slug)"></i>
+                      </div>
+                    </div>
+                  </a>
+                </template>
+
+                <!-- Fallback if no categories -->
+                <template v-else>
+                  <div class="col-span-full text-center py-8 text-gray-500 dark:text-gray-400">
+                    <i class="fas fa-box-open text-4xl mb-3"></i>
+                    <p>No course categories available</p>
+                  </div>
+                </template>
+              </div>
+
+              <!-- Footer CTA -->
+              <div class="border-t border-gray-100 dark:border-gray-700 px-6 py-4 bg-gray-50 dark:bg-gray-900/50">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-medium text-gray-900 dark:text-white">Want to see all courses?</p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">Browse our complete course catalog</p>
+                  </div>
+                  <a href="/courses" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-200 whitespace-nowrap">
+                    <i class="fas fa-book-open mr-1"></i>
+                    View All
+                  </a>
+                </div>
+              </div>
+            </div>
+            </div>
+
+            <!-- Simple Links -->
+            <a href="/blogs" :class="getNavLinkClass('/blogs')">Blogs</a>
+            <a href="/support" :class="getNavLinkClass('/support')">Support</a>
+          </nav>
+
+          <!-- Header Actions -->
+          <div class="flex items-center space-x-3">
+            <!-- Search -->
+            <button @click="openSearchModal" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+              <i class="fas fa-search text-sm"></i>
+            </button>
+
+            <!-- Theme Toggle -->
+            <button @click="toggleTheme" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+              <i :class="isDark ? 'fas fa-sun' : 'fas fa-moon'" class="text-sm"></i>
+            </button>
+
+            <!-- Auth Buttons / Profile -->
+            <div class="hidden md:flex items-center space-x-2">
+              <!-- Not Authenticated -->
+              <template v-if="!$page.props.auth?.user">
+                <button @click="openLoginModal" class="text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">Login</button>
+                <button @click="openSignupModal" class="gradient-btn text-white px-3 py-1.5 rounded text-sm font-medium hover:opacity-90 transition-opacity">Sign Up</button>
+              </template>
+
+              <!-- Authenticated -->
+              <div v-else class="relative">
+                <button @click="toggleProfileDropdown" class="flex items-center space-x-2 focus:outline-none">
+                  <img
+                    :src="$page.props.auth.user.avatar_url"
+                    :alt="$page.props.auth.user.name"
+                    class="w-8 h-8 rounded-full border-2 border-primary-500 hover:border-primary-600 transition-colors"
+                  >
+                  <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                </button>
+
+                <!-- Profile Dropdown -->
+                <div
+                  v-show="showProfileDropdown"
+                  class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 py-2 z-50"
+                >
+                  <div class="px-4 py-2 border-b border-gray-100 dark:border-gray-700">
+                    <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $page.props.auth.user.name }}</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">{{ $page.props.auth.user.email }}</p>
+                  </div>
+                  <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas fa-user mr-2"></i>Profile
+                  </a>
+                  <button @click="handleLogout" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <button @click="openMobileMenu" class="lg:hidden text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">
+              <i class="fas fa-bars text-lg"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
+  </header>
 
     <!-- Mobile Menu -->
     <div ref="mobileMenu" class="mobile-menu fixed top-0 right-0 w-72 h-full bg-white dark:bg-gray-900 shadow-xl z-50 overflow-y-auto border-l border-gray-100 dark:border-gray-700">
@@ -281,9 +530,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Search Modal -->
-  </header>
 
   <!-- Mobile Overlay -->
   <div v-show="showMobileMenu" @click="closeMobileMenu" class="fixed inset-0 bg-black bg-opacity-30 z-40 lg:hidden"></div>
@@ -481,7 +727,323 @@ export default {
       return this.isActiveRoute(path)
         ? 'block text-sm font-medium text-primary-600 dark:text-primary-400 py-2 bg-primary-50 dark:bg-primary-900 px-3 rounded'
         : 'block text-sm font-medium text-gray-800 dark:text-white py-2 hover:text-primary-600 dark:hover:text-primary-400'
+    },
+    getProviderCardClass(providerSlug) {
+      const classes = {
+        'aws': 'bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/30 dark:to-amber-950/30 border-orange-100 dark:border-orange-800',
+        'azure': 'bg-gradient-to-br from-blue-50 to-sky-50 dark:from-blue-950/30 dark:to-sky-950/30 border-blue-100 dark:border-blue-800',
+        'gcp': 'bg-gradient-to-br from-red-50 to-yellow-50 dark:from-red-950/30 dark:to-yellow-950/30 border-red-100 dark:border-red-800',
+        'kubernetes': 'bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border-blue-100 dark:border-blue-800',
+        'docker': 'bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-950/30 dark:to-blue-950/30 border-cyan-100 dark:border-cyan-800',
+        'linux': 'bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950/30 dark:to-orange-950/30 border-yellow-100 dark:border-yellow-800',
+        'default': 'bg-gradient-to-br from-gray-50 to-slate-50 dark:from-gray-950/30 dark:to-slate-950/30 border-gray-100 dark:border-gray-800'
+      }
+      return classes[providerSlug] || classes['default']
+    },
+    getProviderIconBg(providerSlug) {
+      const classes = {
+        'aws': 'bg-gradient-to-br from-orange-500 to-orange-600',
+        'azure': 'bg-gradient-to-br from-blue-500 to-blue-700',
+        'gcp': 'bg-gradient-to-br from-red-500 to-yellow-500',
+        'kubernetes': 'bg-gradient-to-br from-blue-600 to-indigo-600',
+        'docker': 'bg-gradient-to-br from-cyan-500 to-blue-600',
+        'linux': 'bg-gradient-to-br from-yellow-500 to-orange-500',
+        'default': 'bg-gradient-to-br from-gray-500 to-slate-600'
+      }
+      return classes[providerSlug] || classes['default']
+    },
+    getProviderTextColor(providerSlug) {
+      const classes = {
+        'aws': 'text-orange-600 dark:text-orange-400',
+        'azure': 'text-blue-600 dark:text-blue-400',
+        'gcp': 'text-red-600 dark:text-yellow-400',
+        'kubernetes': 'text-blue-700 dark:text-indigo-400',
+        'docker': 'text-cyan-600 dark:text-cyan-400',
+        'linux': 'text-yellow-600 dark:text-orange-400',
+        'default': 'text-gray-600 dark:text-gray-400'
+      }
+      return classes[providerSlug] || classes['default']
+    },
+    getProviderBgAccent(providerSlug) {
+      const classes = {
+        'aws': 'bg-orange-400 dark:bg-orange-500',
+        'azure': 'bg-blue-400 dark:bg-blue-500',
+        'gcp': 'bg-red-400 dark:bg-yellow-400',
+        'kubernetes': 'bg-blue-500 dark:bg-indigo-500',
+        'docker': 'bg-cyan-400 dark:bg-cyan-500',
+        'linux': 'bg-yellow-400 dark:bg-orange-400',
+        'default': 'bg-gray-400 dark:bg-gray-500'
+      }
+      return classes[providerSlug] || classes['default']
+    },
+    getCategoryCardClass(categorySlug) {
+      const classes = {
+        'aws': 'bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/30 dark:to-amber-950/30 border-orange-100 dark:border-orange-800',
+        'azure': 'bg-gradient-to-br from-blue-50 to-sky-50 dark:from-blue-950/30 dark:to-sky-950/30 border-blue-100 dark:border-blue-800',
+        'gcp': 'bg-gradient-to-br from-red-50 to-yellow-50 dark:from-red-950/30 dark:to-yellow-950/30 border-red-100 dark:border-red-800',
+        'kubernetes': 'bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border-blue-100 dark:border-blue-800',
+        'docker': 'bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-950/30 dark:to-blue-950/30 border-cyan-100 dark:border-cyan-800',
+        'terraform': 'bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-950/30 dark:to-indigo-950/30 border-purple-100 dark:border-purple-800',
+        'devops': 'bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-950/30 dark:to-green-950/30 border-emerald-100 dark:border-emerald-800',
+        'cicd': 'bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 border-amber-100 dark:border-amber-800',
+        'monitoring': 'bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-950/30 dark:to-rose-950/30 border-red-100 dark:border-red-800',
+        'default': 'bg-gradient-to-br from-gray-50 to-slate-50 dark:from-gray-950/30 dark:to-slate-950/30 border-gray-100 dark:border-gray-800'
+      }
+      return classes[categorySlug] || classes['default']
+    },
+    getCategoryIconBg(categorySlug) {
+      const classes = {
+        'aws': 'bg-gradient-to-br from-orange-500 to-orange-600',
+        'azure': 'bg-gradient-to-br from-blue-500 to-blue-700',
+        'gcp': 'bg-gradient-to-br from-red-500 to-yellow-500',
+        'kubernetes': 'bg-gradient-to-br from-blue-600 to-indigo-600',
+        'docker': 'bg-gradient-to-br from-cyan-500 to-blue-600',
+        'terraform': 'bg-gradient-to-br from-purple-600 to-indigo-600',
+        'devops': 'bg-gradient-to-br from-emerald-500 to-green-600',
+        'cicd': 'bg-gradient-to-br from-amber-500 to-orange-600',
+        'monitoring': 'bg-gradient-to-br from-red-500 to-rose-600',
+        'default': 'bg-gradient-to-br from-gray-500 to-slate-600'
+      }
+      return classes[categorySlug] || classes['default']
+    },
+    getCategoryTextColor(categorySlug) {
+      const classes = {
+        'aws': 'text-orange-600 dark:text-orange-400',
+        'azure': 'text-blue-600 dark:text-blue-400',
+        'gcp': 'text-red-600 dark:text-yellow-400',
+        'kubernetes': 'text-blue-700 dark:text-indigo-400',
+        'docker': 'text-cyan-600 dark:text-cyan-400',
+        'terraform': 'text-purple-600 dark:text-purple-400',
+        'devops': 'text-emerald-600 dark:text-emerald-400',
+        'cicd': 'text-amber-600 dark:text-amber-400',
+        'monitoring': 'text-red-600 dark:text-rose-400',
+        'default': 'text-gray-600 dark:text-gray-400'
+      }
+      return classes[categorySlug] || classes['default']
+    },
+    getCategoryBgAccent(categorySlug) {
+      const classes = {
+        'aws': 'bg-orange-400 dark:bg-orange-500',
+        'azure': 'bg-blue-400 dark:bg-blue-500',
+        'gcp': 'bg-red-400 dark:bg-yellow-400',
+        'kubernetes': 'bg-blue-500 dark:bg-indigo-500',
+        'docker': 'bg-cyan-400 dark:bg-cyan-500',
+        'terraform': 'bg-purple-400 dark:bg-purple-500',
+        'devops': 'bg-emerald-400 dark:bg-emerald-500',
+        'cicd': 'bg-amber-400 dark:bg-orange-400',
+        'monitoring': 'bg-red-400 dark:bg-rose-400',
+        'default': 'bg-gray-400 dark:bg-gray-500'
+      }
+      return classes[categorySlug] || classes['default']
     }
   }
 }
 </script>
+
+<style scoped>
+/* Ultra Modern Mega Menu Styles */
+.services-mega-menu,
+.exam-mega-menu,
+.courses-mega-menu {
+  backdrop-filter: blur(20px);
+  animation: slideDown 0.3s ease-out;
+  transform-origin: top center;
+  pointer-events: none;
+}
+
+.group:hover .services-mega-menu,
+.group:hover .exam-mega-menu,
+.group:hover .courses-mega-menu {
+  pointer-events: auto;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Prevent mega menu from closing when hovering */
+.services-mega-menu::before,
+.exam-mega-menu::before,
+.courses-mega-menu::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+}
+
+/* Service Card Hover Effects */
+.group\/item:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* Smooth transitions for all interactive elements */
+.services-mega-menu a,
+.services-mega-menu button,
+.exam-mega-menu a,
+.exam-mega-menu button,
+.courses-mega-menu a,
+.courses-mega-menu button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom scrollbar for mega menu if needed */
+.services-mega-menu::-webkit-scrollbar,
+.exam-mega-menu::-webkit-scrollbar,
+.courses-mega-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.services-mega-menu::-webkit-scrollbar-track,
+.exam-mega-menu::-webkit-scrollbar-track,
+.courses-mega-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.services-mega-menu::-webkit-scrollbar-thumb {
+  background: #10b981;
+  border-radius: 3px;
+}
+
+.exam-mega-menu::-webkit-scrollbar-thumb {
+  background: #3B82F6;
+  border-radius: 3px;
+}
+
+.courses-mega-menu::-webkit-scrollbar-thumb {
+  background: #10B981;
+  border-radius: 3px;
+}
+
+.services-mega-menu::-webkit-scrollbar-thumb:hover {
+  background: #059669;
+}
+
+.exam-mega-menu::-webkit-scrollbar-thumb:hover {
+  background: #2563EB;
+}
+
+.courses-mega-menu::-webkit-scrollbar-thumb:hover {
+  background: #059669;
+}
+
+/* Gradient animation for header banner */
+.bg-gradient-to-r {
+  background-size: 200% 100%;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Enhanced shadow on hover */
+.group\/item:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.dark .group\/item:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon scale animation */
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.group\/item:hover .w-10,
+.group\/item:hover .w-12 {
+  animation: iconPulse 0.6s ease-in-out;
+}
+
+/* Line clamp utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Ensure FontAwesome icons render properly */
+.exam-mega-menu i,
+.courses-mega-menu i {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Provider/Category icon container enhancements */
+.exam-mega-menu .w-12 i,
+.courses-mega-menu .w-12 i {
+  line-height: 1;
+  vertical-align: middle;
+}
+
+/* Full width mega menu positioning - Fixed position for viewport control */
+.services-mega-menu,
+.exam-mega-menu,
+.courses-mega-menu {
+  /* Use fixed positioning for viewport-based centering */
+  position: fixed;
+  top: 64px; /* Header height */
+  left: 50%;
+  transform: translateX(-50%);
+
+  /* Width constraints */
+  width: calc(100vw - 2rem);
+  max-width: 1280px;
+
+  /* Z-index to appear above content */
+  z-index: 40;
+}
+
+/* For very large screens */
+@media (min-width: 1312px) {
+  .services-mega-menu,
+  .exam-mega-menu,
+  .courses-mega-menu {
+    width: 1280px;
+  }
+}
+
+/* For medium to large screens */
+@media (min-width: 1024px) and (max-width: 1311px) {
+  .services-mega-menu,
+  .exam-mega-menu,
+  .courses-mega-menu {
+    width: calc(100vw - 4rem);
+  }
+}
+
+/* For tablets and smaller */
+@media (max-width: 1023px) {
+  .services-mega-menu,
+  .exam-mega-menu,
+  .courses-mega-menu {
+    left: 1rem;
+    right: 1rem;
+    width: calc(100vw - 2rem);
+    transform: none;
+  }
+}
+</style>
