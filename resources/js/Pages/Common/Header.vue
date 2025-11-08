@@ -54,7 +54,7 @@
           <a href="/dumps" :class="getNavLinkClass('/dumps')">Exam Dumps</a>
 
           <!-- Practice Labs -->
-          <div class="relative group">
+          <!-- <div class="relative group">
             <a href="/practice-labs" class="flex items-center space-x-1 text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors py-2">
               <span>Practice Labs</span>
               <i class="fas fa-chevron-down text-xs"></i>
@@ -85,7 +85,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- Services -->
           <div class="relative group">
@@ -212,7 +212,7 @@
           <a href="/dumps" :class="getMobileNavLinkClass('/dumps')">Exam Dumps</a>
 
           <!-- Practice Labs -->
-          <div>
+          <!-- <div>
             <a href="/practice-labs" class="block text-sm font-medium text-gray-800 dark:text-white py-2 hover:text-primary-600 dark:hover:text-primary-400">Practice Labs</a>
             <button @click="toggleSubmenu($event)" class="mobile-nav-toggle flex justify-between items-center w-full text-left text-sm font-medium text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400 pl-4">
               <span>Browse Labs</span>
@@ -223,7 +223,7 @@
               <a href="/practice-labs/aws-soa-c02" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">AWS SOA-C02</a>
               <a href="/practice-labs/az-900" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Azure AZ-900</a>
             </div>
-          </div>
+          </div> -->
 
           <!-- Services -->
           <div>

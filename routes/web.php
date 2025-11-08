@@ -63,6 +63,22 @@ Route::get('/services/career-guidance', function () {
     return Inertia::render('Services/CareerGuidance');
 })->name('services.career-guidance');
 
+Route::get('/services/transition-devops', function () {
+    return Inertia::render('Services/TransitionDevops');
+})->name('services.transition-devops');
+
+Route::get('/services/cloud-services', function () {
+    return Inertia::render('Services/CloudServices');
+})->name('services.cloud-services');
+
+Route::get('/services/migration-services', function () {
+    return Inertia::render('Services/MigrationServices');
+})->name('services.migration-services');
+
+Route::get('/services/development-services', function () {
+    return Inertia::render('Services/DevelopmentServices');
+})->name('services.development-services');
+
 Route::get('/practice-labs', function () {
     return Inertia::render('PracticeLabs/Index', PracticeLabsDataProvider::getIndexData());
 })->name('practice-labs');
