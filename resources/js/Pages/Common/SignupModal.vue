@@ -2,149 +2,179 @@
   <!-- Signup Modal -->
   <div
     v-show="isVisible"
-    class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+    class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
     @click.self="closeModal"
   >
     <div
-      class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md transform transition-all duration-300"
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-4xl transform transition-all duration-300 overflow-hidden"
       :class="isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'"
     >
-      <!-- Modal Header -->
-      <div class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-        <div>
-          <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Join DevOps Jungle</h2>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Start your DevOps journey today</p>
+      <!-- Modal Header with Gradient -->
+      <div class="relative bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 p-8">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full -ml-32 -mb-32 blur-3xl"></div>
+        <div class="relative flex items-center justify-between">
+          <div>
+            <h2 class="text-3xl font-bold text-white flex items-center">
+              <span class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-rocket text-white text-lg"></i>
+              </span>
+              Join DevOps Jungle
+            </h2>
+            <p class="text-emerald-100 mt-2 text-sm">Start your DevOps journey today and master cloud technologies</p>
+          </div>
+          <button
+            @click="closeModal"
+            class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 transition-all hover:rotate-90 duration-300"
+          >
+            <i class="fas fa-times text-lg"></i>
+          </button>
         </div>
-        <button
-          @click="closeModal"
-          class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
-        >
-          <i class="fas fa-times text-xl"></i>
-        </button>
       </div>
 
       <!-- Modal Body -->
-      <div class="p-6">
+      <div class="p-8">
         <!-- Success Message -->
         <div
           v-if="showSuccess"
-          class="mb-6 p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 rounded-lg"
+          class="mb-6 p-6 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 border-2 border-green-200 dark:border-green-700 rounded-xl"
         >
-          <div class="flex items-center">
-            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+          <div class="flex items-start">
+            <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+              <i class="fas fa-check text-white text-xl"></i>
+            </div>
             <div>
-              <h3 class="text-sm font-medium text-green-800 dark:text-green-200">Account Created Successfully!</h3>
-              <p class="text-sm text-green-700 dark:text-green-300 mt-1">Welcome to DevOps Jungle. You can now access all our courses and labs.</p>
+              <h3 class="text-lg font-bold text-green-800 dark:text-green-200">Account Created Successfully!</h3>
+              <p class="text-green-700 dark:text-green-300 mt-1">Welcome to DevOps Jungle. You can now access all our courses and labs.</p>
             </div>
           </div>
         </div>
 
         <!-- Signup Form -->
-        <form v-if="!showSuccess" @submit.prevent="handleSignup" class="space-y-5">
-          <!-- Name Field -->
-          <div>
-            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Full Name *
-            </label>
-            <div class="relative">
-              <input
-                id="name"
-                v-model="form.name"
-                type="text"
-                required
-                class="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
-                :class="{ 'border-red-300 focus:ring-red-500': errors.name }"
-                placeholder="Enter your full name"
-              >
-              <i class="fas fa-user absolute left-3 top-4 text-gray-400 dark:text-gray-500"></i>
+        <form v-if="!showSuccess" @submit.prevent="handleSignup" class="space-y-6">
+          <!-- Two Column Grid for Fields -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Name Field -->
+            <div class="space-y-2">
+              <label for="name" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                Full Name <span class="text-red-500">*</span>
+              </label>
+              <div class="relative group">
+                <input
+                  id="name"
+                  v-model="form.name"
+                  type="text"
+                  required
+                  class="w-full pl-11 pr-4 py-3.5 border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
+                  :class="{ 'border-red-300 focus:ring-red-500 focus:border-red-500': errors.name }"
+                  placeholder="John Doe"
+                >
+                <div class="absolute left-3.5 top-3.5 w-7 h-7 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg flex items-center justify-center group-focus-within:scale-110 transition-transform">
+                  <i class="fas fa-user text-emerald-600 dark:text-emerald-400 text-sm"></i>
+                </div>
+              </div>
+              <p v-if="errors.name" class="text-xs text-red-600 dark:text-red-400 flex items-center">
+                <i class="fas fa-exclamation-circle mr-1"></i>{{ errors.name }}
+              </p>
             </div>
-            <p v-if="errors.name" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ errors.name }}</p>
-          </div>
 
-          <!-- Email Field -->
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Email Address *
-            </label>
-            <div class="relative">
-              <input
-                id="email"
-                v-model="form.email"
-                type="email"
-                required
-                class="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
-                :class="{ 'border-red-300 focus:ring-red-500': errors.email }"
-                placeholder="Enter your email address"
-              >
-              <i class="fas fa-envelope absolute left-3 top-4 text-gray-400 dark:text-gray-500"></i>
+            <!-- Email Field -->
+            <div class="space-y-2">
+              <label for="email" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                Email Address <span class="text-red-500">*</span>
+              </label>
+              <div class="relative group">
+                <input
+                  id="email"
+                  v-model="form.email"
+                  type="email"
+                  required
+                  class="w-full pl-11 pr-4 py-3.5 border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
+                  :class="{ 'border-red-300 focus:ring-red-500 focus:border-red-500': errors.email }"
+                  placeholder="john@example.com"
+                >
+                <div class="absolute left-3.5 top-3.5 w-7 h-7 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center group-focus-within:scale-110 transition-transform">
+                  <i class="fas fa-envelope text-blue-600 dark:text-blue-400 text-sm"></i>
+                </div>
+              </div>
+              <p v-if="errors.email" class="text-xs text-red-600 dark:text-red-400 flex items-center">
+                <i class="fas fa-exclamation-circle mr-1"></i>{{ errors.email }}
+              </p>
             </div>
-            <p v-if="errors.email" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ errors.email }}</p>
-          </div>
 
-          <!-- Phone Field -->
-          <div>
-            <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Phone Number *
-            </label>
-            <div class="relative">
-              <input
-                id="phone"
-                v-model="form.phone"
-                type="tel"
-                required
-                class="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
-                :class="{ 'border-red-300 focus:ring-red-500': errors.phone }"
-                placeholder="Enter your phone number"
-              >
-              <i class="fas fa-phone absolute left-3 top-4 text-gray-400 dark:text-gray-500"></i>
+            <!-- Phone Field -->
+            <div class="space-y-2">
+              <label for="phone" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                Phone Number <span class="text-red-500">*</span>
+              </label>
+              <div class="relative group">
+                <input
+                  id="phone"
+                  v-model="form.phone"
+                  type="tel"
+                  required
+                  class="w-full pl-11 pr-4 py-3.5 border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
+                  :class="{ 'border-red-300 focus:ring-red-500 focus:border-red-500': errors.phone }"
+                  placeholder="+1 234 567 8900"
+                >
+                <div class="absolute left-3.5 top-3.5 w-7 h-7 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center group-focus-within:scale-110 transition-transform">
+                  <i class="fas fa-phone text-purple-600 dark:text-purple-400 text-sm"></i>
+                </div>
+              </div>
+              <p v-if="errors.phone" class="text-xs text-red-600 dark:text-red-400 flex items-center">
+                <i class="fas fa-exclamation-circle mr-1"></i>{{ errors.phone }}
+              </p>
             </div>
-            <p v-if="errors.phone" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ errors.phone }}</p>
-          </div>
 
-          <!-- Password Field -->
-          <div>
-            <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Password *
-            </label>
-            <div class="relative">
-              <input
-                id="password"
-                v-model="form.password"
-                :type="showPassword ? 'text' : 'password'"
-                required
-                class="w-full pl-10 pr-12 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
-                :class="{ 'border-red-300 focus:ring-red-500': errors.password }"
-                placeholder="Create a strong password"
-              >
-              <i class="fas fa-lock absolute left-3 top-4 text-gray-400 dark:text-gray-500"></i>
-              <button
-                type="button"
-                @click="showPassword = !showPassword"
-                class="absolute right-3 top-4 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
-              >
-                <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
-              </button>
-            </div>
-            <p v-if="errors.password" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ errors.password }}</p>
-            <div class="mt-2 text-xs text-gray-500 dark:text-gray-400">
-              Password must be at least 8 characters long
+            <!-- Password Field -->
+            <div class="space-y-2">
+              <label for="password" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                Password <span class="text-red-500">*</span>
+              </label>
+              <div class="relative group">
+                <input
+                  id="password"
+                  v-model="form.password"
+                  :type="showPassword ? 'text' : 'password'"
+                  required
+                  class="w-full pl-11 pr-12 py-3.5 border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
+                  :class="{ 'border-red-300 focus:ring-red-500 focus:border-red-500': errors.password }"
+                  placeholder="Min. 8 characters"
+                >
+                <div class="absolute left-3.5 top-3.5 w-7 h-7 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center group-focus-within:scale-110 transition-transform">
+                  <i class="fas fa-lock text-orange-600 dark:text-orange-400 text-sm"></i>
+                </div>
+                <button
+                  type="button"
+                  @click="showPassword = !showPassword"
+                  class="absolute right-3 top-3.5 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                >
+                  <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                </button>
+              </div>
+              <p v-if="errors.password" class="text-xs text-red-600 dark:text-red-400 flex items-center">
+                <i class="fas fa-exclamation-circle mr-1"></i>{{ errors.password }}
+              </p>
+              <p v-else class="text-xs text-gray-500 dark:text-gray-400 flex items-center">
+                <i class="fas fa-info-circle mr-1"></i>At least 8 characters
+              </p>
             </div>
           </div>
 
           <!-- Terms and Conditions -->
-          <div class="flex items-start">
+          <div class="flex items-start p-4 bg-gray-50 dark:bg-gray-700/30 rounded-xl border border-gray-200 dark:border-gray-600">
             <input
               id="terms"
               v-model="form.acceptTerms"
               type="checkbox"
               required
-              class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mt-1"
+              class="w-5 h-5 text-emerald-600 bg-white border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:bg-gray-700 dark:border-gray-500 mt-0.5 cursor-pointer"
             >
-            <label for="terms" class="ml-3 text-sm text-gray-600 dark:text-gray-400">
+            <label for="terms" class="ml-3 text-sm text-gray-600 dark:text-gray-300 cursor-pointer">
               I agree to the
-              <a href="#" class="text-primary-600 dark:text-primary-400 hover:underline">Terms of Service</a>
+              <a href="#" class="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold">Terms of Service</a>
               and
-              <a href="#" class="text-primary-600 dark:text-primary-400 hover:underline">Privacy Policy</a>
+              <a href="#" class="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold">Privacy Policy</a>
             </label>
           </div>
 
@@ -152,31 +182,34 @@
           <button
             type="submit"
             :disabled="isLoading"
-            class="w-full gradient-btn text-white py-3 px-4 rounded-lg font-semibold transition-all duration-200 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            class="w-full relative overflow-hidden bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 text-white py-4 px-6 rounded-xl font-bold text-base transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/50 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 group"
           >
-            <span v-if="isLoading" class="flex items-center justify-center">
-              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-emerald-500 to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            <span v-if="isLoading" class="relative flex items-center justify-center">
+              <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
               Creating Account...
             </span>
-            <span v-else class="flex items-center justify-center">
-              <i class="fas fa-user-plus mr-2"></i>
-              Create Account
+            <span v-else class="relative flex items-center justify-center">
+              <i class="fas fa-rocket mr-2"></i>
+              Create My Account
             </span>
           </button>
 
           <!-- Login Link -->
-          <div class="text-center text-sm text-gray-600 dark:text-gray-400">
-            Already have an account?
-            <button
-              type="button"
-              @click="switchToLogin"
-              class="text-primary-600 dark:text-primary-400 hover:underline font-medium"
-            >
-              Sign In
-            </button>
+          <div class="text-center">
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+              Already have an account?
+              <button
+                type="button"
+                @click="switchToLogin"
+                class="text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 font-bold ml-1 transition-colors"
+              >
+                Sign In →
+              </button>
+            </p>
           </div>
         </form>
 
@@ -184,35 +217,20 @@
         <div v-if="showSuccess" class="space-y-4">
           <button
             @click="closeModal"
-            class="w-full gradient-btn text-white py-3 px-4 rounded-lg font-semibold transition-all duration-200 hover:opacity-90"
+            class="w-full relative overflow-hidden bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 text-white py-4 px-6 rounded-xl font-bold transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/50 hover:-translate-y-0.5 group"
           >
-            <i class="fas fa-rocket mr-2"></i>
-            Start Learning
+            <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-emerald-500 to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            <span class="relative flex items-center justify-center">
+              <i class="fas fa-rocket mr-2"></i>
+              Start Learning Now
+            </span>
           </button>
           <button
             @click="closeModal"
-            class="w-full text-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+            class="w-full text-center py-3 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
           >
             Close
           </button>
-        </div>
-      </div>
-
-      <!-- Modal Footer -->
-      <div v-if="!showSuccess" class="px-6 py-4 bg-gray-50 dark:bg-gray-700/50 rounded-b-xl">
-        <div class="flex items-center justify-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
-          <div class="flex items-center">
-            <i class="fas fa-shield-alt mr-1 text-primary-600"></i>
-            <span>Secure Registration</span>
-          </div>
-          <div class="flex items-center">
-            <i class="fas fa-user-check mr-1 text-primary-600"></i>
-            <span>Instant Access</span>
-          </div>
-          <div class="flex items-center">
-            <i class="fas fa-graduation-cap mr-1 text-primary-600"></i>
-            <span>Free Courses</span>
-          </div>
         </div>
       </div>
     </div>
@@ -355,7 +373,108 @@ export default {
 </script>
 
 <style scoped>
-.gradient-btn {
-  background: linear-gradient(135deg, #059669 0%, #0891b2 100%);
+/* Modal Animation */
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.bg-black\/60 {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Gradient Header Animation */
+.bg-gradient-to-r {
+  background-size: 200% 100%;
+  animation: gradientFlow 4s ease infinite;
+}
+
+@keyframes gradientFlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Input Focus Ring Animation */
+input:focus {
+  animation: inputGlow 0.5s ease-out;
+}
+
+@keyframes inputGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0);
+  }
+}
+
+/* Icon Container Animation on Focus */
+.group:focus-within .group-focus-within\:scale-110 {
+  animation: iconBounce 0.5s ease-out;
+}
+
+@keyframes iconBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+/* Submit Button Shine Effect */
+button[type="submit"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.7s;
+}
+
+button[type="submit"]:hover::before {
+  left: 100%;
+}
+
+/* Success Message Animation */
+.bg-gradient-to-r.from-green-50 {
+  animation: successPulse 2s ease-in-out infinite;
+}
+
+@keyframes successPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .grid.grid-cols-1.md\:grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
