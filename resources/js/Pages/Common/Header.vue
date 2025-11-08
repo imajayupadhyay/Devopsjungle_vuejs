@@ -436,94 +436,151 @@
     </div>
   </header>
 
-    <!-- Mobile Menu -->
-    <div ref="mobileMenu" class="mobile-menu fixed top-0 right-0 w-72 h-full bg-white dark:bg-gray-900 shadow-xl z-50 overflow-y-auto border-l border-gray-100 dark:border-gray-700">
-      <div class="p-4">
-        <!-- Mobile Header -->
-        <div class="flex justify-between items-center mb-4 pb-4 border-b border-gray-100 dark:border-gray-700">
-          <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Menu</h3>
-          <button @click="closeMobileMenu" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
-            <i class="fas fa-times"></i>
+    <!-- Ultra Modern Full-Width Mobile Menu -->
+    <div ref="mobileMenu" class="mobile-menu fixed inset-0 w-full h-full bg-white dark:bg-gray-900 z-50 overflow-y-auto">
+      <!-- Gradient Header -->
+      <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 p-6 pb-8">
+        <div class="flex justify-between items-center mb-6">
+          <div>
+            <h2 class="text-2xl font-bold text-white">DevOps Jungle</h2>
+            <p class="text-emerald-100 text-sm">Master DevOps Skills</p>
+          </div>
+          <button @click="closeMobileMenu" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors">
+            <i class="fas fa-times text-lg"></i>
           </button>
         </div>
 
         <!-- Mobile Search -->
-        <div class="mb-4">
-          <div class="relative">
-            <input type="text" placeholder="Search..." class="w-full pl-8 pr-3 py-2 text-sm border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded focus:outline-none focus:border-primary-500">
-            <i class="fas fa-search absolute left-2.5 top-2.5 text-gray-400 text-xs"></i>
+        <div class="relative">
+          <input
+            type="text"
+            placeholder="Search courses, dumps, services..."
+            class="w-full pl-12 pr-4 py-3 text-sm bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-emerald-100 rounded-xl focus:outline-none focus:bg-white/30 focus:border-white/50"
+          >
+          <i class="fas fa-search absolute left-4 top-3.5 text-emerald-100"></i>
+        </div>
+      </div>
+
+      <!-- Navigation Content -->
+      <div class="px-4 pb-6 -mt-4">
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-2 gap-3 mb-6">
+          <a href="/dumps" class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl p-4 text-white hover:shadow-lg transition-all">
+            <i class="fas fa-file-alt text-2xl mb-2"></i>
+            <p class="font-semibold text-sm">Exam Dumps</p>
+          </a>
+          <a href="/courses" class="bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl p-4 text-white hover:shadow-lg transition-all">
+            <i class="fas fa-graduation-cap text-2xl mb-2"></i>
+            <p class="font-semibold text-sm">Courses</p>
+          </a>
+        </div>
+
+        <!-- Exam Providers Section -->
+        <div v-if="$page.props.examProviders && $page.props.examProviders.length > 0" class="mb-6">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 px-2">Exam Dumps</h3>
+          <div class="grid grid-cols-3 gap-2">
+            <a
+              v-for="provider in $page.props.examProviders.slice(0, 6)"
+              :key="provider.id"
+              :href="`/dumps?provider=${provider.slug}`"
+              class="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 text-center hover:shadow-md transition-all border border-gray-100 dark:border-gray-700"
+            >
+              <i :class="provider.icon" class="text-xl mb-1" :style="{ color: extractColor(provider.gradient_color) }"></i>
+              <p class="text-xs font-medium text-gray-700 dark:text-gray-300 truncate">{{ provider.name }}</p>
+            </a>
+          </div>
+          <a href="/dumps" class="block mt-3 text-center text-sm text-emerald-600 dark:text-emerald-400 font-medium py-2">
+            View All Exam Dumps →
+          </a>
+        </div>
+
+        <!-- Course Categories Section -->
+        <div v-if="$page.props.courseCategories && $page.props.courseCategories.length > 0" class="mb-6">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 px-2">Course Categories</h3>
+          <div class="grid grid-cols-3 gap-2">
+            <a
+              v-for="category in $page.props.courseCategories.slice(0, 6)"
+              :key="category.id"
+              :href="`/courses?category=${category.slug}`"
+              class="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 text-center hover:shadow-md transition-all border border-gray-100 dark:border-gray-700"
+            >
+              <i :class="category.icon" class="text-xl mb-1" :style="{ color: extractColor(category.color) }"></i>
+              <p class="text-xs font-medium text-gray-700 dark:text-gray-300 truncate">{{ category.name }}</p>
+            </a>
+          </div>
+          <a href="/courses" class="block mt-3 text-center text-sm text-emerald-600 dark:text-emerald-400 font-medium py-2">
+            View All Courses →
+          </a>
+        </div>
+
+        <!-- Services Section -->
+        <div class="mb-6">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 px-2">Our Services</h3>
+          <div class="space-y-2">
+            <a href="/services/mentorship" class="flex items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:shadow-md transition-all">
+              <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-user-friends text-white"></i>
+              </div>
+              <span class="text-sm font-medium text-gray-900 dark:text-white">One-to-One Mentorship</span>
+            </a>
+            <a href="/services/career-guidance" class="flex items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:shadow-md transition-all">
+              <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-certificate text-white"></i>
+              </div>
+              <span class="text-sm font-medium text-gray-900 dark:text-white">Career Guidance</span>
+            </a>
+          </div>
+          <a href="/services" class="block mt-3 text-center text-sm text-emerald-600 dark:text-emerald-400 font-medium py-2">
+            View All Services →
+          </a>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="mb-6">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 px-2">Quick Links</h3>
+          <div class="grid grid-cols-2 gap-2">
+            <a href="/blogs" class="flex items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:shadow-md transition-all">
+              <i class="fas fa-blog text-purple-500 mr-2"></i>
+              <span class="text-sm font-medium text-gray-900 dark:text-white">Blogs</span>
+            </a>
+            <a href="/support" class="flex items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:shadow-md transition-all">
+              <i class="fas fa-headset text-orange-500 mr-2"></i>
+              <span class="text-sm font-medium text-gray-900 dark:text-white">Support</span>
+            </a>
           </div>
         </div>
 
-        <!-- Mobile Navigation -->
-        <nav class="space-y-1">
-          <!-- Exam Dumps -->
-          <a href="/dumps" :class="getMobileNavLinkClass('/dumps')">Exam Dumps</a>
-
-          <!-- Practice Labs -->
-          <!-- <div>
-            <a href="/practice-labs" class="block text-sm font-medium text-gray-800 dark:text-white py-2 hover:text-primary-600 dark:hover:text-primary-400">Practice Labs</a>
-            <button @click="toggleSubmenu($event)" class="mobile-nav-toggle flex justify-between items-center w-full text-left text-sm font-medium text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400 pl-4">
-              <span>Browse Labs</span>
-              <i class="fas fa-chevron-down text-xs"></i>
-            </button>
-            <div class="submenu pl-8 space-y-1">
-              <a href="/practice-labs/aws-saa-c03" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">AWS SAA-C03</a>
-              <a href="/practice-labs/aws-soa-c02" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">AWS SOA-C02</a>
-              <a href="/practice-labs/az-900" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Azure AZ-900</a>
-            </div>
-          </div> -->
-
-          <!-- Services -->
-          <div>
-            <a href="/services" class="block text-sm font-medium text-gray-800 dark:text-white py-2 hover:text-primary-600 dark:hover:text-primary-400">Services</a>
-            <button @click="toggleSubmenu($event)" class="mobile-nav-toggle flex justify-between items-center w-full text-left text-sm font-medium text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400 pl-4">
-              <span>Browse Services</span>
-              <i class="fas fa-chevron-down text-xs"></i>
-            </button>
-            <div class="submenu pl-8 space-y-1">
-              <a href="/services/mentorship" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">One-to-One Mentorship</a>
-              <a href="/services/career-guidance" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Career Guidance</a>
-              <a href="/services/transition-devops" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Transition to DevOps</a>
-              <a href="/services/cloud-services" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Cloud Services</a>
-              <a href="/services/migration-services" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Migration Services</a>
-              <a href="/services/development-services" class="block text-sm text-gray-600 dark:text-gray-300 py-1 hover:text-primary-600 dark:hover:text-primary-400">Development Services</a>
-            </div>
-          </div>
-
-
-          <a href="/courses" :class="getMobileNavLinkClass('/courses')">Courses</a>
-          <a href="/blogs" :class="getMobileNavLinkClass('/blogs')">Blogs</a>
-          <a href="/support" :class="getMobileNavLinkClass('/support')">Support</a>
-        </nav>
-
         <!-- Mobile Auth / Profile -->
-        <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
+        <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
           <!-- Not Authenticated -->
           <template v-if="!$page.props.auth?.user">
-            <div class="space-y-2">
-              <button @click="openLoginModal" class="block w-full text-center border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 py-2 rounded text-sm font-medium hover:bg-primary-50 dark:hover:bg-primary-900">Login</button>
-              <button @click="openSignupModal" class="block w-full text-center gradient-btn text-white py-2 rounded text-sm font-medium hover:opacity-90">Sign Up</button>
+            <div class="space-y-3">
+              <button @click="openLoginModal" class="block w-full text-center border-2 border-emerald-600 text-emerald-600 dark:border-emerald-500 dark:text-emerald-500 py-3 rounded-xl text-sm font-semibold hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all">
+                <i class="fas fa-sign-in-alt mr-2"></i>Login
+              </button>
+              <button @click="openSignupModal" class="block w-full text-center bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-3 rounded-xl text-sm font-semibold hover:shadow-lg transition-all">
+                <i class="fas fa-user-plus mr-2"></i>Sign Up Free
+              </button>
             </div>
           </template>
 
           <!-- Authenticated -->
-          <div v-else class="space-y-2">
-            <div class="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+          <div v-else class="space-y-3">
+            <div class="flex items-center space-x-3 p-4 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-xl border border-emerald-200 dark:border-emerald-800">
               <img
                 :src="$page.props.auth.user.avatar_url"
                 :alt="$page.props.auth.user.name"
-                class="w-10 h-10 rounded-full border-2 border-primary-500"
+                class="w-12 h-12 rounded-full border-2 border-emerald-500"
               >
               <div class="flex-1">
-                <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $page.props.auth.user.name }}</p>
-                <p class="text-xs text-gray-500 dark:text-gray-400">{{ $page.props.auth.user.email }}</p>
+                <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ $page.props.auth.user.name }}</p>
+                <p class="text-xs text-gray-600 dark:text-gray-400">{{ $page.props.auth.user.email }}</p>
               </div>
             </div>
-            <a href="/profile" class="block w-full text-center border border-primary-600 text-primary-600 dark:border-primary-400 dark:text-primary-400 py-2 rounded text-sm font-medium hover:bg-primary-50 dark:hover:bg-primary-900">
-              <i class="fas fa-user mr-2"></i>Profile
+            <a href="/profile" class="block w-full text-center border-2 border-emerald-600 text-emerald-600 dark:border-emerald-500 dark:text-emerald-500 py-3 rounded-xl text-sm font-semibold hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all">
+              <i class="fas fa-user mr-2"></i>My Profile
             </a>
-            <button @click="handleLogout" class="block w-full text-center bg-red-600 text-white py-2 rounded text-sm font-medium hover:bg-red-700 transition-colors">
+            <button @click="handleLogout" class="block w-full text-center bg-red-600 text-white py-3 rounded-xl text-sm font-semibold hover:bg-red-700 transition-all">
               <i class="fas fa-sign-out-alt mr-2"></i>Logout
             </button>
           </div>
@@ -835,6 +892,12 @@ export default {
         'default': 'bg-gray-400 dark:bg-gray-500'
       }
       return classes[categorySlug] || classes['default']
+    },
+    extractColor(gradientString) {
+      if (!gradientString) return '#10B981'; // Default emerald color
+      // Extract first color from gradient string like "linear-gradient(135deg, #FF9900 0%, #FF6600 100%)"
+      const match = gradientString.match(/#[0-9A-Fa-f]{6}/);
+      return match ? match[0] : '#10B981';
     }
   }
 }
@@ -1044,6 +1107,96 @@ export default {
     right: 1rem;
     width: calc(100vw - 2rem);
     transform: none;
+  }
+}
+
+/* Ultra Modern Mobile Menu Styles */
+.mobile-menu {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-out;
+}
+
+.mobile-menu.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Mobile menu backdrop blur effect */
+.mobile-menu .backdrop-blur-sm {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Mobile menu scrollbar */
+.mobile-menu::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mobile-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mobile-menu::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.3);
+  border-radius: 2px;
+}
+
+.mobile-menu::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.5);
+}
+
+/* Mobile menu gradient animation */
+.mobile-menu .bg-gradient-to-r {
+  background-size: 200% 100%;
+  animation: gradientShift 4s ease-in-out infinite;
+}
+
+/* Stagger animation for mobile menu items */
+.mobile-menu .grid > a,
+.mobile-menu .space-y-2 > a {
+  animation: fadeInUp 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.mobile-menu.show .grid > a:nth-child(1),
+.mobile-menu.show .space-y-2 > a:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.mobile-menu.show .grid > a:nth-child(2),
+.mobile-menu.show .space-y-2 > a:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.mobile-menu.show .grid > a:nth-child(3),
+.mobile-menu.show .space-y-2 > a:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.mobile-menu.show .grid > a:nth-child(4),
+.mobile-menu.show .space-y-2 > a:nth-child(4) {
+  animation-delay: 0.25s;
+}
+
+.mobile-menu.show .grid > a:nth-child(5),
+.mobile-menu.show .space-y-2 > a:nth-child(5) {
+  animation-delay: 0.3s;
+}
+
+.mobile-menu.show .grid > a:nth-child(6),
+.mobile-menu.show .space-y-2 > a:nth-child(6) {
+  animation-delay: 0.35s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>
