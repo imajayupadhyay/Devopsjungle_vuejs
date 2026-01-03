@@ -43,7 +43,7 @@
               <div class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl mb-4 group-hover:scale-110 transition-transform duration-300">
                 <i class="fas fa-book-open text-white text-xl"></i>
               </div>
-              <div class="text-3xl lg:text-4xl font-bold gradient-text counter mb-2" :data-count="500">
+              <div class="text-3xl lg:text-4xl font-bold gradient-text counter mb-2" :data-count="50">
                 {{ counters.courses }}+
               </div>
               <p class="text-sm lg:text-base text-gray-600 dark:text-gray-300 font-medium">Courses Available</p>
