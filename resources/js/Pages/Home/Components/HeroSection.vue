@@ -6,7 +6,7 @@
         <div data-aos="fade-right">
           <h1 class="text-4xl lg:text-6xl font-bold text-gray-800 dark:text-white mb-6 leading-tight">
             Master <span class="gradient-text">DevOps</span><br>
-            Skills That Matter
+            Skills From Scratch
           </h1>
           <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
             Accelerate your career with our comprehensive DevOps training. Get certified, practice in real labs, and land your dream job with confidence.
